@@ -28,7 +28,8 @@ export class MenuItem {
 }
 
 export enum MenuItemName {
-  home = 0
+  home = 0,
+  singleplayer
 }
 
 export enum MenuAuthorisation {

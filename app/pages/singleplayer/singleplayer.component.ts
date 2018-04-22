@@ -4,11 +4,11 @@ import { NavigationService, PopupService } from "~/services";
 import { MenuItemName } from "~/domain";
 
 @Component({
-    selector: "Home",
+    selector: "Singleplayer",
     moduleId: module.id,
-    templateUrl: "./home.component.html"
+    templateUrl: "./singleplayer.component.html"
 })
-export class HomeComponent implements OnInit {
+export class SinglePlayerComponent implements OnInit {
     constructor(
       private _page: Page,
       private _navigationService: NavigationService,
@@ -18,14 +18,5 @@ export class HomeComponent implements OnInit {
     ngOnInit(): void {
         // Init your component properties here.
         this._page.actionBarHidden = true;
-    }
-
-    public goToSP(): void {
-      this._popupService.toast('Navigating to Singleplayer');
-      this._navigationService.navigateTo(MenuItemName.singleplayer);
-    }
-
-    public goToMP(): void {
-      this._popupService.toast('Navigating to Multiplayer');
     }
 }

@@ -10,7 +10,7 @@ type NavigateToCallback = () => void;
 @Injectable()
 export class NavigationService {
   public fallbackSite: string = 'not-implemented';
-  public navigationHistory: MenuItemName[];
+  public navigationHistory: MenuItemName[] = [];
   public navigationItems: NavigationItem[] = navigationItems;
   public navigateToAfterLogoutCallback: NavigateToCallback;
   public navigateToAfterRegistrationCallback: NavigateToCallback;
@@ -21,11 +21,11 @@ export class NavigationService {
     if (isAndroid) {
       const activity = app.android.foregroundActivity;
       const context = app.android.context;
-      /*if (context && activity && activity.getCurrentFocus()) {
+      if (context && activity && activity.getCurrentFocus()) {
         const inputManager = context.getSystemService(android.content.Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(),
           android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS);
-      }*/
+      }
     }
   }
 
@@ -75,19 +75,21 @@ export class NavigationService {
     }
     this.hideAndroidKeyboardIfOpen();
     this.navigationHistory.splice(depth + 1);
-    /*this.routerExtensions.frame.backStack.map((backstackEntry, index) => {
-      if (index > depth && backstackEntry.resolvedPage) {
-        const page: any = backstackEntry.resolvedPage;
-        setTimeout(() => {
-          if (page.isLoaded) {
-            page.onUnloaded();
-          }
-          page.onNavigatedFrom(true);
-        }, index - depth * 100);
-      } else if (index === depth) {
-        this.routerExtensions.frame.goBack(backstackEntry);
-      }
-    });*/
+    this.routerExtensions.frameService.getFrame().backStack.map((backstackEntry, index) => {
+        if (index > depth && backstackEntry.resolvedPage) {
+          const page: any = backstackEntry.resolvedPage;
+          setTimeout(() => {
+            if (page.isLoaded) {
+              page.onUnloaded();
+            }
+            page.onNavigatedFrom(true);
+          }, index - depth * 100);
+        } else if (index === depth) {
+          this.routerExtensions.frameService.getFrame().goBack(backstackEntry);
+        }
+      });
+
+    this.routerExtensions.frameService.getFrame
   }
 
   /**
@@ -151,5 +153,9 @@ export const navigationItems: NavigationItem[] =
     {
       name: MenuItemName.home,
       path: 'home'
+    },
+    {
+      name: MenuItemName.singleplayer,
+      path: "singleplayer"
     }
   ];
