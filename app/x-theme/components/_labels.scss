@@ -1,0 +1,40 @@
+Page {
+  background-color: white;
+  font-family: $font-regular;
+}
+
+.label {
+  font-size: $font-m;
+  margin-top: $spacing-s;
+  margin-bottom: $spacing-s;
+
+  &.label-small {
+    font-size: $font-s;
+    margin-bottom: 0;
+  }
+
+  &.label-normal {
+    font-size: $font-ml;
+    margin-top: $spacing-xs;
+  }
+  
+  &.label-large {
+    @extend .font-light;
+    font-size: $font-xxxl;
+  }
+  
+  &.label-large-left{
+    @extend .font-light;
+    font-size: $font-xxxl;
+    padding-right: $spacing-s;
+  }
+
+  .hyperlink {
+    color: $primary;
+    text-decoration: underline;
+  }
+}
+
+.label-center {
+  text-align: center;
+}

@@ -1,0 +1,27 @@
+.checkbox-options {
+  &.fa-on {
+    padding-right: $spacing-m;
+    margin-right: $spacing-m;
+    font-size: $font-xxl;
+  }
+  &.fa-off {
+    padding-right: $spacing-m;
+    margin-right: $spacing-m;
+    font-size: $font-xxl;
+  }
+  &.option {
+    padding-left: $spacing-m;
+    font-size: $font-m;
+    vertical-align: middle;
+  }
+}
+
+.checkbox {
+  margin-right: $spacing-s;
+}
+
+.tns-checkbox {
+  margin-left: $spacing-xxl;
+  margin-right: 0;
+  font-size: $font-xl;
+}

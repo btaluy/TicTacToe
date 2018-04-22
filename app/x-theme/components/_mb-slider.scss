@@ -1,0 +1,29 @@
+.mb-slider {
+    margin-left: $spacing-xs;
+    margin-right: $spacing-xs;
+    margin-top: $spacing-l;
+    color: $primary;
+    background-color: $primary;
+}
+
+.mb-slider[isEnabled=false] {
+    color: $grey-light;
+    background-color: $grey-light;
+}
+
+.mb-slider-values {
+    margin-bottom: $spacing-s;
+    color: $grey;
+    font-size: $font-s;
+
+    .mb-slider-min {
+        margin-left: $spacing-xs;
+        text-align: left;
+    }
+
+    .mb-slider-max {
+        margin-right: $spacing-xs;
+        text-align: right;
+    }
+}
+

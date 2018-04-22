@@ -1,3 +1,5 @@
-<GridLayout class="page">
-    <Label style="color: white;" text="test"></Label>
+<GridLayout rows="auto, auto, auto" columns="*" class="page">
+    <Label row="0" class="label label-large white label-center" text="TICKTACKTOE"></Label>
+    <Button row="1" class="ttt-button margin-t-xxl" text="Singleplayer" (tap)="goToSP()"></Button>
+    <Button row="2" class="ttt-button margin-t-l" text="Multiplayer" (tap)="goToMP()"></Button>
 </GridLayout>

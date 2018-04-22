@@ -1,0 +1,18 @@
+.tb-no-data-found {
+  margin-top: $spacing-xxxxl;
+  padding-left: $spacing-xxxl;
+  padding-right: $spacing-xxxl;
+  
+  .tb-no-data-found__icon {
+    font-size: $font-xxxxxl;
+    text-align: center;
+  }
+  
+  .tb-no-data-found__text {
+    color: $secondary-medium;
+    background-color: transparent;
+    font-size: $font-m;
+    margin-top: $spacing-xxxxl;
+    text-align: center;
+  }
+}

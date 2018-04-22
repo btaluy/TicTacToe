@@ -1,0 +1,21 @@
+.pin-keyboard {
+  font-size: $font-size-keyboard;
+  background-color: $grey-keyboard;
+  width: 100%;
+  Button {
+    border-color: $grey-keyboard-border;
+    border-bottom-width: $spacing-xxs;
+    color: $primary;
+  }
+  .button-center {
+    border-color: $grey-keyboard-border;
+    border-left-width: $spacing-xxs;
+    border-right-width: $spacing-xxs;
+  }
+
+  &.disabled {
+    Button {
+      color: $primary-disabled;
+    }
+  }
+}

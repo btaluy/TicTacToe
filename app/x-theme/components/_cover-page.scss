@@ -1,0 +1,21 @@
+.cover-page {
+  color: $fg-white;
+}
+
+.cover-page-title {
+  @extend .font-bold;
+  width: $register-start-text-width;
+  font-size: $font-xl;
+}
+
+.cover-page-text {
+  width: $register-start-text-width;
+  margin: $spacing-xxxxxl 0;
+  padding-top: $spacing-xl;
+  padding-bottom: $spacing-s;
+  font-size: $font-m;
+}
+
+.cover-page-logo {
+  width: $login-logo-width;
+}

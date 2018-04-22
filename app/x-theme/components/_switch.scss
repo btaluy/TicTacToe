@@ -1,0 +1,13 @@
+.switch{
+  &[checked=true]{
+    background-color: $bg-primary;
+  }
+  &[checked=true][isEnabled=false]{
+    background-color: $bg-dark;
+    color: $bg-light;
+  }
+  &[isEnabled=false]{
+    background-color: $bg-dark;
+    color: $fg-dark;
+  }
+}

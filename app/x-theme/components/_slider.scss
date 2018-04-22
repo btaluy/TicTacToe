@@ -1,0 +1,7 @@
+.slider {
+  background-color: $bg-primary;
+  &[isEnabled=false] {
+    background-color: $bg-dark;
+    color: $fg-light;
+  }
+}

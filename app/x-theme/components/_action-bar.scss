@@ -1,0 +1,40 @@
+.action-bar {
+  color: $fg-secondary;
+  background-color: $bg-white;
+}
+
+.action-image {
+  height: 100;
+  margin-left: 32;
+}
+
+ActionBar {
+  color: $fg-secondary;
+  background-color: $bg-white;
+}
+
+.action-bar-icon {
+  font-size: $font-xl;
+  padding: $spacing-m $spacing-xs;
+}
+
+.action-bar-icon-disabled {
+  font-size: $font-l;
+  color: $grey-light;
+}
+
+.action-bar-icon-with-badge {
+  @extend .action-bar-icon;
+  color: $fg-primary;
+  top: ($font-s / 2);
+}
+
+.badge {
+  @extend .font-bold;
+  font-size: $font-s;
+  background-color: $bg-primary;
+  color: $fg-white;
+  border-radius: ($font-s / 2) + ($spacing-s/2);
+  left: $font-l - ($font-s / 2);
+  padding: 0 $spacing-s;
+}

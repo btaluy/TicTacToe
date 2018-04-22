@@ -1,0 +1,10 @@
+.card-content {
+  background-color: $bg-white;
+  color: $fg-black;
+  margin: $spacing-m;
+  padding: $spacing-xl;
+  border-radius: $card-border-radius;
+  &.padding-r-xs {
+    padding-right: $spacing-m;
+  }
+}

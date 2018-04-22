@@ -1,0 +1,13 @@
+.mb-label {
+  color: $fg-black;
+  margin-top: $spacing-xs;
+  margin-bottom: $spacing-xs;
+
+  .mb-label-normal {
+    font-size: $font-ml;
+  }
+  .mb-label-large {
+    @extend .font-light;
+    font-size: $font-xxxl;
+  }
+}

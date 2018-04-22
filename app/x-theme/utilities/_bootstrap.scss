@@ -1,0 +1,114 @@
+// # BOOTSTRAP #
+// ## Utilities ##
+// Image shapes http://v4-alpha.getbootstrap.com/content/images/#image-shapes
+.img-rounded {
+  border-radius: 5;
+}
+
+.img-circle {
+  border-radius: 20;
+}
+
+.img-thumbnail {
+  border-radius: 0;
+}
+
+.invisible {
+  visibility: collapse;
+}
+
+.pull-left {
+  horizontal-align: left;
+}
+
+.pull-right {
+  horizontal-align: right;
+}
+
+.align-center {
+  horizontal-align: center;
+}
+
+.align-middle {
+  vertical-align: middle;
+}
+
+.align-top {
+  vertical-align: top;
+}
+
+// Contextual colors and backgrounds http://v4-alpha.getbootstrap.com/components/utilities/#contextual-colors-and-backgrounds
+.text-primary {
+  color: $primary;
+}
+
+.border-bottom-light {
+  border-bottom-width: 1;
+  border-bottom-color: $fg-light;
+}
+
+.border-top-light {
+  border-top-color: $primary-light;
+}
+
+.border-top-primary {
+  border-top-color: $primary;
+}
+
+.text-secondary {
+  color: $secondary-medium;
+}
+
+.text-lightgrey {
+  color: $grey-light;
+}
+
+.text-light {
+  color: $text-color-light;
+}
+
+.text-danger {
+  color: $error;
+}
+
+.text-muted {
+  color: $disabled;
+}
+
+.text-dark {
+  color: $fg-black;
+}
+
+.bg-primary {
+  background-color: $primary;
+  color: $fg-white;
+}
+
+.bg-light-fg-dark {
+  background-color: $bg-light;
+  color: $fg-black;
+}
+
+.bg-light {
+  background-color: $bg-light;
+  color: $secondary-medium;
+}
+
+.bg-light-no-color {
+  background-color: $bg-light;
+}
+
+.bg-normal {
+  background-color: $bg-white;
+  color: $fg-black;
+}
+
+.bg-danger {
+  background-color: $error;
+  color: $fg-white;
+}
+
+.hide-border {
+  border-color: transparent;
+  border-width: 1;
+}

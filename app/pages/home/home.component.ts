@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Page } from "ui/page";
+import { NavigationService, PopupService } from "~/services";
+import { MenuItemName } from "~/domain";
 
 @Component({
     selector: "Home",
@@ -7,12 +9,22 @@ import { Page } from "ui/page";
     templateUrl: "./home.component.html"
 })
 export class HomeComponent implements OnInit {
-    constructor(private _page: Page) {
-        // Use the component constructor to inject providers.
-    }
+    constructor(
+      private _page: Page,
+      private _navigationService: NavigationService,
+      private _popupService: PopupService
+    ) { }
 
     ngOnInit(): void {
         // Init your component properties here.
         this._page.actionBarHidden = true;
+    }
+
+    public goToSP(): void {
+      this._popupService.toast('Navigating to Singleplayer');
+    }
+
+    public goToMP(): void {
+      this._popupService.toast('Navigating to Multiplayer');
     }
 }

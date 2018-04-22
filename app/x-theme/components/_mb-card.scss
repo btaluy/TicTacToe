@@ -1,0 +1,62 @@
+.mb-card {
+  color: $grey-dark;
+  background-color: $bg-white;
+  border-radius: $card-border-radius;
+  margin: $spacing-s $spacing-m;
+  font-size: $font-m;
+  .mb-card-grid {
+    padding-bottom: $spacing-l;
+    padding-left: $spacing-l;
+    padding-right: $spacing-xl;
+    padding-top: $spacing-xl;
+  }
+  .mb-card-name {
+    @extend .text-primary;
+    font-size: $font-xl;
+    margin-left: $spacing-s;
+    margin-right: $spacing-s;
+    margin-bottom: $spacing-ml - $spacing-s;
+  }
+  .mb-card-reference {
+    padding: $spacing-s;
+  }
+  .mb-card-reference__selected {
+    background-color: $primary;
+    border-radius: $card-border-radius;
+    color: $white;
+    padding: $spacing-s;
+  }
+  .mb-card-if-disabled {
+    &[isEnabled=false] {
+      color: $secondary-medium;
+      &.mb-card-name {
+        @extend .font-bold;
+        font-size: $font-m;
+        margin-bottom: 0;
+      }
+    }
+  }
+  .mb-card-mfex-not-available {
+    padding-left: $spacing-s;
+  }
+  .arrow-right {
+    rotate: -90;
+    height: $font-m;
+  }
+  .arrow-down {
+    height: $font-m;
+  }
+  .item {
+    padding: $font-m 0 $font-m $spacing-xl;
+    width: 46%;
+  }
+}
+
+.divider {
+  padding: 0 $spacing-xl;
+}
+
+.mb-card-icon {
+  margin-right: $spacing-l;
+  margin-top: $spacing-xs;
+}

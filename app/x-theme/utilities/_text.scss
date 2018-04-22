@@ -1,0 +1,75 @@
+/* Alignment */
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+.text-center {
+  text-align: center;
+}
+
+// Transformation
+
+.text-lowercase      { text-transform: lowercase; }
+.text-uppercase      { text-transform: uppercase; }
+.text-capitalize     { text-transform: capitalize; }
+
+//Title and Subtitle
+.body-title {
+  @extend .text-uppercase;
+  color: $secondary-medium;
+}
+
+// Weight and italics
+
+.font-weight-normal  { font-weight: normal; }
+.font-weight-bold    { font-weight: bold; }
+.font-italic         { font-style: italic; }
+
+.emphasise-text { 
+  @extend .font-bold;
+ }
+
+// Size
+$font-sizes: (
+  xs: (
+    size: $font-xs
+  ),
+  s: (
+    size: $font-s
+  ),
+  m: (
+    size: $font-m
+  ),
+  ml: (
+    size: $font-ml
+  ),
+  l: (
+    size: $font-l
+  ),
+  xl: (
+    size: $font-xl
+  ),
+  xxl: (
+    size: $font-xxl
+  ),
+  xxxl: (
+    size: $font-xxxl
+  ),
+  xxxxl: (
+    size: $font-xxxxl
+  )
+) !default;
+
+// ------------------------------------    Generated     ------------------------------------- \\
+// ------------------------------------    Font sizes    ------------------------------------- \\
+// .font-xs, .font-s, .font-m, .font-ml, .font-l, .font-xl, .font-xxl, .font-xxxl, .font-xxxxl \\
+// ------------------------------------    Generated     ------------------------------------- \\
+// ------------------------------------    Font sizes    ------------------------------------- \\
+
+@each $size, $sizes in $font-sizes {
+  $s:   map-get($sizes, size);
+
+  .font-#{$size} { font-size: $s; } 
+}

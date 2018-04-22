@@ -1,0 +1,198 @@
+// Colors
+$black: #212121;
+$white: #FFFFFF;
+$red: #CA2A44;
+
+$primary: #00937B;
+$primary-disabled: #5DB7A9; 
+$primary-light: #F2F9F8; // lighten($primary, 90%);
+
+$secondary: #002D67;
+$secondary-medium: #6E88A9;
+$secondary-light: #EDF0F4;
+
+$grey-dark: #3e3e3e;
+$grey: #6B6B6B;
+$grey-light: #A1A1A1;
+
+$placeholder-color: #C7C7CD;
+
+$grey-keyboard: $secondary-light;
+$grey-keyboard-border: $white;
+
+$bg-primary: $primary;
+$bg-secondary: $secondary;
+$bg-black: $black;
+$bg-dark: $grey;
+$bg-medium: $grey-light;
+$bg-light: $secondary-light;
+$bg-white: $white;
+$bg-white-transparent-30: rgba(255,255,255,0.3);
+$bg-white-transparent-80: rgba(255,255,255,0.8);
+
+$fg-primary: $primary;
+$fg-secondary: $secondary;
+$fg-black: $black;
+$fg-dark: $grey;
+$fg-medium: $grey-light;
+$fg-light: $secondary-light;
+$fg-white: $white;
+
+// Color classes (used by some components)
+.black {
+  color: $black;
+}
+
+.white {
+  color: $white;
+}
+
+.primary {
+  color: $primary;
+}
+
+.secondary {
+  color: $secondary;
+}
+
+.grey {
+  color: $grey;
+}
+
+.grey-light {
+  color: $grey-light;
+}
+
+.red {
+  color: $red;  
+}
+
+// Background colors
+.bg-white {
+  background-color: $bg-white;
+}
+
+// ---
+$disabled: $grey;
+$error: $red;
+
+// Skin
+$text-color: #6F88A7;
+$text-color-light: #C6DBE2;
+
+// Fonts
+$font-regular: Akkurat, Akkurat Std;
+$font-light: Akkurat-Light, Akkurat Std;
+$font-bold: Akkurat-Bold, Akkurat Std;
+
+.font-bold {
+  font-family: $font-bold;
+  font-weight: bold;
+}
+
+.font-light {
+  font-family: $font-light;
+  font-weight: 200;
+}
+
+// Spacing
+$spacing-xxs: 1;
+$spacing-xs: 2;
+$spacing-s: 4;
+$spacing-m: 8;
+$spacing-ml: 10;
+$spacing-l: 12;
+$spacing-xl: 16;
+$spacing-xxl: 20;
+$spacing-xxxl: 24;
+$spacing-xxxxl: 32;
+$spacing-xxxxxl: 48;
+
+$spacing-specific-close-account: 40;
+
+$image-xs: 2;
+$image-s: 4;
+$image-m: 8;
+$image-ml: 10;
+$image-l: 12;
+$image-xl: 16;
+$image-xxl: 20;
+$image-xxxl: 24;
+$image-xxxxl: 32;
+$image-xxxxxl: 64;
+
+// Font sizes
+$font-xs: 10;
+$font-s: 12;
+$font-m: 14;
+$font-ml: 16;
+$font-l: 18;
+$font-xl: 20;
+$font-xxl: 24;
+$font-xxxl: 34;
+$font-xxxxl: 48;
+$font-xxxxxl: 64;
+
+$line-height-s: 12;
+$line-height-m: 16;
+$line-height-l: 20;
+$line-height-xl: 34;
+$line-height-xxl: 48;
+
+$pin-code-width: 24;
+$pin-code-width-xl: 40;
+$pin-code-button-width: 100;
+
+$login-header-bar-height: 104;
+$login-logo-width: 250;
+
+$mggg-height: $login-header-bar-height;
+$mggg-title-width: 300;
+
+$register-start-text-width: 282;
+
+$textview-reference: 90;
+$payment-amount-field: 43;
+
+$font-size-keyboard: 28;
+
+// Buttons
+$button-border-radius: 6;
+$button-border-width: 1;
+
+// Headings
+$headings-margin-bottom: $spacing-s;
+$headings-font-weight: normal;
+$headings-color: inherit;
+
+// Tablet sizes
+$tablet-width-logo: 200;
+$tablet-top-margin: 40;
+$tablet-width-label: 350;
+$tablet-width-stacklayout: 400;
+$tablet-width-pin-small: 100;
+$tablet-width-pin-large: 400;
+
+// Options
+//
+// Quickly modify global styling by enabling or disabling optional features.
+$enable-rounded:            false;
+$enable-shadows:            false;
+$enable-gradients:          false;
+$enable-transitions:        false;
+
+$item-color-android : $fg-dark;
+$item-color-ios: $fg-dark;
+$item-active-background: $bg-light;
+$item-active-color: $fg-primary;
+$item-active-icon-color: $fg-primary;
+$image-background: $bg-light;
+
+$side-drawer-header-background: $bg-primary;
+$side-drawer-footer-background: $bg-primary;
+$side-drawer-header-brand: $bg-white;
+$side-drawer-background: $bg-white;
+
+$investment-detail-width: 50%;
+
+$card-border-radius: 3;

@@ -1,0 +1,193 @@
+/* Width/Height */
+.w-full {
+  width:100%;
+}
+.w-100 {
+  width:100;
+}
+.h-full {
+  height:100%;
+}
+.h-100 {
+  height:100;
+}
+
+
+$spacers: (
+  none: 0,
+  xxxs: $spacing-xs,
+  xxs: $spacing-s,
+  xs: $spacing-m,
+  s: $spacing-ml,
+  m: $spacing-l,
+  l: $spacing-xl,
+  xl: $spacing-xxl,
+  xxl: $spacing-xxxl,
+  xxxl: $spacing-xxxxl
+);
+
+/**
+ * Margin and Padding
+ * Creates margin and padding classes from the list above:
+ *   .margin-none, .margin-t-none, .margin-r-none, .margin-b-none, .margin-l-none, .margin-x-none, .margin-y-none
+ *   .padding-m, .padding-t-m, .padding-r-m, .padding-b-m, .padding-l-m, .padding-x-m, .padding-y-m
+**/
+@each $prop in (margin, padding) {
+  @each $size, $length in $spacers {
+    .#{$prop}-#{$size} { #{$prop}:          $length; } // All sides (can just use one length)
+    .#{$prop}-t-#{$size} { #{$prop}-top:    $length; }
+    .#{$prop}-r-#{$size} { #{$prop}-right:  $length; }
+    .#{$prop}-b-#{$size} { #{$prop}-bottom: $length; }
+    .#{$prop}-l-#{$size} { #{$prop}-left:   $length; }
+
+    // Axes
+    .#{$prop}-x-#{$size} {
+      #{$prop}-right:  $length;
+      #{$prop}-left:   $length;
+    }
+    .#{$prop}-y-#{$size} {
+      #{$prop}-top:    $length;
+      #{$prop}-bottom: $length;
+    }
+  }
+}
+
+$spacer:   5 !default;
+$spacer-x: $spacer !default;
+$spacer-y: $spacer !default;
+$spacer-alt:   4 !default;
+$spacer-x-alt: $spacer-alt !default;
+$spacer-y-alt: $spacer-alt !default;
+$deprecatedSpacers: (
+  0: (
+    x: 0,
+    y: 0
+  ),
+  2: (
+    x: 2,
+    y: 2
+  ),
+  4: (
+    x: $spacer-x-alt,
+    y: $spacer-y-alt
+  ),
+  5: (
+    x: $spacer-x,
+    y: $spacer-y
+  ),
+  8: (
+    x: $spacer-x-alt * 2,
+    y: $spacer-y-alt * 2
+  ),
+  10: (
+    x: ($spacer-x * 2),
+    y: ($spacer-y * 2)
+  ),
+  12: (
+    x: $spacer-x-alt * 3,
+    y: $spacer-y-alt * 3
+  ),
+  15: (
+    x: ($spacer-x * 3),
+    y: ($spacer-y * 3)
+  ),
+  16: (
+    x: $spacer-x-alt * 4,
+    y: $spacer-y-alt * 4
+  ),
+  20: (
+    x: ($spacer-x * 4),
+    y: ($spacer-y * 4)
+  ),
+  24: (
+    x: $spacer-x-alt * 6,
+    y: $spacer-y-alt * 6
+  ),
+  25: (
+    x: ($spacer-x * 5),
+    y: ($spacer-y * 5)
+  ),
+  28: (
+    x: $spacer-x-alt * 7,
+    y: $spacer-y-alt * 7
+  ),
+  30: (
+    x: ($spacer-x * 6),
+    y: ($spacer-y * 6)
+  )
+) !default;
+
+/**
+ * DEPRECATED: Use classes from above
+ * Margin and Padding
+ * The following creates this pattern:
+ * .m-0{margin:0}.m-t-0{margin-top:0}.m-r-0{margin-right:0}.m-b-0{margin-bottom:0}.m-l-0{margin-left:0}.m-x-0{margin-right:0;margin-left:0}.m-y-0{margin-top:0;margin-bottom:0}
+ * Same for Padding (using the 'p' abbreviation)
+ * From 0, 2, 4, 5, 8, 10, 12, 15, 16, 20, 24, 25, 28, 30
+**/
+@each $prop, $abbrev in (margin: m, padding: p) {
+  @each $size, $lengths in $deprecatedSpacers {
+    $length-x:   map-get($lengths, x);
+    $length-y:   map-get($lengths, y);
+
+    .#{$abbrev}-#{$size} { #{$prop}:          $length-y; } // a = All sides (can just use one length)
+    .#{$abbrev}-t-#{$size} { #{$prop}-top:    $length-y; }
+    .#{$abbrev}-r-#{$size} { #{$prop}-right:  $length-x; }
+    .#{$abbrev}-b-#{$size} { #{$prop}-bottom: $length-y; }
+    .#{$abbrev}-l-#{$size} { #{$prop}-left:   $length-x; }
+
+    // Axes
+    .#{$abbrev}-x-#{$size} {
+      #{$prop}-right:  $length-x;
+      #{$prop}-left:   $length-x;
+    }
+    .#{$abbrev}-y-#{$size} {
+      #{$prop}-top:    $length-y;
+      #{$prop}-bottom: $length-y;
+    }
+  }
+}
+
+/* Dividers */
+
+.hr-light {
+  height: 1;
+  width: 100%;
+  background-color: $fg-light;
+}
+
+.distance-to-neighbour{
+  margin-right: $spacing-s;
+}
+
+.hr-primary {
+  height: 1;
+  width: 100%;
+  background-color: $fg-primary;
+}
+
+.hr-medium {
+  @extend .hr-light;
+  background-color: $secondary-medium;
+}
+
+.hr-dark {
+  @extend .hr-light;
+  background-color: $fg-dark;
+}
+
+.hr-thin {
+  @extend .hr-light;
+  height: 0.5;
+}
+
+.hr-text-color-light {
+  @extend .hr-light;
+  background-color: $text-color-light;
+}
+
+.image-in-text {
+  Image {
+    margin-left: $spacing-m;
+  }
+}

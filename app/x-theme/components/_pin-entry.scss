@@ -1,0 +1,34 @@
+.pin-entry {
+  color: $black;
+  font-size: $font-xxxl;
+  text-align: center;
+  vertical-align: top;
+  width: 100%;
+
+  Label {
+    border-bottom-color: $primary;
+    border-bottom-width: 1;
+    text-align: center;
+    width: $pin-code-width;
+  }
+
+  .border {
+    background-color:$text-color-light;
+    border-color: $text-color-light;
+    height: $line-height-m;
+    margin-top: $spacing-s;
+    border-width: 1;
+  }
+
+  .grey-dot {
+    color: $text-color-light;
+  }
+
+  .digits {
+    color: $black;
+  }
+
+  .green-dot {
+    color: $fg-primary;
+  }
+}

@@ -1,0 +1,80 @@
+@keyframes errorAnimation { // TODO werkt niet :-(
+  from {
+    color: white;
+  }
+  to {
+    color: $error;
+  }
+}
+
+.mb-input {
+  &.inActive[isEnabled=true] {
+    color: $grey-light;
+  }
+  TextField.mb-input-type-large {
+    @extend .font-light;
+    font-size: $font-xxxl;
+  }
+  .mb-input-currency-amount,
+  .mb-input-currency-label {
+    height: $payment-amount-field;
+  }
+  .mb-input-label {
+    margin-bottom: $spacing-s;
+    color: $grey;
+    font-size: $font-s;
+  }
+  .mb-input-label-normal {
+    color: $grey;
+  }
+  .mb-input-label-focus {
+    color: $primary;
+  }
+  .mb-input-textfield {
+    padding-bottom: $spacing-s;
+    margin-bottom: $spacing-s;
+    border: none;
+    border-bottom-width: 0;
+    font-size: $font-ml;
+    &.inActive[isEnabled=false] {
+      color: $grey-light;
+    }
+    &.amount-large {
+      font-size: $font-xxxl;
+      padding-bottom: 0;
+    }
+    &.small {
+      font-size: $font-m;
+    }
+    &.full-width {
+      width: 100%;
+    }
+  }
+  .mb-input-datefield {
+    font-size: $font-ml;
+  }
+  .mb-input-state-normal {
+    border-bottom-width: 1;
+    border-bottom-color: $grey;
+  }
+  .mb-input-state-error {
+    border-bottom-color: $error;
+    border-bottom-width: 1;
+  }
+  .mb-input-error {
+    margin-bottom: $spacing-m;
+    font-size: $font-s;
+    color: $error;
+  }
+  .reference {
+    height: $textview-reference;
+  }
+  .separator-line {
+    height: 1;
+    margin-bottom: $spacing-s;
+    background-color: $grey;
+  }
+  .error {
+    background-color: $error;
+  }
+}

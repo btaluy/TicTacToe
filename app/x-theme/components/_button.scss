@@ -1,0 +1,35 @@
+.ttt-button {
+  background-color: $primary;
+  border-color: $primary;
+  border-radius: $button-border-radius;
+  border-width: $button-border-width;
+  color: $white;
+  font-size: $font-ml;
+  padding: $spacing-l $spacing-xxxxl;
+  text-transform: none;
+
+  &.ttt-button_alt {
+    background-color: transparent;
+    border-color: $white;
+    border-width: $button-border-width;
+  }
+
+  &[isEnabled=false] {
+    background-color: $text-color-light;
+    border-color: $text-color-light;
+    border-width: $button-border-width;
+  }
+
+  &.ttt-button_inverse {
+    background-color: $white;
+    border-color: $primary;
+    border-width: $button-border-width;
+    color: $primary;
+
+    &[isEnabled=false] {
+      border-color: $text-color-light;
+      border-width: $button-border-width;
+      color: $text-color-light;
+    }
+  }
+}

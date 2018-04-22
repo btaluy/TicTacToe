@@ -1,0 +1,100 @@
+.list-group {
+  .list-group-item {
+    color: $fg-primary;
+    padding: $spacing-xxl;
+    font-size: $font-ml;
+
+    .thumb {
+      stretch: fill;
+      width: 40;
+      height: 40;
+      margin-right: $spacing-ml;
+    }
+
+    &.active {
+      background-color: $bg-dark;
+    }
+
+    .list-group-item-text {
+      color: $fg-black;
+      font-size: $font-m;
+    }
+  }
+}
+
+ListView {
+  separator-color: transparent;
+}
+
+.card-list {
+  @extend .bg-normal;
+  font-size: $font-m;
+  padding: $spacing-l $spacing-xxl;
+}
+
+.address-card-list {
+  @extend .bg-normal;
+  font-size: $font-m;
+  min-height: 55;
+  vertical-align: middle;
+  padding: $spacing-xxl $spacing-xxl;
+}
+
+.highligthed-list-item {
+  @extend .font-bold;
+}
+
+.horizontal-list-item {
+  padding-right: $spacing-s;
+}
+
+.card-list-amount {
+  vertical-align: middle;
+  padding-left: $spacing-l;
+
+  StackLayout {
+    text-align: right;
+
+    .amount-large {
+      text-align: right;
+    }
+  }
+}
+
+.list-separator {
+  @extend .bg-light;
+  height: $spacing-xxxl;
+}
+
+.single-line-list {
+  @extend .bg-normal;
+  padding: $spacing-xl $spacing-l $spacing-xxl $spacing-xl;
+  font-size: $font-m;
+
+  .arrow-right {
+    padding-left: $spacing-m;
+    padding-top: $spacing-xxs;
+    vertical-align: middle;
+    color: $grey;
+    font-size: $font-m;
+  }
+}
+
+.double-line-list {
+  padding: $spacing-xl;
+  margin-bottom: $spacing-xxs;
+  color: $grey-dark;
+  background-color: $bg-white;
+  font-size: $font-m;
+}
+
+.settings-group-header {
+  @extend .bg-light;
+  padding: $spacing-xxl $spacing-xxl $spacing-ml $spacing-xl;
+  font-size: $font-m;
+  line-height: $line-height-m;
+  Label {
+    color: $secondary-medium;
+    vertical-align: bottom;
+  }
+}

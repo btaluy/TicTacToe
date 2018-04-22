@@ -1,0 +1,56 @@
+.header-bar {
+  margin: 0;
+  padding: 0;
+
+  GridLayout,
+  StackLayout {
+    padding-top: $spacing-l;
+    padding-left: $spacing-xxl;
+    &[isEnabled=false] {
+      padding-bottom: $spacing-l;
+      padding-right: $spacing-xxl;
+    }
+  }
+
+  Label, Button {
+    vertical-align: middle;
+    text-align: center;
+    color: $bg-white;
+    font-size: $font-l;
+  }
+
+  .account-name, .account-number {
+    text-align: left;
+  }
+
+  .account-number {
+    font-size: $font-m;
+  }
+
+  .account-switch {
+    text-align: right;
+    font-size: $font-s;
+    padding: $spacing-m $spacing-xxl $spacing-l;
+    background-color: transparent;
+    @extend.hide-border;
+  }
+}
+
+.header-bar-text {
+  margin: 0;
+  padding: 1;
+  text-align: center;
+  width: 100%;
+}
+
+.group-header {
+  @extend .bg-light;
+  padding: $spacing-xxl $spacing-xxxl $spacing-ml $spacing-xxl;
+  font-size: $font-m;
+  line-height: $line-height-m;
+
+  Label {
+    color: $secondary-medium;
+    vertical-align: bottom;
+  }
+}
