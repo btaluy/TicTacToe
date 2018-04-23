@@ -26,6 +26,6 @@ export class HomeComponent implements OnInit {
     }
 
     public goToMP(): void {
-      this._popupService.toast('Navigating to Multiplayer');
+      this._popupService.toast('Mutliplayer will be added soon');
     }
 }

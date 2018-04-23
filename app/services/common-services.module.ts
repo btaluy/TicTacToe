@@ -1,5 +1,5 @@
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
-import { NavigationService, PopupService } from './index';
+import { NavigationService, PopupService, SinglePlayerService } from './index';
 
 @NgModule({})
 export class CommonServicesModule {
@@ -8,7 +8,8 @@ export class CommonServicesModule {
       ngModule: CommonServicesModule,
       providers: [
         NavigationService,
-        PopupService
+        PopupService,
+        SinglePlayerService
       ]
     };
   }
