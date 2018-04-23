@@ -21,7 +21,6 @@ export class HomeComponent implements OnInit {
     }
 
     public goToSP(): void {
-      this._popupService.toast('Navigating to Singleplayer');
       this._navigationService.navigateTo(MenuItemName.singleplayer);
     }
 
