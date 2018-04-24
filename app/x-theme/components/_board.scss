@@ -1,11 +1,16 @@
 .board {
-  background: $white;
-  padding: 0;
-  margin: 0;
+  background: #D35400;
+  .square {
+    font-size: 80;
+    color: #D35400;
+    border-width: 0.1;
+    border-color: transparent;
 
-  .background {
-    background: $white;
-    height: 100%;
-    width: 100%;
+    &.light-square {
+      background: #F6DDCC;
+    }
+    &.dark-square {
+      background: #EDBB99;
+    }
   }
 }

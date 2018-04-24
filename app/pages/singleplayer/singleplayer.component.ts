@@ -1,4 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import * as platform from 'platform';
+import { GridLayout } from 'ui/layouts/grid-layout';
 import { EventData } from 'data/observable';
 import { Page } from "ui/page";
 import { NavigationService, PopupService, SinglePlayerService } from "~/services";
@@ -10,10 +12,13 @@ import { MenuItemName } from "~/domain";
     templateUrl: "./singleplayer.component.html"
 })
 export class SinglePlayerComponent implements OnInit {
+  @ViewChild('boardGrid') public boardGrid: ElementRef;
+  
   public activePlayer: string = 'player - x';
-
+  public squareDigits: number[] = [1, 2, 4, 8, 16, 32, 64, 128, 256];
+  
   private _player: string = 'x';
-  private _scores: any = {x: 0, o: 0};
+  private _scores: any = { x: { score: 0, index: []}, o: { score: 0, index: []}};
   private _turns: number = 0;
   private _buttons: any[] = [];
   
@@ -25,8 +30,8 @@ export class SinglePlayerComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-      // Init your component properties here.
-      this._page.actionBarHidden = true;
+    this._page.actionBarHidden = true;
+    this.makeBoardGridSquared();
   }
   
   public toggleTile(args: EventData): void {
@@ -38,9 +43,11 @@ export class SinglePlayerComponent implements OnInit {
     button.set('isEnabled', false);
     this._buttons.push(button);
 
-    this._scores[this._player] = this._scores[this._player] + parseInt(button.get('score'));
+    this._scores[this._player].score = this._scores[this._player].score + parseInt(button.get('score'));
+    this._scores[this._player].index.push(parseInt(button.get('score')));
 
-    if (SinglePlayerService.checkWins(this._scores[this._player])) {
+    if (SinglePlayerService.checkWins(this._scores[this._player].score)) {
+        console.log(JSON.stringify(this._scores[this._player]));
         this._popupService.toast(`Player: ${this._player.toUpperCase()} has won the match, resetting the game...`);
         this.resetGame();
     } else if (this._turns === 9) {
@@ -54,17 +61,40 @@ export class SinglePlayerComponent implements OnInit {
 
   private resetGame(): void {
     this._player = 'o';
-    this.activePlayer = 'player - x';
-    this._scores = {x: 0, o: 0};
-    this._turns = 0;
 
-    if(this._buttons.length > 0) {
-      this._buttons.forEach(button => {
-        button.set('text', '');
-        button.set('isEnabled', true);
-      });
+    setTimeout(() => {  
+      this.activePlayer = 'player - x';
+      this._scores = { x: { score: 0, index: []}, o: { score: 0, index: []}};
+      this._turns = 0;
+  
+      if(this._buttons.length > 0) {
+        this._buttons.forEach(button => {
+          button.set('text', '');
+          button.set('isEnabled', true);
+        });
+  
+        this._buttons = [];
+      }
+    }, 1000);
+  }
+    
+  private get boardGridView(): GridLayout {
+    return this.boardGrid.nativeElement;
+  }
 
-      this._buttons = [];
-    }
+  private makeBoardGridSquared(): void {
+    const heightOverflow = 120;
+    const height = this.screenHeight - heightOverflow;
+    const minimumSideDimension = Math.min(this.screenWidth, height);
+    this.boardGridView.height = minimumSideDimension;
+    this.boardGridView.width = minimumSideDimension;
+  }
+
+  private get screenWidth(): number {
+    return platform.screen.mainScreen.widthDIPs;
+  }
+ 
+  private get screenHeight(): number {
+    return platform.screen.mainScreen.heightDIPs;
   }
 }

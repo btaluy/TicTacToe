@@ -6,7 +6,7 @@ export class SinglePlayerService {
 
     private _clickSound: any = sound.create('~/tools/assets/click.mp3');
 
-    static checkWins(playerScore: number): boolean {
+    public static checkWins(playerScore: number): boolean {
       const possibleWins = [7, 56, 448, 73, 146, 292, 273, 84];
 
       for (let i = 0; i < possibleWins.length; i++) {
@@ -17,7 +17,7 @@ export class SinglePlayerService {
       return false;
     }
 
-    clickSound(): void {
+    public clickSound(): void {
         this._clickSound.reset();
         this._clickSound.play();
     }

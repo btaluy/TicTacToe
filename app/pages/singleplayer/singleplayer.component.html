@@ -1,17 +1,17 @@
 <GridLayout rows="60, *" columns="*" class="page">
   <Label row="0" class="label label-large white label-center" [text]="activePlayer"></Label>
   
-  <GridLayout row="1" rows="*, *, *" columns="*, *, *" class="board">
-    <Button row="0" col="0" class="ttt-button-font" (tap)="toggleTile($event)" score="1"></Button>
-    <Button row="0" col="1" class="ttt-button-font" (tap)="toggleTile($event)" score="2"></Button>
-    <Button row="0" col="2" class="ttt-button-font" (tap)="toggleTile($event)" score="4"></Button>
+  <GridLayout #boardGrid row="1" rows="*, *, *" columns="*, *, *" class="board">
+    <Button row="0" col="0" class="square light-square" (tap)="toggleTile($event)" score="1"></Button>
+    <Button row="0" col="1" class="square dark-square" (tap)="toggleTile($event)" score="2"></Button>
+    <Button row="0" col="2" class="square light-square" (tap)="toggleTile($event)" score="4"></Button>
   
-    <Button row="1" col="0" class="ttt-button-font" (tap)="toggleTile($event)" score="8"></Button>
-    <Button row="1" col="1" class="ttt-button-font" (tap)="toggleTile($event)" score="16"></Button>
-    <Button row="1" col="2" class="ttt-button-font" (tap)="toggleTile($event)" score="32"></Button>
+    <Button row="1" col="0" class="square dark-square" (tap)="toggleTile($event)" score="8"></Button>
+    <Button row="1" col="1" class="square light-square" (tap)="toggleTile($event)" score="16"></Button>
+    <Button row="1" col="2" class="square dark-square" (tap)="toggleTile($event)" score="32"></Button>
   
-    <Button row="2" col="0" class="ttt-button-font" (tap)="toggleTile($event)" score="64"></Button>
-    <Button row="2" col="1" class="ttt-button-font" (tap)="toggleTile($event)" score="128"></Button>
-    <Button row="2" col="2" class="ttt-button-font" (tap)="toggleTile($event)" score="256"></Button>
+    <Button row="2" col="0" class="square light-square" (tap)="toggleTile($event)" score="64"></Button>
+    <Button row="2" col="1" class="square dark-square" (tap)="toggleTile($event)" score="128"></Button>
+    <Button row="2" col="2" class="square light-square" (tap)="toggleTile($event)" score="256"></Button> 
   </GridLayout>
 </GridLayout>
