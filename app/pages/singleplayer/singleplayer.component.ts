@@ -1,10 +1,13 @@
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef, ViewChildren, QueryList } from "@angular/core";
 import * as platform from 'platform';
 import { GridLayout } from 'ui/layouts/grid-layout';
+import { StackLayout } from 'ui/layouts/stack-layout';
 import { EventData } from 'data/observable';
-import { Page } from "ui/page";
-import { NavigationService, PopupService, SinglePlayerService } from "~/services";
-import { MenuItemName } from "~/domain";
+import { Page, Color } from "ui/page";
+
+import { NavigationService, PopupService, SinglePlayerService } from "~/assets/services";
+import { MenuItemName } from "~/assets/domain";
+import { Board, Square } from "~/assets/domain";
 
 @Component({
     selector: "Singleplayer",
@@ -13,15 +16,10 @@ import { MenuItemName } from "~/domain";
 })
 export class SinglePlayerComponent implements OnInit {
   @ViewChild('boardGrid') public boardGrid: ElementRef;
-  
-  public activePlayer: string = 'player - x';
-  public squareDigits: number[] = [1, 2, 4, 8, 16, 32, 64, 128, 256];
-  
-  private _player: string = 'x';
-  private _scores: any = { x: { score: 0, index: []}, o: { score: 0, index: []}};
-  private _turns: number = 0;
-  private _buttons: any[] = [];
-  
+  @ViewChildren('square') squares: QueryList<ElementRef>;
+
+  public board: Board = new Board(3);
+
   constructor(
     private _page: Page,
     private _navigationService: NavigationService,
@@ -33,49 +31,30 @@ export class SinglePlayerComponent implements OnInit {
     this._page.actionBarHidden = true;
     this.makeBoardGridSquared();
   }
-  
-  public toggleTile(args: EventData): void {
-    this._turns++;
-    this.activePlayer = `player - ${this._player === 'x' ? 'o' : 'x'}`;
 
-    const button = args.object;
-    button.set('text', this._player.toUpperCase());
-    button.set('isEnabled', false);
-    this._buttons.push(button);
+  public mark(square): void {
+    this.board.mark(square);
+    const winningIndexes = this.board.getWinningIndexesFor(square);
 
-    this._scores[this._player].score = this._scores[this._player].score + parseInt(button.get('score'));
-    this._scores[this._player].index.push(parseInt(button.get('score')));
-
-    if (SinglePlayerService.checkWins(this._scores[this._player].score)) {
-        console.log(JSON.stringify(this._scores[this._player]));
-        this._popupService.toast(`Player: ${this._player.toUpperCase()} has won the match, resetting the game...`);
-        this.resetGame();
-    } else if (this._turns === 9) {
-      this._popupService.toast('Game is a tie, resetting the game...');
-      this.resetGame();
+    if (winningIndexes) {
+      for (let index of winningIndexes) {
+        let view = this.squareViews[index];
+        view.animate({ backgroundColor: new Color("#BA4A00"), duration: 2000 });
+      }
     }
-
-    this._player = this._player === 'o' ? 'x' : 'o';
-    this._singlePlayerService.clickSound();
   }
 
-  private resetGame(): void {
-    this._player = 'o';
+  public get boardSideSpecification(): string {
+    let specs = [];
+    for (let i = 0; i < this.board.boardSize; i++) {
+      specs.push('*');
+    }
+ 
+    return specs.join(',');
+  }
 
-    setTimeout(() => {  
-      this.activePlayer = 'player - x';
-      this._scores = { x: { score: 0, index: []}, o: { score: 0, index: []}};
-      this._turns = 0;
-  
-      if(this._buttons.length > 0) {
-        this._buttons.forEach(button => {
-          button.set('text', '');
-          button.set('isEnabled', true);
-        });
-  
-        this._buttons = [];
-      }
-    }, 1000);
+  public classOf(square: Square): string {
+    return (square.xPosition + square.yPosition) % 2 == 0 ? 'light-square' : 'dark-square';
   }
     
   private get boardGridView(): GridLayout {
@@ -96,5 +75,9 @@ export class SinglePlayerComponent implements OnInit {
  
   private get screenHeight(): number {
     return platform.screen.mainScreen.heightDIPs;
+  }
+
+  private get squareViews(): Array<StackLayout> {
+    return this.squares.map(s => s.nativeElement);
   }
 }

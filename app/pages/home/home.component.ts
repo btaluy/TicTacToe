@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Page } from "ui/page";
-import { NavigationService, PopupService } from "~/services";
-import { MenuItemName } from "~/domain";
+import { NavigationService, PopupService } from "~/assets/services";
+import { MenuItemName } from "~/assets/domain";
 
 @Component({
     selector: "Home",

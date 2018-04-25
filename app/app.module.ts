@@ -3,11 +3,13 @@ import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { CommonServicesModule } from "~/services/common-services.module";
+import { CommonServicesModule } from "~/assets/services/common-services.module";
 
 @NgModule({
     bootstrap: [AppComponent],
-    declarations: [AppComponent],
+    declarations: [
+      AppComponent
+    ],
     imports: [
         CommonServicesModule.forRoot(),
         NativeScriptModule,

@@ -1,16 +1,84 @@
-.board {
-  background: #D35400;
-  .square {
-    font-size: 80;
-    color: #D35400;
-    border-width: 0.1;
-    border-color: transparent;
+.board { 
+  
+}
 
-    &.light-square {
-      background: #F6DDCC;
-    }
-    &.dark-square {
-      background: #EDBB99;
-    }
-  }
+.content {
+  horizontal-align: center;
+}
+
+.top-panel {
+  margin-top: 10;
+  margin-right: 10;
+  margin-left: 10;
+  height: 50;
+}
+
+.circle-score,
+.cross-score {
+  horizontal-align: right;
+}
+
+.circle-score,
+.cross-score {
+  font-size: 17;
+}
+
+.next-to-play {
+  margin-right: 10;
+  vertical-align: middle;
+  font-size: 22;
+}
+
+.cross-thumb,
+.circle-thumb {
+  height: 17;
+  margin-left: 10;
+}
+
+.score-board {
+  width: 100%;
+}
+
+.game-panel {
+  horizontal-align: center;
+  vertical-align: middle;
+  height: 50;
+  margin-bottom: 10;
+}
+
+.circle-thumb,
+.cross-thumb,
+.restart,
+.square-state,
+.next-to-play,
+.circle-score,
+.cross-score {
+  color: #D35400;
+}
+
+.next-to-play {
+  vertical-align: middle;
+  height: 35;
+}
+
+.square-state {
+  color: #d35400;
+  width: 70%;
+  height: 70%;
+}
+
+.light-square,
+.dark-square {
+  text-align: center;
+  vertical-align: middle;
+  width: 100%;
+  height: 100%;
+}
+
+.light-square {
+  background-color: #F6DDCC;
+}
+
+.dark-square {
+  background-color: #EDBB99;
 }
