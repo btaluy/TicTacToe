@@ -6,8 +6,7 @@ import { EventData } from 'data/observable';
 import { Page, Color } from "ui/page";
 
 import { NavigationService, PopupService, SinglePlayerService } from "~/assets/services";
-import { MenuItemName } from "~/assets/domain";
-import { Board, Square } from "~/assets/domain";
+import { Board, MenuItemName, Square } from "~/assets/domain";
 
 @Component({
     selector: "Singleplayer",
@@ -33,15 +32,28 @@ export class SinglePlayerComponent implements OnInit {
   }
 
   public mark(square): void {
-    this.board.mark(square);
-    const winningIndexes = this.board.getWinningIndexesFor(square);
+    if(!this._singlePlayerService.sessionGameWon) {
+      this.board.mark(square);
+      const winningIndexes = this.board.getWinningIndexesFor(square);
 
-    if (winningIndexes) {
-      for (let index of winningIndexes) {
-        let view = this.squareViews[index];
-        view.animate({ backgroundColor: new Color("#BA4A00"), duration: 2000 });
+      if (winningIndexes) {
+        this._singlePlayerService.sessionGameWon = true;
+
+        for (let index of winningIndexes) {
+          let view = this.squareViews[index];
+          view.animate({ backgroundColor: new Color("#BA4A00"), duration: 2000 });
+        }
+
+        setTimeout(() => {
+          this.newGame();
+        }, 4000);
       }
     }
+  }
+
+  public newGame(): void {
+    this._singlePlayerService.sessionGameWon = false;
+    this.board.startNewGame();
   }
 
   public get boardSideSpecification(): string {
