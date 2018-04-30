@@ -20,10 +20,10 @@ export class SinglePlayerComponent implements OnInit {
   public board: Board = new Board(3);
 
   constructor(
+    public singlePlayerService: SinglePlayerService,
     private _page: Page,
     private _navigationService: NavigationService,
-    private _popupService: PopupService,
-    private _singlePlayerService: SinglePlayerService
+    private _popupService: PopupService
   ) { }
 
   ngOnInit(): void {
@@ -32,27 +32,32 @@ export class SinglePlayerComponent implements OnInit {
   }
 
   public mark(square): void {
-    if(!this._singlePlayerService.sessionGameWon) {
+    if (!this.singlePlayerService.sessionGameWon) {
+      this.singlePlayerService.clickSound();
       this.board.mark(square);
       const winningIndexes = this.board.getWinningIndexesFor(square);
 
       if (winningIndexes) {
-        this._singlePlayerService.sessionGameWon = true;
+        this.singlePlayerService.sessionGameWon = true;
 
         for (let index of winningIndexes) {
           let view = this.squareViews[index];
           view.animate({ backgroundColor: new Color("#BA4A00"), duration: 2000 });
         }
-
+        
         setTimeout(() => {
           this.newGame();
         }, 4000);
+      } else if (this.board.isDraw) {
+        setTimeout(() => {
+          this.newGame();
+        }, 2000);
       }
     }
   }
 
   public newGame(): void {
-    this._singlePlayerService.sessionGameWon = false;
+    this.singlePlayerService.sessionGameWon = false;
     this.board.startNewGame();
   }
 
@@ -65,8 +70,34 @@ export class SinglePlayerComponent implements OnInit {
     return specs.join(',');
   }
 
+  public get gamePanelStateImageVisibility(): string {
+    return this.board.isDraw ? 'collapsed': 'visible';
+  }
+ 
+  public get gamePanelCaption(): string {
+    if (this.board.isDraw) {
+      return 'Draw';
+    }
+    return this.board.isGameWon ? 'Winner': 'Next to play';
+  }
+
   public classOf(square: Square): string {
     return (square.xPosition + square.yPosition) % 2 == 0 ? 'light-square' : 'dark-square';
+  }
+
+  public restartDialog(): void {
+    this._popupService.confirm('Restart', 'Are you sure you want to restart the game?', 'Yes', 'No')
+      .then((result: any) => {
+        if (result) {
+          this.restart();
+        }
+      });
+  }
+
+  private restart(): void {
+    this.newGame();
+    this.board.circleScore = 0;
+    this.board.crossScore = 0;
   }
     
   private get boardGridView(): GridLayout {

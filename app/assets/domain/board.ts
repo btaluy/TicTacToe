@@ -9,7 +9,7 @@ export class Board {
   public isGameWon: boolean;
   public winnerRetreiver: WinnerRetriever;
 
-  private _marksCount: number;
+  private _marksCount: number = 0;
 
   public constructor(size: number) {
     this.boardSize = size;
@@ -22,6 +22,8 @@ export class Board {
 
   public startNewGame(): void {
     this.isGameWon = false;
+    this.currentState = State.Cross;
+    this._marksCount = 0;
     this.initializeBoard();
     this.winnerRetreiver = new WinnerRetriever(this.squares, this.boardSize);
   }
@@ -67,7 +69,7 @@ export class Board {
   }
 
   private get isBoardFull(): boolean {
-    return this._marksCount == this.boardSize * this.boardSize;
+    return this._marksCount === (this.boardSize * this.boardSize);
   }
 
   private initializeBoard(): void {
