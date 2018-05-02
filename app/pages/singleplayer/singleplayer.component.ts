@@ -32,9 +32,13 @@ export class SinglePlayerComponent implements OnInit {
   }
 
   public mark(square): void {
-    if (!this.singlePlayerService.sessionGameWon) {
+    if (!this.singlePlayerService.sessionGameWon && this.board.currentState === State.Cross) {
+      this.singlePlayerService.clickSound();
       this.board.mark(square);
-      this.updateState(square);
+      this.updateState(square)
+        .then(() => {
+          this.botMark();
+        });
     }
   }
 
@@ -57,7 +61,7 @@ export class SinglePlayerComponent implements OnInit {
   public get foundSquare(): Square {
     const min = 0;
     const max = this.board.getEmptySquares().length;
-    const chosenTile: number = Math.floor(Math.random() *(max-min+1)+min);
+    const chosenTile: number = Math.floor(Math.random() * (max-min));
     return this.board.getEmptySquares()[chosenTile];
   }
 
@@ -85,34 +89,41 @@ export class SinglePlayerComponent implements OnInit {
       });
   }
 
+  private botMark(): void {
+    const foundSquare: Square = this.board.getEmptySquares().length > 0 ? this.foundSquare : undefined;
+    if (foundSquare &&!this.singlePlayerService.sessionGameWon) {
+      setTimeout(() => {
+        this.singlePlayerService.clickSound();
+        this.board.mark(foundSquare);
+        this.updateState(foundSquare);
+      }, 1000);
+    }
+  }
+
   private restart(): void {
-    this.newGame();
+    this.newGame(0);
     this.board.circleScore = 0;
     this.board.crossScore = 0;
   }
 
-  private updateState(square: Square): void {
-    const winningIndexes: number[] = this.board.getWinningIndexesFor(square);
-    const foundSquare: Square = this.board.getEmptySquares().length > 0 ? this.foundSquare : undefined; 
+  private updateState(square: Square): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const winningIndexes: number[] = this.board.getWinningIndexesFor(square);
 
-    if (winningIndexes) {
-      this.singlePlayerService.sessionGameWon = true;
+      if (winningIndexes) {
+        this.singlePlayerService.sessionGameWon = true;
 
-      for (let index of winningIndexes) {
-        let view = this.squareViews[index];
-        view.animate({ backgroundColor: new Color("#BA4A00"), duration: 2000 });
+        for (let index of winningIndexes) {
+          let view = this.squareViews[index];
+          view.animate({ backgroundColor: new Color("#BA4A00"), duration: 2000 });
+        }
+        
+        resolve(this.newGame(4000));
+      } else if (this.board.isDraw) {
+        resolve(this.newGame());
       }
-      
-      return this.newGame(4000);
-    } else if (this.board.isDraw) {
-      return this.newGame();
-    }
-
-    if (foundSquare && this.board.currentState === State.Circle) {
-      setTimeout(() => {
-        this.mark(foundSquare);
-      }, 1000);
-    }
+      resolve();
+    });
   }
     
   private get boardGridView(): GridLayout {
