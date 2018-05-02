@@ -1,3 +1,8 @@
+import {
+  getBoolean, setBoolean, getNumber, setNumber,
+  getString, setString, hasKey, remove, clear
+} from "application-settings";
+
 import { Square, State, WinnerRetriever } from './index';
 
 export class Board {
@@ -14,8 +19,8 @@ export class Board {
   public constructor(size: number) {
     this.boardSize = size;
     this.squares = [];
-    this.crossScore = 0;
-    this.circleScore = 0;
+    this.crossScore = getNumber('crossScore', 0);
+    this.circleScore = getNumber('circleScore', 0);
     this.currentState = State.Cross;
     this.startNewGame();
   }
@@ -45,6 +50,16 @@ export class Board {
     return this.winnerRetreiver.getEmptySquares();
   }
 
+  public setCrossScore(value: number): void {
+    this.crossScore = value;
+    setNumber('crossScore', this.crossScore);
+  }
+
+  public setCircleScore(value: number): void {
+    this.circleScore = value;
+    setNumber('circleScore', this.circleScore);
+  }
+
   public get isDraw(): boolean {
     return !this.isGameWon && this.isBoardFull;
   }
@@ -56,10 +71,13 @@ export class Board {
   }
 
   private incrementWinnerScore(): void {
-    if (this.currentState == State.Cross)
+    if (this.currentState == State.Cross) {
       this.crossScore++;
-    else
+      this.setCrossScore(this.crossScore);
+    } else {
       this.circleScore++;
+      this.setCircleScore(this.circleScore);
+    }
   }
 
   private changeCurrentState(): void {

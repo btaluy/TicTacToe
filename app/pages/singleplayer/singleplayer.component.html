@@ -2,11 +2,11 @@
   <Label row="1" class="restart" text="Restart" (tap)="restartDialog()"></Label>
 
   <StackLayout class="circle-score" orientation="horizontal" row="0" col="2">
-    <Label class="circle-score label white" [text]="spService.board.circleScore"></Label>
+    <Label class="circle-score label white" [text]="spService.board.circleScore" textWrap="true"></Label>
     <Label class="fa circle-thumb icon" [text]="'fa-circle-thin' | fonticon"></Label>
   </StackLayout>
   <StackLayout class="cross-score" orientation="horizontal" row="1" col="2">
-    <Label class="cross-score label white" [text]="spService.board.crossScore"></Label>
+    <Label class="cross-score label white" [text]="spService.board.crossScore" textWrap="true"></Label>
     <Label class="fa cross-thumb icon" [text]="'fa-times' | fonticon"></Label>
   </StackLayout>
 

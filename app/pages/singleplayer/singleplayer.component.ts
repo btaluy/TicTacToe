@@ -83,10 +83,10 @@ export class SinglePlayerComponent implements OnInit {
 
         for (let index of winningIndexes) {
           let view = this.squareViews[index];
-          view.animate({ backgroundColor: new Color("#BA4A00"), duration: 2000 });
+          view.animate({ backgroundColor: new Color("#BA4A00"), duration: 1000 });
         }
         
-        resolve(this.newGame(4000));
+        resolve(this.newGame(2000));
       } else if (this.spService.board.isDraw) {
         resolve(this.newGame());
       }

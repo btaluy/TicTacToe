@@ -19,8 +19,8 @@ export class SinglePlayerService {
 
   public restart(): void {
     this.newGame(0);
-    this.board.circleScore = 0;
-    this.board.crossScore = 0;
+    this.board.setCircleScore(0);
+    this.board.setCrossScore(0);
   }
 
   public newGame(miliSeconds: number = 2000): void {
