@@ -2,23 +2,23 @@
   <Label row="1" class="restart" text="Restart" (tap)="restartDialog()"></Label>
 
   <StackLayout class="circle-score" orientation="horizontal" row="0" col="2">
-    <Label class="circle-score label white" [text]="board.circleScore"></Label>
+    <Label class="circle-score label white" [text]="spService.board.circleScore"></Label>
     <Label class="fa circle-thumb icon" [text]="'fa-circle-thin' | fonticon"></Label>
   </StackLayout>
   <StackLayout class="cross-score" orientation="horizontal" row="1" col="2">
-    <Label class="cross-score label white" [text]="board.crossScore"></Label>
+    <Label class="cross-score label white" [text]="spService.board.crossScore"></Label>
     <Label class="fa cross-thumb icon" [text]="'fa-times' | fonticon"></Label>
   </StackLayout>
 
   <StackLayout class="game-panel" orientation="horizontal" row="2" col="0" colSpan="3">
     <Label class="next-to-play" [text]="gamePanelCaption" textWrap="true"></Label>
-    <Label class="fa next-to-play icon" [text]="(board.currentState | statePipe) | fonticon"
+    <Label class="fa next-to-play icon" [text]="(spService.board.currentState | statePipe) | fonticon"
            [visibility]="gamePanelStateImageVisibility" textWrap="true"></Label>
   </StackLayout>
 
   <GridLayout #boardGrid [columns]="boardSideSpecification"
               [rows]="boardSideSpecification" row="3" col="0" colSpan="3" class="board">
-    <ng-template ngFor let-item [ngForOf]="board.squares">
+    <ng-template ngFor let-item [ngForOf]="spService.board.squares">
       <StackLayout #square [col]="item.yPosition" [row]="item.xPosition"
                    [class]="classOf(item)" (tap)="mark(item)">
         <Label class="square-state fa" [text]="(item.state | statePipe) | fonticon" textWrap="true"></Label>

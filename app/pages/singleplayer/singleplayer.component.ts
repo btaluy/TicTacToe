@@ -17,10 +17,8 @@ export class SinglePlayerComponent implements OnInit {
   @ViewChild('boardGrid') public boardGrid: ElementRef;
   @ViewChildren('square') squares: QueryList<ElementRef>;
 
-  public board: Board = new Board(3);
-
   constructor(
-    public singlePlayerService: SinglePlayerService,
+    public spService: SinglePlayerService,
     private _page: Page,
     private _navigationService: NavigationService,
     private _popupService: PopupService
@@ -31,10 +29,10 @@ export class SinglePlayerComponent implements OnInit {
     this.makeBoardGridSquared();
   }
 
-  public mark(square): void {
-    if (!this.singlePlayerService.sessionGameWon && this.board.currentState === State.Cross) {
-      this.singlePlayerService.clickSound();
-      this.board.mark(square);
+  public mark(square: Square): void {
+    if (!this.spService.sessionGameWon && this.spService.board.currentState === State.Cross) {
+      this.spService.clickSound();
+      this.spService.board.mark(square);
       this.updateState(square)
         .then(() => {
           this.botMark();
@@ -43,37 +41,24 @@ export class SinglePlayerComponent implements OnInit {
   }
 
   public newGame(miliSeconds: number = 2000): void {
-    setTimeout(() => {
-      this.singlePlayerService.sessionGameWon = false;
-      this.board.startNewGame();
-    }, miliSeconds);
+    this.spService.newGame(miliSeconds);
   }
 
   public get boardSideSpecification(): string {
     let specs = [];
-    for (let i = 0; i < this.board.boardSize; i++) {
+    for (let i = 0; i < this.spService.board.boardSize; i++) {
       specs.push('*');
     }
  
     return specs.join(',');
   }
 
-  public get foundSquare(): Square {
-    const min = 0;
-    const max = this.board.getEmptySquares().length;
-    const chosenTile: number = Math.floor(Math.random() * (max-min));
-    return this.board.getEmptySquares()[chosenTile];
-  }
-
   public get gamePanelStateImageVisibility(): string {
-    return this.board.isDraw ? 'collapsed': 'visible';
+    return this.spService.gamePanelStateImageVisibility;
   }
  
   public get gamePanelCaption(): string {
-    if (this.board.isDraw) {
-      return 'Draw';
-    }
-    return this.board.isGameWon ? 'Winner': 'Next to play';
+    return this.spService.gamePanelCaption;
   }
 
   public classOf(square: Square): string {
@@ -84,34 +69,17 @@ export class SinglePlayerComponent implements OnInit {
     this._popupService.confirm('Restart', 'Are you sure you want to restart the game?', 'Yes', 'No')
       .then((result: any) => {
         if (result) {
-          this.restart();
+          this.spService.restart();
         }
       });
   }
 
-  private botMark(): void {
-    const foundSquare: Square = this.board.getEmptySquares().length > 0 ? this.foundSquare : undefined;
-    if (foundSquare &&!this.singlePlayerService.sessionGameWon) {
-      setTimeout(() => {
-        this.singlePlayerService.clickSound();
-        this.board.mark(foundSquare);
-        this.updateState(foundSquare);
-      }, 1000);
-    }
-  }
-
-  private restart(): void {
-    this.newGame(0);
-    this.board.circleScore = 0;
-    this.board.crossScore = 0;
-  }
-
   private updateState(square: Square): Promise<any> {
     return new Promise((resolve, reject) => {
-      const winningIndexes: number[] = this.board.getWinningIndexesFor(square);
+      const winningIndexes: number[] = this.spService.board.getWinningIndexesFor(square);
 
       if (winningIndexes) {
-        this.singlePlayerService.sessionGameWon = true;
+        this.spService.sessionGameWon = true;
 
         for (let index of winningIndexes) {
           let view = this.squareViews[index];
@@ -119,13 +87,25 @@ export class SinglePlayerComponent implements OnInit {
         }
         
         resolve(this.newGame(4000));
-      } else if (this.board.isDraw) {
+      } else if (this.spService.board.isDraw) {
         resolve(this.newGame());
       }
       resolve();
     });
   }
-    
+
+  private botMark(): void {
+    const foundSquare: Square =
+            this.spService.board.getEmptySquares().length > 0 ? this.spService.foundSquare : undefined;
+    if (foundSquare &&!this.spService.sessionGameWon) {
+      setTimeout(() => {
+        this.spService.clickSound();
+        this.spService.board.mark(foundSquare);
+        this.updateState(foundSquare);
+      }, 1000);
+    }
+  }
+ 
   private get boardGridView(): GridLayout {
     return this.boardGrid.nativeElement;
   }
