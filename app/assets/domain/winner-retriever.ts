@@ -1,4 +1,4 @@
-import { Square } from './index';
+import { Square, State } from './index';
 
 export class WinnerRetriever {
   public boardSize: number;
@@ -23,6 +23,18 @@ export class WinnerRetriever {
         return winningIndexes;
       }
     }
+  }
+
+  public getEmptySquares(): Square[] {
+    let emptySquareIndexes: Square[] = [];
+
+    for(let i = 0; i < 9; i++) {
+      if(this.squares[i].state === State.Blank) {
+        emptySquareIndexes.push(this.squares[i]);
+      }
+    }
+
+    return emptySquareIndexes;
   }
 
   private getWinningIndexesInDiagonal(square: Square): number[] {

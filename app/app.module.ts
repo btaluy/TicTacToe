@@ -11,9 +11,9 @@ import { CommonServicesModule } from "~/assets/services/common-services.module";
       AppComponent
     ],
     imports: [
-        CommonServicesModule.forRoot(),
-        NativeScriptModule,
-        AppRoutingModule
+      CommonServicesModule.forRoot(),
+      NativeScriptModule,
+      AppRoutingModule
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })

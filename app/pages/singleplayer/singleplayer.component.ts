@@ -6,7 +6,7 @@ import { EventData } from 'data/observable';
 import { Page, Color } from "ui/page";
 
 import { NavigationService, PopupService, SinglePlayerService } from "~/assets/services";
-import { Board, MenuItemName, Square } from "~/assets/domain";
+import { Board, MenuItemName, Square, State } from "~/assets/domain";
 
 @Component({
     selector: "Singleplayer",
@@ -33,32 +33,16 @@ export class SinglePlayerComponent implements OnInit {
 
   public mark(square): void {
     if (!this.singlePlayerService.sessionGameWon) {
-      this.singlePlayerService.clickSound();
       this.board.mark(square);
-      const winningIndexes = this.board.getWinningIndexesFor(square);
-
-      if (winningIndexes) {
-        this.singlePlayerService.sessionGameWon = true;
-
-        for (let index of winningIndexes) {
-          let view = this.squareViews[index];
-          view.animate({ backgroundColor: new Color("#BA4A00"), duration: 2000 });
-        }
-        
-        setTimeout(() => {
-          this.newGame();
-        }, 4000);
-      } else if (this.board.isDraw) {
-        setTimeout(() => {
-          this.newGame();
-        }, 2000);
-      }
+      this.updateState(square);
     }
   }
 
-  public newGame(): void {
-    this.singlePlayerService.sessionGameWon = false;
-    this.board.startNewGame();
+  public newGame(miliSeconds: number = 2000): void {
+    setTimeout(() => {
+      this.singlePlayerService.sessionGameWon = false;
+      this.board.startNewGame();
+    }, miliSeconds);
   }
 
   public get boardSideSpecification(): string {
@@ -68,6 +52,13 @@ export class SinglePlayerComponent implements OnInit {
     }
  
     return specs.join(',');
+  }
+
+  public get foundSquare(): Square {
+    const min = 0;
+    const max = this.board.getEmptySquares().length;
+    const chosenTile: number = Math.floor(Math.random() *(max-min+1)+min);
+    return this.board.getEmptySquares()[chosenTile];
   }
 
   public get gamePanelStateImageVisibility(): string {
@@ -98,6 +89,30 @@ export class SinglePlayerComponent implements OnInit {
     this.newGame();
     this.board.circleScore = 0;
     this.board.crossScore = 0;
+  }
+
+  private updateState(square: Square): void {
+    const winningIndexes: number[] = this.board.getWinningIndexesFor(square);
+    const foundSquare: Square = this.board.getEmptySquares().length > 0 ? this.foundSquare : undefined; 
+
+    if (winningIndexes) {
+      this.singlePlayerService.sessionGameWon = true;
+
+      for (let index of winningIndexes) {
+        let view = this.squareViews[index];
+        view.animate({ backgroundColor: new Color("#BA4A00"), duration: 2000 });
+      }
+      
+      return this.newGame(4000);
+    } else if (this.board.isDraw) {
+      return this.newGame();
+    }
+
+    if (foundSquare && this.board.currentState === State.Circle) {
+      setTimeout(() => {
+        this.mark(foundSquare);
+      }, 1000);
+    }
   }
     
   private get boardGridView(): GridLayout {

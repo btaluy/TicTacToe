@@ -27,12 +27,22 @@
   margin-right: 10;
   vertical-align: middle;
   font-size: 22;
+
+  &.icon {
+    height: 32;
+    width: 32;
+    font-size: 32;
+  }
 }
 
 .cross-thumb,
 .circle-thumb {
   height: 17;
   margin-left: 10;
+
+  &.icon {
+    font-size: 18;
+  }
 }
 
 .score-board {
@@ -48,7 +58,6 @@
 .circle-thumb,
 .cross-thumb,
 .restart,
-.square-state,
 .next-to-play,
 .circle-score,
 .cross-score {
@@ -62,8 +71,7 @@
 
 .square-state {
   color: #d35400;
-  width: 70%;
-  height: 70%;
+  font-size: 92;
 }
 
 .light-square,

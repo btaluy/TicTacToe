@@ -41,6 +41,10 @@ export class Board {
     return this.winnerRetreiver.getWinningIndexesFor(square);
   }
 
+  public getEmptySquares(): Square[] {
+    return this.winnerRetreiver.getEmptySquares();
+  }
+
   public get isDraw(): boolean {
     return !this.isGameWon && this.isBoardFull;
   }

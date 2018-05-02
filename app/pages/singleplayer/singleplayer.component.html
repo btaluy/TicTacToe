@@ -3,22 +3,25 @@
 
   <StackLayout class="circle-score" orientation="horizontal" row="0" col="2">
     <Label class="circle-score label white" [text]="board.circleScore"></Label>
-    <Image class="circle-thumb" src="~/assets/img/circle-thumb.png"></Image>
+    <Label class="fa circle-thumb icon" [text]="'fa-circle-thin' | fonticon"></Label>
   </StackLayout>
   <StackLayout class="cross-score" orientation="horizontal" row="1" col="2">
     <Label class="cross-score label white" [text]="board.crossScore"></Label>
-    <Image class="cross-thumb" src="~/assets/img/cross-thumb.png"></Image>
+    <Label class="fa cross-thumb icon" [text]="'fa-times' | fonticon"></Label>
   </StackLayout>
 
   <StackLayout class="game-panel" orientation="horizontal" row="2" col="0" colSpan="3">
-    <Label class="next-to-play" [text]="gamePanelCaption"></Label>
-    <Image class="next-to-play" [src]="board.currentState | stateImage" [visibility]="gamePanelStateImageVisibility"></Image>
+    <Label class="next-to-play" [text]="gamePanelCaption" textWrap="true"></Label>
+    <Label class="fa next-to-play icon" [text]="(board.currentState | statePipe) | fonticon"
+           [visibility]="gamePanelStateImageVisibility" textWrap="true"></Label>
   </StackLayout>
 
-  <GridLayout #boardGrid [columns]="boardSideSpecification" [rows]="boardSideSpecification" row="3" col="0" colSpan="3" class="board">
+  <GridLayout #boardGrid [columns]="boardSideSpecification"
+              [rows]="boardSideSpecification" row="3" col="0" colSpan="3" class="board">
     <ng-template ngFor let-item [ngForOf]="board.squares">
-      <StackLayout #square [col]="item.yPosition" [row]="item.xPosition" [class]="classOf(item)" (tap)="mark(item)">
-        <Image class="square-state" [src]="item.state | stateImage"></Image>
+      <StackLayout #square [col]="item.yPosition" [row]="item.xPosition"
+                   [class]="classOf(item)" (tap)="mark(item)">
+        <Label class="square-state fa" [text]="(item.state | statePipe) | fonticon" textWrap="true"></Label>
       </StackLayout>
     </ng-template>
   </GridLayout>

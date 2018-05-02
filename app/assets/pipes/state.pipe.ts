@@ -1,14 +1,14 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { State } from '../domain';
  
-@Pipe({ name: 'stateImage' })
-export class StateImagePipe implements PipeTransform {
+@Pipe({ name: 'statePipe' })
+export class StatePipe implements PipeTransform {
   transform(value: State): string  {
     switch (value) {
       case State.Circle:
-        return '~/assets/img/circle.png';
+        return 'fa-circle-thin';
       case State.Cross:
-        return '~/assets/img/cross.png';
+        return 'fa-times';
     }
   }
 }
