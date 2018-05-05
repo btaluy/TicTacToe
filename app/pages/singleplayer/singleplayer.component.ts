@@ -17,6 +17,11 @@ export class SinglePlayerComponent implements OnInit {
   @ViewChild('boardGrid') public boardGrid: ElementRef;
   @ViewChildren('square') squares: QueryList<ElementRef>;
 
+  // human
+  public huPlayer: string = "X";
+  // ai
+  public aiPlayer: string = "O";
+
   constructor(
     public spService: SinglePlayerService,
     private _page: Page,
@@ -30,7 +35,9 @@ export class SinglePlayerComponent implements OnInit {
   }
 
   public mark(square: Square): void {
-    if (!this.spService.sessionGameWon && this.spService.board.currentState === State.Cross) {
+    if (!this.spService.sessionGameWon
+        && this.spService.board.currentState === State.Cross
+        && square.state === State.Blank) {
       this.spService.clickSound();
       this.spService.board.mark(square);
       this.updateState(square)
@@ -95,8 +102,15 @@ export class SinglePlayerComponent implements OnInit {
   }
 
   private botMark(): void {
-    const foundSquare: Square =
-            this.spService.board.getEmptySquares().length > 0 ? this.spService.foundSquare : undefined;
+    const bestSpot = this.miniMax(this.spService.board.calculateBoard(), this.aiPlayer);
+    let foundSquare: Square;
+    
+    if(this.shouldUseMiniMax()) {
+      foundSquare = this.spService.board.getBestSpot(bestSpot.index);
+    } else {
+      foundSquare = this.spService.foundSquare;
+    }
+    
     if (foundSquare &&!this.spService.sessionGameWon) {
       setTimeout(() => {
         this.spService.clickSound();
@@ -104,7 +118,108 @@ export class SinglePlayerComponent implements OnInit {
         this.updateState(foundSquare);
       }, 1000);
     }
+    
   }
+
+  private shouldUseMiniMax(): boolean {
+    const array: number[] = [5, 5, 5, 95];
+    const randomChosenNumber: number = array[Math.floor(Math.random() * (4-0))];
+
+    return randomChosenNumber === 5 ? true : false;
+  }
+
+  private miniMax(newBoard: any[], player: string): any {
+    //check which spots are available and store them in an object.
+    const availSpots = this.emptyIndexies(newBoard);
+
+    if (this.winning(newBoard, this.huPlayer)){
+        return {score:-10};
+    }
+    else if (this.winning(newBoard, this.aiPlayer)){
+      return {score:10};
+    }
+    else if (availSpots.length === 0){
+      return {score:0};
+    }
+
+    let moves: any[] = [];
+
+    for (let i = 0; i < availSpots.length; i++){
+      let move = {index: 0, score: 0};
+      move.index = newBoard[availSpots[i]];
+
+      newBoard[availSpots[i]] = player;
+
+      if (player == this.aiPlayer){
+        var result = this.miniMax(newBoard, this.huPlayer);
+        move.score = result.score;
+      }
+      else{
+        var result = this.miniMax(newBoard, this.aiPlayer);
+        move.score = result.score;
+      }
+
+      //reset the spot to empty
+      newBoard[availSpots[i]] = move.index;
+
+      // push the object to the array
+      moves.push(move);
+    }
+
+
+    let bestMove;
+
+    if(player === this.aiPlayer){
+      let bestScore = -10000;
+      for(var i = 0; i < moves.length; i++){
+        if(moves[i].score > bestScore){
+          bestScore = moves[i].score;
+          bestMove = i;
+        }
+      }
+    } else{
+      // else loop over the moves and choose the move with the lowest score
+      let bestScore = 10000;
+      for(var i = 0; i < moves.length; i++) {
+        if (moves[i].score < bestScore) {
+          bestScore = moves[i].score;
+          bestMove = i;
+        }
+      }
+    }
+
+    return moves[bestMove];
+  }
+
+  private emptyIndexies(board: any[]): any[] {
+    return board.filter(s => s != "O" && s != "X");
+  }
+
+  private winning(board, player){
+    if ((board[0] == player && board[1] == player && board[2] == player) ||
+        (board[3] == player && board[4] == player && board[5] == player) ||
+        (board[6] == player && board[7] == player && board[8] == player) ||
+        (board[0] == player && board[3] == player && board[6] == player) ||
+        (board[1] == player && board[4] == player && board[7] == player) ||
+        (board[2] == player && board[5] == player && board[8] == player) ||
+        (board[0] == player && board[4] == player && board[8] == player) ||
+        (board[2] == player && board[4] == player && board[6] == player)) {
+          return true;
+       } else {
+          return false;
+       }
+   }
+
+
+
+
+
+
+
+
+
+
+
  
   private get boardGridView(): GridLayout {
     return this.boardGrid.nativeElement;

@@ -44,7 +44,11 @@ export class SinglePlayerService {
   public get foundSquare(): Square {
     const min = 0;
     const max = this.board.getEmptySquares().length;
-    const chosenTile: number = Math.floor(Math.random() * (max-min));
-    return this.board.getEmptySquares()[chosenTile];
+
+    if(max > 0) {
+      const chosenTile: number = Math.floor(Math.random() * (max-min));
+      return this.board.getEmptySquares()[chosenTile];
+    }
+     return undefined;
   }
 }

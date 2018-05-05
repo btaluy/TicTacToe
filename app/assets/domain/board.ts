@@ -50,6 +50,14 @@ export class Board {
     return this.winnerRetreiver.getEmptySquares();
   }
 
+  public calculateBoard(): any[] {
+    return this.winnerRetreiver.calculateBoard();
+  }
+
+  public getBestSpot(index: any): Square {
+    return this.winnerRetreiver.getBestSpot(index);
+  }
+
   public setCrossScore(value: number): void {
     this.crossScore = value;
     setNumber('crossScore', this.crossScore);

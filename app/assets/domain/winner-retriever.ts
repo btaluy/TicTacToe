@@ -37,6 +37,31 @@ export class WinnerRetriever {
     return emptySquareIndexes;
   }
 
+  public calculateBoard(): any[] {
+    const squares: Square[] = this.squares;
+    let origBoard: any[] = [];
+
+    for (let i = 0; i < squares.length; i++) {
+      switch(squares[i].state) {
+        case State.Cross: 
+          origBoard.push('X');
+        break;
+        case State.Circle:
+          origBoard.push('O');
+        break;
+        default:
+          origBoard.push(i);
+        break;
+      }
+    }
+
+    return origBoard;
+  }
+
+  public getBestSpot(index: number): Square {
+    return this.squares[index];
+  }
+
   private getWinningIndexesInDiagonal(square: Square): number[] {
     if(square.xPosition == square.yPosition) {
       return this.getWinningSquareIndexes(square, 0, this.boardSize + 1);
