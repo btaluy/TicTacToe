@@ -1,16 +1,25 @@
 <GridLayout rows="auto, auto, auto, *" columns="auto, *, auto" class="page">
   <Label row="1" class="restart" text="Restart" (tap)="restartDialog()"></Label>
 
-  <StackLayout class="circle-score" orientation="horizontal" row="0" col="2">
-    <Label class="circle-score label white" [text]="spService.board.circleScore" textWrap="true"></Label>
-    <Label class="fa circle-thumb icon" [text]="'fa-circle-thin' | fonticon"></Label>
-  </StackLayout>
-  <StackLayout class="cross-score" orientation="horizontal" row="1" col="2">
-    <Label class="cross-score label white" [text]="spService.board.crossScore" textWrap="true"></Label>
-    <Label class="fa cross-thumb icon" [text]="'fa-times' | fonticon"></Label>
+  <StackLayout class="circle-score text-right" orientation="horizontal" row="0" col="2">
+    <Label textWrap="true">
+      <FormattedString>
+        <Span class="circle-score label white" [text]="spService.board.circleScore"></Span>
+        <Span class="fa circle-thumb icon" [text]="'\u0020\u0020' + ('fa-circle-thin' | fonticon)"></Span>
+      </FormattedString>
+    </Label>
   </StackLayout>
 
-  <StackLayout class="game-panel" orientation="horizontal" row="2" col="0" colSpan="3">
+  <StackLayout class="cross-score text-right" orientation="horizontal" row="1" col="2">
+    <Label textWrap="true">
+      <FormattedString>
+        <Span class="cross-score label white" [text]="spService.board.crossScore"></Span>
+        <Span class="fa cross-thumb icon" [text]="'\u0020\u0020' + ('fa-times' | fonticon)"></Span>
+      </FormattedString>
+    </Label>
+  </StackLayout>
+
+  <StackLayout class="game-panel text-center" orientation="horizontal" row="2" col="0" colSpan="3">
     <Label class="next-to-play" [text]="gamePanelCaption" textWrap="true"></Label>
     <Label class="fa next-to-play icon" [text]="(spService.board.currentState | statePipe) | fonticon"
            [visibility]="gamePanelStateImageVisibility" textWrap="true"></Label>
