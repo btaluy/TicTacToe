@@ -1,12 +1,16 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import { TNSPlayer } from 'nativescript-audio';
 
-const sound = require("nativescript-sound");
+let sound = require("nativescript-sound");
 
 @Injectable()
-export class AudioService {
-  private _click: any = sound.create('~/assets/sound/click.mp3');
+export class AudioService implements OnInit {
+  private _click: any ;
   private _backgroundSong: TNSPlayer;
+
+  public ngOnInit(): void {
+    this._click = sound.create('~/tools/assets/click.mp3');
+  }
 
   public clickSound(): void {
     this._click.pause();
