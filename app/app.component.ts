@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 
 import { AudioService } from "~/assets/services/audio.service";
 
@@ -6,10 +6,6 @@ import { AudioService } from "~/assets/services/audio.service";
     selector: "ns-app",
     templateUrl: "app.component.html"
 })
-export class AppComponent implements OnInit { 
+export class AppComponent { 
   public constructor(private _audioService: AudioService) { }
-
-  ngOnInit() {
-    this._audioService.initBackGroundSong();
-  }
 }

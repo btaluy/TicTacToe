@@ -11,6 +11,7 @@ export class Board {
   public currentState: State;
   public crossScore: number;
   public circleScore: number;
+  public drawScore: number;
   public isGameWon: boolean;
   public winnerRetreiver: WinnerRetriever;
 

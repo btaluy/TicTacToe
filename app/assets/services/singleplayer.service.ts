@@ -41,6 +41,7 @@ export class SinglePlayerService {
       const chosenTile: number = Math.floor(Math.random() * (max-min));
       return this.board.getEmptySquares()[chosenTile];
     }
-     return undefined;
+    
+    return undefined;
   }
 }

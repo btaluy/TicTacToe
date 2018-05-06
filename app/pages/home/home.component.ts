@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Page } from "ui/page";
-import { NavigationService, PopupService } from "~/assets/services";
+import { NavigationService, PopupService, AudioService } from "~/assets/services";
 import { MenuItemName } from "~/assets/domain";
 
 @Component({
@@ -10,6 +10,7 @@ import { MenuItemName } from "~/assets/domain";
 })
 export class HomeComponent implements OnInit {
     constructor(
+      public audioService: AudioService,
       private _page: Page,
       private _navigationService: NavigationService,
       private _popupService: PopupService
@@ -26,5 +27,9 @@ export class HomeComponent implements OnInit {
 
     public goToMP(): void {
       this._popupService.toast('Mutliplayer will be added soon');
+    }
+
+    public toggleMusic(): void {
+      this.audioService.toggleBackground();
     }
 }

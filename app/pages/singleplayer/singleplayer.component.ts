@@ -24,7 +24,7 @@ export class SinglePlayerComponent implements OnInit {
 
   constructor(
     public spService: SinglePlayerService,
-    private audioService: AudioService,
+    public audioService: AudioService,
     private _page: Page,
     private _navigationService: NavigationService,
     private _popupService: PopupService
