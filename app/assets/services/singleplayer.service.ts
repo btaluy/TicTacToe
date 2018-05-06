@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-const sound = require('nativescript-sound');
 
 import { Board, MenuItemName, Square, State } from "~/assets/domain";
 import { Color } from "ui/page";
@@ -8,14 +7,7 @@ import { StackLayout } from 'tns-core-modules/ui/layouts/stack-layout/stack-layo
 @Injectable()
 export class SinglePlayerService {
   public sessionGameWon: boolean = false;
-  public click: any = sound.create('~/assets/sound/click.mp3');
-
   public board: Board = new Board(3);
-
-  public clickSound(): void {
-    this.click.reset();
-    this.click.play();
-  }
 
   public restart(): void {
     this.newGame(0);

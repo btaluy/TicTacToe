@@ -5,7 +5,7 @@ import { StackLayout } from 'ui/layouts/stack-layout';
 import { EventData } from 'data/observable';
 import { Page, Color } from "ui/page";
 
-import { NavigationService, PopupService, SinglePlayerService } from "~/assets/services";
+import { NavigationService, PopupService, SinglePlayerService, AudioService } from "~/assets/services";
 import { Board, MenuItemName, Square, State } from "~/assets/domain";
 
 @Component({
@@ -24,6 +24,7 @@ export class SinglePlayerComponent implements OnInit {
 
   constructor(
     public spService: SinglePlayerService,
+    private audioService: AudioService,
     private _page: Page,
     private _navigationService: NavigationService,
     private _popupService: PopupService
@@ -38,7 +39,7 @@ export class SinglePlayerComponent implements OnInit {
     if (!this.spService.sessionGameWon
         && this.spService.board.currentState === State.Cross
         && square.state === State.Blank) {
-      this.spService.clickSound();
+      this.audioService.clickSound();
       this.spService.board.mark(square);
       this.updateState(square)
         .then(() => {
@@ -113,7 +114,7 @@ export class SinglePlayerComponent implements OnInit {
     
     if (foundSquare &&!this.spService.sessionGameWon) {
       setTimeout(() => {
-        this.spService.clickSound();
+        this.audioService.clickSound();
         this.spService.board.mark(foundSquare);
         this.updateState(foundSquare);
       }, 1000);
@@ -153,8 +154,7 @@ export class SinglePlayerComponent implements OnInit {
       if (player == this.aiPlayer){
         var result = this.miniMax(newBoard, this.huPlayer);
         move.score = result.score;
-      }
-      else{
+      } else {
         var result = this.miniMax(newBoard, this.aiPlayer);
         move.score = result.score;
       }
@@ -166,7 +166,12 @@ export class SinglePlayerComponent implements OnInit {
       moves.push(move);
     }
 
+    const bestMove = this.checkBestMove(player, moves);
 
+    return moves[bestMove];
+  }
+
+  private checkBestMove(player: any, moves: any): any {
     let bestMove;
 
     if(player === this.aiPlayer){
@@ -177,7 +182,7 @@ export class SinglePlayerComponent implements OnInit {
           bestMove = i;
         }
       }
-    } else{
+    } else {
       // else loop over the moves and choose the move with the lowest score
       let bestScore = 10000;
       for(var i = 0; i < moves.length; i++) {
@@ -188,7 +193,7 @@ export class SinglePlayerComponent implements OnInit {
       }
     }
 
-    return moves[bestMove];
+    return bestMove;
   }
 
   private emptyIndexies(board: any[]): any[] {

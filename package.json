@@ -19,6 +19,7 @@
     "@angular/platform-browser-dynamic": "~5.2.0",
     "@angular/router": "~5.2.0",
     "nativescript-angular": "~5.3.0",
+    "nativescript-audio": "^4.3.5",
     "nativescript-loading-indicator": "2.3.2",
     "nativescript-ngx-fonticon": "^4.1.0",
     "nativescript-sound": "^1.0.4",
@@ -33,6 +34,7 @@
   "devDependencies": {
     "@angular/compiler-cli": "~5.2.0",
     "@ngtools/webpack": "~1.9.4",
+    "@types/jasmine": "2.8.7",
     "babel-traverse": "6.4.5",
     "babel-types": "6.4.5",
     "babylon": "6.4.5",
@@ -58,6 +60,7 @@
   "scripts": {
     "compile-sass": "node-sass app --output app",
     "start-ios": "tns run ios",
-    "start-android": "tns run android"
+    "start-android": "tns run android",
+    "start-android-webpack": "tns run android --bundle --env.aot"
   }
 }
