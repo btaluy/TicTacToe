@@ -13,6 +13,7 @@ export class SinglePlayerService {
     this.newGame(0);
     this.board.setCircleScore(0);
     this.board.setCrossScore(0);
+    this.board.setDrawScore(0);
   }
 
   public newGame(miliSeconds: number = 2000): void {

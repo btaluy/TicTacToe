@@ -15,12 +15,12 @@
 
 .circle-score,
 .cross-score {
-  horizontal-align: right;
+  horizontal-align: center;
 }
 
 .circle-score,
 .cross-score {
-  font-size: 17;
+  font-size: 28;
 }
 
 .next-to-play {
@@ -37,10 +37,10 @@
 
 .cross-thumb,
 .circle-thumb {
-  height: 17;
+  height: 28;
 
   &.icon {
-    font-size: 18;
+    font-size: 28;
   }
 }
 

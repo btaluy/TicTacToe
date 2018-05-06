@@ -22,6 +22,7 @@ export class Board {
     this.squares = [];
     this.crossScore = getNumber('crossScore', 0);
     this.circleScore = getNumber('circleScore', 0);
+    this.drawScore = getNumber('drawScore', 0);
     this.currentState = State.Cross;
     this.startNewGame();
   }
@@ -69,6 +70,11 @@ export class Board {
     setNumber('circleScore', this.circleScore);
   }
 
+  public setDrawScore(value: number): void {
+    this.drawScore = value;
+    setNumber('drawScore', this.drawScore);
+  }
+
   public get isDraw(): boolean {
     return !this.isGameWon && this.isBoardFull;
   }
@@ -80,7 +86,7 @@ export class Board {
   }
 
   private incrementWinnerScore(): void {
-    if (this.currentState == State.Cross) {
+    if (this.currentState === State.Cross) {
       this.crossScore++;
       this.setCrossScore(this.crossScore);
     } else {

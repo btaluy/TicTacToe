@@ -1,20 +1,32 @@
-<GridLayout rows="auto, auto, auto, *" columns="auto, *, auto" class="page">
-  <Label row="1" class="restart" text="Restart" (tap)="restartDialog()"></Label>
+<GridLayout rows="auto, auto, auto, *" columns="*, auto, *" class="page">
+  <Label
+    *ngIf="spService.board.crossScore > 0 || spService.board.drawScore > 0 || spService.board.circleScore > 0"
+    row="0" class="restart" text="Restart" (tap)="restartDialog()">
+  </Label>
 
-  <StackLayout class="circle-score text-right" orientation="horizontal" row="0" col="2">
+  <StackLayout class="cross-score text-left" orientation="horizontal" row="1" col="0">
     <Label textWrap="true">
       <FormattedString>
-        <Span class="circle-score label white" [text]="spService.board.circleScore"></Span>
-        <Span class="fa circle-thumb icon" [text]="'\u0020\u0020' + ('fa-circle-thin' | fonticon)"></Span>
+        <Span class="cross-score" [text]="spService.board.crossScore"></Span>
+        <Span class="fa cross-thumb icon" [text]="'\u0020\u0020' + ('fa-times' | fonticon)"></Span>
       </FormattedString>
     </Label>
   </StackLayout>
 
-  <StackLayout class="cross-score text-right" orientation="horizontal" row="1" col="2">
+  <StackLayout class="cross-score text-center" orientation="horizontal" row="1" col="1">
     <Label textWrap="true">
       <FormattedString>
-        <Span class="cross-score label white" [text]="spService.board.crossScore"></Span>
-        <Span class="fa cross-thumb icon" [text]="'\u0020\u0020' + ('fa-times' | fonticon)"></Span>
+        <Span class="cross-score" [text]="spService.board.drawScore"></Span>
+        <Span class="fa circle-thumb icon" [text]="'\u0020\u0020' + ('fa-times-circle' | fonticon)"></Span>
+      </FormattedString>
+    </Label>
+  </StackLayout>
+  
+  <StackLayout class="circle-score text-center" orientation="horizontal" row="1" col="2">
+    <Label textWrap="true">
+      <FormattedString>
+        <Span class="circle-score" [text]="spService.board.circleScore"></Span>
+        <Span class="fa circle-thumb icon" [text]="'\u0020\u0020' + ('fa-circle-thin' | fonticon)"></Span>
       </FormattedString>
     </Label>
   </StackLayout>
