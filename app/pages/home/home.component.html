@@ -1,6 +1,22 @@
-<GridLayout rows="auto, auto, auto, auto" columns="*" class="page">
-    <Label row="0" class="label label-large white label-center" text="TICKTACKTOE"></Label>
-    <Button row="1" class="ttt-button margin-t-xxl" text="Singleplayer" (tap)="goToSP()"></Button>
-    <Button row="2" class="ttt-button margin-t-l" text="Multiplayer" (tap)="goToMP()"></Button>
-    <Button row="3" class="ttt-button margin-t-l" text="Toggle music" (tap)="toggleMusic()"></Button>
+<GridLayout rows="auto, auto, auto, auto" columns="*, *, 40" class="page">
+    <Label *ngIf="audioService.isPlayingBackGround" row="0" col="2" class="fa sound-label"
+           [text]="'fa-volume-up' | fonticon" (tap)="toggleMusic()" textWrap="true"></Label>
+    <Label *ngIf="!audioService.isPlayingBackGround" row="0" col="2" class="fa sound-label" 
+           [text]="'fa-volume-off' | fonticon" (tap)="toggleMusic()" textWrap="true"></Label>
+    
+    <Label row="1" col="0" colSpan="3" class="label label-large white label-center" text="TICKTACKTOE"></Label>
+    
+    <Button row="2" col="0" colSpan="3" class="fa home-button margin-t-xxl" (tap)="goToSP()">
+      <FormattedString>
+        <Span class="font-xxl" [text]="'fa-user' | fonticon"></Span>
+        <Span class="font-xxl" [text]="'\u0020\u0020 SINGLEPLAYER'"></Span>
+      </FormattedString>
+    </Button>
+    
+    <Button row="3" col="0" colSpan="3" class="fa home-button margin-t-l" (tap)="goToMP()">
+      <FormattedString>
+        <Span class="font-xxl" [text]="'fa-users' | fonticon"></Span>
+        <Span class="font-xxl" [text]="'\u0020\u0020 MULTIPLAYER'"></Span>
+      </FormattedString>
+    </Button>
 </GridLayout>

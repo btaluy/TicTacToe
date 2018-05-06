@@ -32,9 +32,11 @@ export class AudioService {
     });
 
     setBoolean('isPlayingBackGround', true);
+    this.isPlayingBackGround = true;
   }
 
   public toggleBackground(): void {
+    this.clickSound();
     if (this._backgroundSong.isAudioPlaying()) {
       this.resetBackGround();
     } else {
@@ -45,16 +47,19 @@ export class AudioService {
   public playBackground(args?: any) {
     this._backgroundSong.play();
     setBoolean('isPlayingBackGround', true);
+    this.isPlayingBackGround = true;
   }
 
   private pauseBackground(args?: any) {
     this._backgroundSong.pause();
     setBoolean('isPlayingBackGround', false);
+    this.isPlayingBackGround = false;
   }
 
   private resetBackGround(): void {
     this._backgroundSong.pause();
     this._backgroundSong.seekTo(0);
     setBoolean('isPlayingBackGround', false);
+    this.isPlayingBackGround = false;
   }
 }

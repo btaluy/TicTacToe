@@ -33,3 +33,14 @@
     }
   }
 }
+
+.home-button {
+  background-color: $primary;
+  border-color: $primary;
+  border-radius: $button-border-radius;
+  border-width: $button-border-width;
+  color: $white;
+  padding: $spacing-l $spacing-xxxxl;
+  text-transform: none;
+  vertical-align: middle;
+}

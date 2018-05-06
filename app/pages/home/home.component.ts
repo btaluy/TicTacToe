@@ -22,10 +22,12 @@ export class HomeComponent implements OnInit {
     }
 
     public goToSP(): void {
+      this.audioService.clickSound();
       this._navigationService.navigateTo(MenuItemName.singleplayer);
     }
 
     public goToMP(): void {
+      this.audioService.clickSound();
       this._popupService.toast('Mutliplayer will be added soon');
     }
 
