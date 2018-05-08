@@ -22,6 +22,7 @@
     "nativescript-audio": "^4.3.5",
     "nativescript-loading-indicator": "2.3.2",
     "nativescript-ngx-fonticon": "^4.1.0",
+    "nativescript-plugin-firebase": "^5.3.1",
     "nativescript-sound": "^1.0.4",
     "nativescript-theme-core": "~1.0.4",
     "nativescript-toast": "1.4.6",
