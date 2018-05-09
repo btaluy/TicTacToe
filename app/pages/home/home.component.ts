@@ -17,8 +17,7 @@ export class HomeComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        // Init your component properties here.
-        this._page.actionBarHidden = true;
+      this._page.actionBarHidden = true;
     }
 
     public goToSP(): void {

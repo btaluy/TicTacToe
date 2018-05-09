@@ -1,0 +1,6 @@
+{
+  "name" : "application-lifecycle",
+  "main" : "application-lifecycle",
+  "types": "application-lifecycle.d.ts",
+  "nativescript": {}
+}

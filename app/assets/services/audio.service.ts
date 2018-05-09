@@ -7,11 +7,11 @@ let click: any = sound.create('~/tools/assets/click.mp3');
 
 @Injectable()
 export class AudioService {
-  public isPlayingBackGround: boolean = getBoolean('isPlayingBackGround', false);
-  private _backgroundSong: TNSPlayer = new TNSPlayer();
+  public isPlayingBackGround: boolean = getBoolean('isPlayingBackGround', true);
+  public appIsInBackground: boolean = false;
+  public backgroundSong: TNSPlayer = new TNSPlayer();
 
   public constructor() {
-    console.log(this.isPlayingBackGround);
     if (this.isPlayingBackGround) {
       this.initBackGroundSong();
     }
@@ -23,9 +23,9 @@ export class AudioService {
   }
 
   public initBackGroundSong(): void {
-    this._backgroundSong = new TNSPlayer();
+    this.backgroundSong = new TNSPlayer();
 
-    this._backgroundSong.playFromFile({
+    this.backgroundSong.playFromFile({
       audioFile: '~/tools/assets/background.mp3',
       loop: true,
       completeCallback: this.playBackground.bind(this)
@@ -37,28 +37,34 @@ export class AudioService {
 
   public toggleBackground(): void {
     this.clickSound();
-    if (this._backgroundSong.isAudioPlaying()) {
+    if (this.backgroundSong.isAudioPlaying()) {
       this.resetBackGround();
     } else {
       this.initBackGroundSong();
     }
   }
 
-  public playBackground(args?: any) {
-    this._backgroundSong.play();
-    setBoolean('isPlayingBackGround', true);
-    this.isPlayingBackGround = true;
+  public isAppInBackground(): boolean {
+    return this.appIsInBackground;
   }
 
-  private pauseBackground(args?: any) {
-    this._backgroundSong.pause();
+  public playBackground(args?: any) {
+    this.backgroundSong.play();
+    setTimeout(() => {
+      setBoolean('isPlayingBackGround', true);
+      this.isPlayingBackGround = true;
+    }, 10);
+  }
+
+  public pauseBackground(args?: any) {
+    this.backgroundSong.pause();
     setBoolean('isPlayingBackGround', false);
     this.isPlayingBackGround = false;
   }
 
   private resetBackGround(): void {
-    this._backgroundSong.pause();
-    this._backgroundSong.seekTo(0);
+    this.backgroundSong.pause();
+    this.backgroundSong.seekTo(0);
     setBoolean('isPlayingBackGround', false);
     this.isPlayingBackGround = false;
   }
