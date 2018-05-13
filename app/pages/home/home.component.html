@@ -1,4 +1,4 @@
-<GridLayout rows="auto, auto, auto, auto" columns="*, *, 40" class="page">
+<GridLayout rows="auto, auto, auto, auto, auto" columns="*, *, 40" class="page">
     <Label *ngIf="audioService.isPlayingBackGround" row="0" col="2" class="fa sound-label"
            [text]="'fa-volume-up' | fonticon" (tap)="toggleMusic()" textWrap="true"></Label>
     <Label *ngIf="!audioService.isPlayingBackGround" row="0" col="2" class="fa sound-label" 
@@ -17,6 +17,13 @@
       <FormattedString>
         <Span class="font-xxl" [text]="'fa-users' | fonticon"></Span>
         <Span class="font-xxl" [text]="'\u0020\u0020 MULTIPLAYER'"></Span>
+      </FormattedString>
+    </Button>
+
+    <Button row="4" col="0" colSpan="3" class="fa home-button margin-t-l" (tap)="goToLB()">
+      <FormattedString>
+        <Span class="font-xxl" [text]="'fa-users' | fonticon"></Span>
+        <Span class="font-xxl" [text]="'\u0020\u0020 LEADERBOARD'"></Span>
       </FormattedString>
     </Button>
 </GridLayout>
