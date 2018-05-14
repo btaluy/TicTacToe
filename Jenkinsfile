@@ -1,12 +1,13 @@
 pipeline {
   agent any
   stages {
-    stage('error') {
+    stage('npm install') {
       steps {
-        withNPM(npmrcConfig:'my-custom-npmrc') {
-            echo "Performing npm build..."
-            sh 'npm install'
+        withNPM(npmrcConfig: 'my-custom-npmrc') {
+          echo 'Performing npm build...'
+          sh 'npm install'
         }
+
       }
     }
   }
