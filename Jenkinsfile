@@ -7,4 +7,7 @@ pipeline {
       }
     }
   }
+  environment {
+    npm = 'npm'
+  }
 }
