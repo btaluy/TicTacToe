@@ -3,7 +3,10 @@ pipeline {
   stages {
     stage('error') {
       steps {
-        sh 'npm install'
+        withNPM(npmrcConfig:'my-custom-npmrc') {
+            echo "Performing npm build..."
+            sh 'npm install'
+        }
       }
     }
   }
