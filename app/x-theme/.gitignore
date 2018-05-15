@@ -1,0 +1,7 @@
+*!font-awesome.css
+**/*.js
+**/*.js.map
+**/*.css
+scripts/!*.js
+lib/
+node_modules/
