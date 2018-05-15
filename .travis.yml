@@ -2,3 +2,15 @@ language: node_js
 node_js:
   - lts/*
   - node
+install:
+  - npm install -g nativescript
+  - tns usage-reporting disable
+  - tns error-reporting disable
+  android:
+    components:
+      - tools
+      - platform-tools
+      - build-tools-26.0.1
+      - android-26
+      - android-23
+      - extra-android-m2repository
