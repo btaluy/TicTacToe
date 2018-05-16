@@ -1,5 +1,3 @@
-cache: false
-
 android:
 components:
   - tools
