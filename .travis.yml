@@ -1,3 +1,13 @@
+
+language: android
+env:
+  - BuildAndroid="26"
+before_script:
+  - echo no | android create avd --force -n test -t android-21 -b armeabi-v7a
+  - emulator -avd test -no-audio -no-window &
+  - android-wait-for-emulator
+script: npm run test
+
 android:
 components:
   - tools
@@ -9,14 +19,5 @@ components:
   - sys-img-armeabi-v7a-android-21
 
 install:
-  - echo no | npm install -g nativescript
-
-language: android
-env:
-  - BuildAndroid="26"
-before_script:
+  - npm install -g nativescript
   - npm install
-  - echo no | android create avd --force -n test -t android-21 -b armeabi-v7a
-  - emulator -avd test -no-audio -no-window &
-  - android-wait-for-emulator
-script: npm run test
