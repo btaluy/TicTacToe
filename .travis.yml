@@ -22,7 +22,6 @@ matrix:
       - tns usage-reporting disable
       - tns error-reporting disable
       - npm install
-    install: true
     dist: precise
   android:
   components:
