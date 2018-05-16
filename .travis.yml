@@ -6,7 +6,7 @@ matrix:
   include:
     - stage: "install nativescript"
       language: node_js
-      os: osx
+      os: linux
       node_js: lts/*
       before_script:
         - echo no | npm install -g nativescript
@@ -14,7 +14,7 @@ matrix:
         - tns error-reporting disable
       script: echo Nativescript installed.
     - stage: "Install android"
-    - os: osx
+    - os: linux
       language: android
       env:
         - TestVersion="latest"
@@ -28,7 +28,7 @@ matrix:
       dist: precise
     - stage: "install & test"
       language: node_js
-      os: osx
+      os: linux
       node_js: lts/*
       install:
         - npm install
