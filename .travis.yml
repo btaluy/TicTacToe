@@ -4,6 +4,14 @@ branches:
     - Develop
 matrix:
   include:
+    - stage: "install nativescript"
+      language: node_js
+      os: linux
+      node_js: lts/*
+      install:
+        - echo no | npm install -g nativescript
+        - tns usage-reporting disable
+        - tns error-reporting disable
     - stage: "Install android"
     - os: linux
       language: android
@@ -18,13 +26,8 @@ matrix:
     - stage: "install & test"
       language: node_js
       os: linux
-      node_js:
-        - lts/*
-        - node
+      node_js: lts/*
       install:
-        - echo no | npm install -g nativescript
-        - tns usage-reporting disable
-        - tns error-reporting disable
         - npm install
 
 android:
