@@ -3,6 +3,7 @@ branches:
     - master
     - Develop
 
+- stage: "install & test"
 language: android
 matrix:
   include:
