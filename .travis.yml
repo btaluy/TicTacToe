@@ -1,9 +1,8 @@
+stage: "Build and Test"
 node_js:
    - lts/*
    - node
-   
-stage: "Build and Test"
-language: android
+language: node_js
 env:
   - BuildAndroid="26"
 jdk: oraclejdk8
