@@ -3,6 +3,16 @@ branches:
     - master
     - Develop
 
+android:
+  components:
+    - tools
+    - platform-tools
+    - build-tools-22.0.0
+    - android-23
+    - android-22
+    - extra-android-m2repository
+    - sys-img-armeabi-v7a-android-22
+
 stage: "install & test"
 language:
   - android
@@ -29,13 +39,4 @@ matrix:
       - npm install
       - npm run test
     dist: precise
-  android:
-  components:
-    - tools
-    - platform-tools
-    - build-tools-22.0.0
-    - android-23
-    - android-22
-    - extra-android-m2repository
-    - sys-img-armeabi-v7a-android-22
   install: true
