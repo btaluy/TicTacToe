@@ -14,7 +14,7 @@ matrix:
         - echo no | npm install -g nativescript
         - tns usage-reporting disable
         - tns error-reporting disable
-        - npm install --loglevel verbose
+        - npm install
         - echo no | android create avd --force -n test -t android-26 -b armeabi-v7a
         - emulator -avd test -no-audio -no-window &
         - android-wait-for-emulator
