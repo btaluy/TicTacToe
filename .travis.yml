@@ -1,17 +1,16 @@
 stage: "Build and Test"
-node_js:
-   - lts/*
-   - node
+language: android
 env:
   - BuildAndroid="26"
+node_js:
+  - lts/*
+  - node
 jdk: oraclejdk8
-language: android
 before_script:
   - echo no | android create avd --force -n test -t android-26 -b armeabi-v7a
   - emulator -avd test -no-audio -no-window &
   - android-wait-for-emulator
 script: npm run test
-language: node_js
 install:
   - echo no | npm install -g nativescript
   - tns usage-reporting disable
