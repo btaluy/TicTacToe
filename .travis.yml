@@ -4,22 +4,12 @@ branches:
     - Develop
 
 stage: "install & test"
-language: node_js
+language:
+  - android
+  - node_js
 matrix:
   include:
     node_js: lts/*
-    before_script:
-      - echo no | npm install -g nativescript
-      - tns usage-reporting disable
-      - tns error-reporting disable
-      - npm install
-    script:
-      - npm run test
-    install: true
-    
-language: android
-matrix:
-  include:
     env:
       - TestVersion="latest"
     jdk: oraclejdk8
@@ -28,7 +18,10 @@ matrix:
       - emulator -avd test -no-audio -no-window &
       - android-wait-for-emulator
     script:
-      echo android started
+      - echo no | npm install -g nativescript
+      - tns usage-reporting disable
+      - tns error-reporting disable
+      - npm install
     install: true
     dist: precise
   android:
