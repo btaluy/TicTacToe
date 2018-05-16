@@ -2,7 +2,6 @@ stage: "Build and Test"
 node_js:
    - lts/*
    - node
-language: node_js
 env:
   - BuildAndroid="26"
 jdk: oraclejdk8
@@ -12,6 +11,7 @@ before_script:
   - emulator -avd test -no-audio -no-window &
   - android-wait-for-emulator
 script: npm run test
+language: node_js
 install:
   - echo no | npm install -g nativescript
   - tns usage-reporting disable
