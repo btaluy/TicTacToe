@@ -16,6 +16,7 @@ matrix:
       - android-wait-for-emulator
     script:
       echo android started
+    install: true
     dist: precise
   android:
   components:
@@ -38,3 +39,4 @@ matrix:
       - npm install
     script:
       - npm run test
+    install: true
