@@ -11,11 +11,11 @@ matrix:
   include:
     env:
       - TestVersion="latest"
-      - Android="26"
+      - Android="22"
     jdk: oraclejdk8
     node_js: lts/*
     before_script:
-      - echo no | android create avd --force -n test -t android-26 -b armeabi-v7a
+      - echo no | android create avd --force -n test -t android-22 -b armeabi-v7a
       - emulator -avd test -no-audio -no-window &
       - android-wait-for-emulator
     script:
@@ -37,5 +37,5 @@ matrix:
     - android-23
     - android-26
     - extra-android-m2repository
-    - sys-img-armeabi-v7a-android-26
+    - sys-img-armeabi-v7a-android-22
   install: true
