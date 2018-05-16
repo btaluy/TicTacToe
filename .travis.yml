@@ -2,31 +2,17 @@ matrix:
 include:
   - stage: "Lint"
     language: node_js
-    os: linux
-    node_js: "6"
+    node_js: "8"
     script: cd src && npm run ci.tslint && cd ../demo && npm run ci.tslint
   - stage: "Build and Test"
     env: 
       - BuildAndroid="26"
     language: android
-    os: linux
     jdk: oraclejdk8
     script:
       - cd src && npm i && npm run tsc && cd ../demo
       - travis_wait travis_retry tns build android
-  - os: osx
-    env: 
-      - BuildiOS="11"
-      - Xcode="9.2"
-    osx_image: xcode9.2
-    language: node_js 
-    node_js: "6"
-    jdk: oraclejdk8
-    script: 
-      - cd src && npm i && npm run tsc && cd ../demo
-      - travis_wait travis_retry tns build ios
-  - os: linux
-    language: android
+  - language: android
     env:
       - TestVersion="latest"
     jdk: oraclejdk8
@@ -37,16 +23,6 @@ include:
       - android-wait-for-emulator
     script: travis_wait travis_retry npm run test
     dist: precise
-  - os: osx
-    env:
-      - TestVersion="latest"
-    language: node_js
-    node_js: "8"
-    jdk: oraclejdk8
-    osx_image: xcode9
-    before_script:
-      - cd seed-tests && npm i
-    script: travis_wait travis_retry npm run test.ios
 
 android:
 components:
