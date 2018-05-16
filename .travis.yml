@@ -1,29 +1,41 @@
-stage: "Build and Test"
-language: android
-env:
-  - BuildAndroid="26"
-node_js:
-  - lts/*
-  - node
-jdk: oraclejdk8
-before_script:
-  - echo no | android create avd --force -n test -t android-26 -b armeabi-v7a
-  - emulator -avd test -no-audio -no-window &
-  - android-wait-for-emulator
-script: npm run test
-install:
-  - echo no | npm install -g nativescript
-  - tns usage-reporting disable
-  - tns error-reporting disable
-  - npm install --loglevel verbose
-dist: precise
+branches:
+  only: 
+    - master
+    - develop
+matrix:
+  include:
+    - stage: "install"
+      language: node_js
+      os: linux
+      node_js:
+        - lts/*
+        - node
+      install:
+        - npm install --loglevel verbose
+    - stage: "Build and Test"
+    - os: linux
+      language: android
+      env:
+        - TestVersion="latest"
+      jdk: oraclejdk8
+      before_script:
+        - echo no | android create avd --force -n test -t android-26 -b armeabi-v7a
+        - emulator -avd test -no-audio -no-window &
+        - android-wait-for-emulator
+      script: travis_wait travis_retry npm run test
+      dist: precise
 
 android:
-components:
-  - tools
-  - platform-tools
-  - build-tools-26.0.2
-  - android-23
-  - android-26
-  - extra-android-m2repository
-  - sys-img-armeabi-v7a-android-26
+  components:
+    - tools
+    - platform-tools
+    - build-tools-26.0.2
+    - android-23
+    - android-26
+    - extra-android-m2repository
+    - sys-img-armeabi-v7a-android-21
+
+install:
+    - echo no | npm install -g nativescript
+    - tns usage-reporting disable
+    - tns error-reporting disable
