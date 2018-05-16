@@ -1,6 +1,6 @@
 branches:
   only: 
-    - Master
+    - master
     - Develop
 matrix:
   include:
@@ -8,20 +8,23 @@ matrix:
       language: node_js
       os: linux
       node_js: lts/*
-      install:
+      before_script:
         - echo no | npm install -g nativescript
         - tns usage-reporting disable
         - tns error-reporting disable
+      script: echo Nativescript installed.
     - stage: "Install android"
     - os: linux
       language: android
       env:
         - TestVersion="latest"
       jdk: oraclejdk8
-      install:
+      before_script:
         - echo no | android create avd --force -n test -t android-26 -b armeabi-v7a
         - emulator -avd test -no-audio -no-window &
         - android-wait-for-emulator
+      script:
+        echo android started
       dist: precise
     - stage: "install & test"
       language: node_js
@@ -39,8 +42,3 @@ android:
     - android-26
     - extra-android-m2repository
     - sys-img-armeabi-v7a-android-21
-
-install:
-    - echo no | npm install -g nativescript
-    - tns usage-reporting disable
-    - tns error-reporting disable
