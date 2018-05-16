@@ -12,12 +12,16 @@ matrix:
     env:
       - TestVersion="latest"
     jdk: oraclejdk8
+    node_js: lts/*
     before_script:
       - echo no | android create avd --force -n test -t android-21 -b armeabi-v7a
       - emulator -avd test -no-audio -no-window &
       - android-wait-for-emulator
-    node_js: lts/*
     script:
+    - . $HOME/.nvm/nvm.sh
+    - nvm install stable
+    - nvm use stable
+    after_script:
       - echo no | npm install -g nativescript
       - tns usage-reporting disable
       - tns error-reporting disable
@@ -32,8 +36,4 @@ matrix:
     - android-26
     - extra-android-m2repository
     - sys-img-armeabi-v7a-android-21
-  install:
-    - . $HOME/.nvm/nvm.sh
-    - nvm install stable
-    - nvm use stable
-    - npm install
+  install: true
