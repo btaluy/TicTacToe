@@ -8,6 +8,8 @@ env:
 jdk: oraclejdk8
 before_script:
   - npm install -g nativescript
+  - tns usage-reporting disable
+  - tns error-reporting disable
   - npm install
   - echo no | android create avd --force -n test -t android-21 -b armeabi-v7a
   - emulator -avd test -no-audio -no-window &
