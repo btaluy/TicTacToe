@@ -1,19 +1,4 @@
 cache: false
-language: "typescript"
-matrix:
-include:
-  - stage: "Build and Test"
-    language: android
-    env:
-      - BuildAndroid="26"
-    jdk: oraclejdk8
-    before_script:
-      - npm install
-      - echo no | android create avd --force -n test -t android-21 -b armeabi-v7a
-      - emulator -avd test -no-audio -no-window &
-      - android-wait-for-emulator
-    script: npm run test
-    dist: precise
 
 android:
 components:
@@ -27,3 +12,10 @@ components:
 
 install:
   - echo no | npm install -g nativescript
+
+before_script:
+  - npm install
+  - echo no | android create avd --force -n test -t android-21 -b armeabi-v7a
+  - emulator -avd test -no-audio -no-window &
+  - android-wait-for-emulator
+script: npm run test
