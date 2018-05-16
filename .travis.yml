@@ -1,3 +1,5 @@
+cache: false
+
 matrix:
 include:
   - stage: "Build and Test"
