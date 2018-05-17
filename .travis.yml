@@ -18,7 +18,6 @@ matrix:
       before_install: 
         - nvm install $NODE_VERSION
       script: 
-        - cd TicTacToe
         - npm install
     - stage: "Build"
       os: osx
@@ -29,13 +28,11 @@ matrix:
       node_js: "6"
       jdk: oraclejdk8
       before_install: 
-        - cd TicTacToe
         - npm install
         - cd ../tests
         - npm install
         - cd ..
       script: 
-        - cd TicTacToe
         - npm run ngc
         - cd ../tests
         - tns build ios
@@ -47,13 +44,11 @@ matrix:
       node_js: "8"
       jdk: oraclejdk8
       before_install: 
-        - cd TicTacToe
         - npm install
         - cd ../tests
         - npm install
         - cd ..
       script: 
-        - cd TicTacToe
         - npm run ngc
         - cd ../tests
         - tns build ios
@@ -67,7 +62,6 @@ matrix:
         - echo no | android create avd --force -n $EMULATOR_NAME -t "android-"$EMULATOR_API_LEVEL --abi $ANDROID_ABI --tag $ANDROID_TAG -c 12M
         - QEMU_AUDIO_DRV=none emulator -avd $EMULATOR_NAME -no-window &
         - nvm install $NODE_VERSION
-        - cd TicTacToe
         - npm install
         - cd ../tests
         - npm install
@@ -75,7 +69,6 @@ matrix:
         - android-wait-for-emulator
         - adb shell input keyevent 82 &
       script: 
-        - cd TicTacToe
         - npm run ngc
         - cd ../tests
         - tns build android
@@ -89,7 +82,6 @@ matrix:
         - echo no | android create avd --force -n $EMULATOR_NAME -t "android-"$EMULATOR_API_LEVEL --abi $ANDROID_ABI --tag $ANDROID_TAG -c 12M
         - QEMU_AUDIO_DRV=none emulator -avd $EMULATOR_NAME -no-window &
         - nvm install $NODE_VERSION
-        - cd TicTacToe
         - npm install
         - cd ../tests
         - npm install
@@ -97,7 +89,6 @@ matrix:
         - android-wait-for-emulator
         - adb shell input keyevent 82 &
       script: 
-        - cd TicTacToe
         - npm run ngc
         - cd ../tests
         - tns build android
