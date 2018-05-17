@@ -7,9 +7,9 @@ android:
   components:
     - tools
     - platform-tools
-    - build-tools-23.0.0
-    - android-23
-    - sys-img-x86-android-23
+    - build-tools-26.0.2
+    - android-26
+    - sys-img-armeabi-v7a-android-26
     - extra-android-m2repository
 
 stage: "install & test"
@@ -24,9 +24,7 @@ matrix:
     jdk: oraclejdk8
     node_js: lts/*
     before_script:
-      - sudo apt-get install qemu-kvm libvirt-bin virtinst bridge-utils cpu-checker
-      - kvm-ok
-      - echo no | android create avd --force -n test -t android-23 --abi default/x86
+      - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
       - emulator -avd test -no-audio -no-window &
       - android-wait-for-emulator
     script:
