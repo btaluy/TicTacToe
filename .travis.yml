@@ -24,6 +24,7 @@ matrix:
     jdk: oraclejdk8
     node_js: lts/*
     before_script:
+      - apt-get install qemu-kvm libvirt-bin virtinst bridge-utils cpu-checker
       - echo no | android create avd --force -n test -t android-23 --abi default/x86
       - emulator -avd test -no-audio -no-window &
       - android-wait-for-emulator
