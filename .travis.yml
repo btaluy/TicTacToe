@@ -6,10 +6,8 @@ branches:
 android:
   components:
     - tools
-    - platform-tools
-    - build-tools-26.0.2
-    - android-26
-    - sys-img-armeabi-v7a-android-26
+    - build-tools-27.0.3
+    - android-27
     - extra-android-m2repository
 
 stage: "install & test"
@@ -24,8 +22,7 @@ matrix:
     jdk: oraclejdk8
     node_js: lts/*
     before_script:
-      - echo no | android create avd --force -n test -t android-26 --abi armeabi-v7a-26
-      - emulator -avd test -no-audio -no-window &
+      - yes | sdkmanager "platforms;android-27"
       - android-wait-for-emulator
     script:
     - . $HOME/.nvm/nvm.sh
