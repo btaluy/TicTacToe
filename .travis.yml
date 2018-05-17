@@ -1,4 +1,3 @@
-
 env:
   global:
     - NODE_VERSION=6
@@ -116,8 +115,6 @@ android:
     - extra-google-m2repository
     - extra-android-m2repository
     - addon-google_apis-google-25
-    # Specify at least one system image,
-    # if you need to run emulator(s) during your tests
     - sys-img-armeabi-v7a-android-26
     - sys-img-armeabi-v7a-android-25
     - sys-img-armeabi-v7a-android-17
@@ -127,18 +124,18 @@ android:
     - ".+"
 
 before_cache:
-    - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 
 cache:
-    directories:
-        - .nvm
-        - $HOME/.gradle/caches/
-        - $HOME/.gradle/wrapper/
+  directories:
+    - .nvm
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
 
 install:
-    - nvm install $NODE_VERSION
-    - npm install -g typings
-    - wget -O ./nativescript.tgz "https://s3.amazonaws.com/nativescript-ci/build_result/nativescript.tgz"
-    - npm install -g nativescript.tgz --ignore-scripts
-    - tns usage-reporting disable
-- tns error-reporting disable
+  - nvm install $NODE_VERSION
+  - npm install -g typings
+  - wget -O ./nativescript.tgz "https://s3.amazonaws.com/nativescript-ci/build_result/nativescript.tgz"
+  - npm install -g nativescript.tgz --ignore-scripts
+  - tns usage-reporting disable
+  - tns error-reporting disable
