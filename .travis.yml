@@ -24,6 +24,7 @@ matrix:
     jdk: oraclejdk8
     node_js: lts/*
     before_script:
+      - android list targets
       - echo no | android create avd --name myandroid26 -t "android-26"
       - emulator -avd test -no-audio -no-window &
       - android-wait-for-emulator
