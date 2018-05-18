@@ -93,15 +93,6 @@ android:
   licenses:
     - ".+"
 
-before_cache:
-  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
-
-cache:
-  directories:
-    - .nvm
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
-
 install:
   - nvm install $NODE_VERSION
   - npm install -g typings
