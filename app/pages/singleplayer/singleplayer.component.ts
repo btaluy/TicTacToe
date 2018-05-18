@@ -126,8 +126,8 @@ export class SinglePlayerComponent implements OnInit {
   }
 
   private shouldUseMiniMax(): boolean {
-    const array: number[] = [5, 5, 5, 95];
-    const randomChosenNumber: number = array[Math.floor(Math.random() * (4-0))];
+    const array: number[] = [5, 5, 5, 5, 5, 5, 5, 5, 5, 95];
+    const randomChosenNumber: number = array[Math.floor(Math.random() * (10-0))];
 
     return randomChosenNumber === 5 ? true : false;
   }
@@ -216,19 +216,8 @@ export class SinglePlayerComponent implements OnInit {
        } else {
           return false;
        }
-   }
+  }
 
-
-
-
-
-
-
-
-
-
-
- 
   private get boardGridView(): GridLayout {
     return this.boardGrid.nativeElement;
   }
