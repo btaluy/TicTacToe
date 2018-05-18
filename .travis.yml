@@ -20,7 +20,7 @@ matrix:
       script: 
         - npm install
     - stage: "Build"
-      os: osx
+    - os: osx
       env:
         - Build="iOS"
       osx_image: xcode9.3
@@ -33,7 +33,7 @@ matrix:
         - npm run test-ios
       language: android
       node_js: "8"
-      os: linux
+    - os: linux
       env:
         - Build="Android"
       jdk: oraclejdk8
