@@ -25,39 +25,13 @@ matrix:
         - Build="iOS"
       osx_image: xcode9.3
       language: node_js
-      node_js: "6"
-      jdk: oraclejdk8
-      before_install: 
-        - npm install
-      script: 
-        - tns build ios
-    - os: osx
-      env:
-        - Build="iOS"
-      osx_image: xcode9.3
-      language: node_js
       node_js: "8"
       jdk: oraclejdk8
       before_install: 
         - npm install
       script: 
-        - tns build ios
-    - language: android
-      node_js: "6"
-      os: linux
-      env:
-        - Build="Android"
-      jdk: oraclejdk8
-      before_install: 
-        - echo no | android create avd --force -n $EMULATOR_NAME -t "android-"$EMULATOR_API_LEVEL --abi $ANDROID_ABI --tag $ANDROID_TAG -c 12M
-        - QEMU_AUDIO_DRV=none emulator -avd $EMULATOR_NAME -no-window &
-        - nvm install $NODE_VERSION
-        - npm install
-        - android-wait-for-emulator
-        - adb shell input keyevent 82 &
-      script: 
-        - tns build android
-    - language: android
+        - npm run test-ios
+      language: android
       node_js: "8"
       os: linux
       env:
@@ -71,7 +45,7 @@ matrix:
         - android-wait-for-emulator
         - adb shell input keyevent 82 &
       script: 
-        - tns build android
+        - npm run test-android
 
 android:
   components:
