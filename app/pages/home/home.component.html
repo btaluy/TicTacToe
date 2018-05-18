@@ -1,9 +1,16 @@
-<GridLayout rows="auto, auto, auto, auto, auto" columns="*, *, 40" class="page">
-    <Label *ngIf="audioService.isPlayingBackGround" row="0" col="2" class="fa sound-label"
-           [text]="'fa-volume-up' | fonticon" (tap)="toggleMusic()" textWrap="true"></Label>
-    <Label *ngIf="!audioService.isPlayingBackGround" row="0" col="2" class="fa sound-label" 
-           [text]="'fa-volume-off' | fonticon" (tap)="toggleMusic()" textWrap="true"></Label>
+<StackLayout class="page">
+  <GridLayout *ngIf="userService.user" class="padding-xs font-xl white" columns="auto, *, 45, auto" rows="auto">
+    <Image col="0" [src]="userService.user.profileImageURL" class="image-xxxxl"></Image>
+    <Label col="1" [text]="userService.user.name" textWrap="true" class="margin-l-xs align-middle"></Label>
     
+    <Label *ngIf="audioService.isPlayingBackGround" col="2" class="fa sound-label"
+           [text]="'fa-volume-up' | fonticon" (tap)="toggleMusic()" textWrap="true"></Label>
+    <Label *ngIf="!audioService.isPlayingBackGround" col="2" class="fa sound-label" 
+           [text]="'fa-volume-off' | fonticon" (tap)="toggleMusic()" textWrap="true"></Label>
+
+    <Label col="3" class="fa font-xxxl align-middle" [text]="'fa-sign-out' | fonticon" textWrap="true" (tap)="logout()"></Label>
+  </GridLayout>
+  <GridLayout rows="auto, auto, auto, auto, auto" columns="*, *">
     <Label row="1" col="0" colSpan="3" class="label label-large white label-center" text="TICKTACKTOE"></Label>
     
     <Button row="2" col="0" colSpan="3" class="fa home-button margin-t-xxl" (tap)="goToSP()">
@@ -26,4 +33,5 @@
         <Span class="font-xxl" [text]="'\u0020\u0020 LEADERBOARD'"></Span>
       </FormattedString>
     </Button>
-</GridLayout>
+  </GridLayout>
+</StackLayout>

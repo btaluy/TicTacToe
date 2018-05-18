@@ -1,8 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import { Page } from "ui/page";
 import firebase = require("nativescript-plugin-firebase");
 
-import { NavigationService, PopupService, AudioService } from "~/assets/services";
+import { NavigationService, PopupService, AudioService, UserService } from "~/assets/services";
 import { MenuItemName } from "~/assets/domain";
 
 @Component({
@@ -13,13 +13,16 @@ import { MenuItemName } from "~/assets/domain";
 export class HomeComponent implements OnInit {
     constructor(
       public audioService: AudioService,
+      public userService: UserService,
       private _page: Page,
       private _navigationService: NavigationService,
-      private _popupService: PopupService
+      private _popupService: PopupService,
+      private cd: ChangeDetectorRef
     ) { }
 
     ngOnInit(): void {
       this._page.actionBarHidden = true;
+      this.cd.detectChanges();
     }
 
     public goToSP(): void {
@@ -35,6 +38,7 @@ export class HomeComponent implements OnInit {
 
     public goToLB(): void {
       this._popupService.toast('Leaderboards coming soon...');
+      console.log(JSON.stringify(this.userService.user));
     }
 
     public toggleMusic(): void {
@@ -50,7 +54,17 @@ export class HomeComponent implements OnInit {
         },
         errorMessage => {
           console.log(errorMessage);
+          this._popupService.toast('No internet connection...');
         }
       );
+    }
+
+    public logout(): void {
+      this._popupService.loading('Signing out...');
+      firebase.logout()
+        .then(() => {
+          this._popupService.hideLoading();
+          this._popupService.toast('Signed out...');
+        });
     }
 }

@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "594807091142-66bkslbobj2kr8a15b3hghumt11776lu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.nativescript.TacToe",
+            "certificate_hash": "b37558e8d2f04c202f197738e916ab59b7f4ab1d"
+          }
+        },
+        {
           "client_id": "594807091142-nl95khv5js9h7kbfl79f2q247ev009lt.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
