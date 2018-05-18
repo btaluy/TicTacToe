@@ -6,6 +6,9 @@
     "id": "org.nativescript.TacToe",
     "tns-android": {
       "version": "4.0.1"
+    },
+    "tns-ios": {
+      "version": "4.0.1"
     }
   },
   "dependencies": {
@@ -68,7 +71,7 @@
     "start-ios": "tns run ios",
     "start-android": "tns run android",
     "start-android-webpack": "tns run android --bundle --env.aot",
-    "test-android": "tns test android  --justlaunch --emulator && echo \"[OK] No errors found, you're awesome! \"",
-    "test-ios": "tns test ios  --justlaunch --emulator && echo \"[OK] No errors found, you're awesome! \""
+    "test-android": "tns test android && echo \"[OK] No errors found, you're awesome! \"",
+    "test-ios": "tns test ios && echo \"[OK] No errors found, you're awesome! \""
   }
 }
