@@ -19,59 +19,11 @@ matrix:
         - nvm install $NODE_VERSION
       script: 
         - npm install
-    - stage: "Build"
-      os: osx
-      env:
-        - Build="iOS"
-      osx_image: xcode9.3
-      language: node_js
-      node_js: "6"
-      jdk: oraclejdk8
-      before_install: 
-        - npm install
-      script: 
-        - npm run test-ios
-    - os: osx
-      env:
-        - Build="iOS"
-      osx_image: xcode9.3
-      language: node_js
-      node_js: "8"
-      jdk: oraclejdk8
-      before_install: 
-        - npm install
-      script: 
-        - npm run test-ios
-    - language: android
-      node_js: "6"
-      os: linux
-      env:
-        - Build="Android"
-      jdk: oraclejdk8
-      before_install: 
-        - echo no | android create avd --force -n $EMULATOR_NAME -t "android-"$EMULATOR_API_LEVEL --abi $ANDROID_ABI --tag $ANDROID_TAG -c 12M
-        - QEMU_AUDIO_DRV=none emulator -avd $EMULATOR_NAME -no-window &
-        - nvm install $NODE_VERSION
-        - npm install
-        - android-wait-for-emulator
-        - adb shell input keyevent 82 &
-      script: 
-        - npm run test-android
-    - language: android
-      node_js: "8"
-      os: linux
-      env:
-        - Build="Android"
-      jdk: oraclejdk8
-      before_install: 
-        - echo no | android create avd --force -n $EMULATOR_NAME -t "android-"$EMULATOR_API_LEVEL --abi $ANDROID_ABI --tag $ANDROID_TAG -c 12M
-        - QEMU_AUDIO_DRV=none emulator -avd $EMULATOR_NAME -no-window &
-        - nvm install $NODE_VERSION
-        - npm install
-        - android-wait-for-emulator
-        - adb shell input keyevent 82 &
-      script: 
-        - npm run test-android
+      addons:
+        sonarcloud:
+          organization: btaluy-github
+          token:
+            secure: feaeca75f7163a30a4724725192efb925919c9c8
 
 android:
   components:
@@ -100,3 +52,10 @@ install:
   - npm install -g nativescript.tgz --ignore-scripts
   - tns usage-reporting disable
   - tns error-reporting disable
+
+cache:
+  directories:
+    $HOME/.m2/repository
+    $HOME/.sonar/cache
+    $HOME/.gradle
+    .gradle

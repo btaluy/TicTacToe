@@ -15,10 +15,16 @@ export class AppComponent {
 
   ngOnInit(): void {
     let parent = this;
+
     firebase.init({
       // optional but useful to immediately re-logon the user when he re-visits your app
       onAuthStateChanged: function(data) {
-        parent.userService.user = data.loggedIn ? User.fromObject(data.user) : undefined;
+        if (data && data.loggedIn) {
+          parent.userService.setUser(data.user);
+        } else {
+          parent.userService.user = undefined;
+        }
+
         parent.cd.detectChanges();
       }
     }).then(
