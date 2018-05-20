@@ -5,6 +5,7 @@ import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { TNSFontIconModule } from "nativescript-ngx-fonticon";
 
 import { HomeComponent } from "./home.component";
+import { CommonComponentsModule } from "~/assets/components/common-components.module";
 
 const routes: Routes = [
     { path: "", component: HomeComponent }
@@ -16,7 +17,8 @@ const routes: Routes = [
         NativeScriptRouterModule.forChild(routes),
         TNSFontIconModule.forRoot({
           'fa': './fonts/font-awesome.css',
-        })
+        }),
+        CommonComponentsModule
     ],
     declarations: [
         HomeComponent

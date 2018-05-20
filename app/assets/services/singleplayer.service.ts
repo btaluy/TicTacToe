@@ -31,7 +31,7 @@ export class SinglePlayerService {
     if (this.board.isDraw) {
       return 'Draw';
     }
-    return this.board.isGameWon ? 'Winner': 'Next to play';
+    return this.board.isGameWon ? 'Winner': 'Next';
   }
 
   public get foundSquare(): Square {

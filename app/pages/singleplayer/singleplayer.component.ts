@@ -69,10 +69,6 @@ export class SinglePlayerComponent implements OnInit {
     return this.spService.gamePanelCaption;
   }
 
-  public classOf(square: Square): string {
-    return (square.xPosition + square.yPosition) % 2 == 0 ? 'light-square' : 'dark-square';
-  }
-
   public restartDialog(): void {
     this._popupService.confirm('Restart', 'Are you sure you want to restart the game?', 'Yes', 'No')
       .then((result: any) => {
@@ -91,7 +87,7 @@ export class SinglePlayerComponent implements OnInit {
 
         for (let index of winningIndexes) {
           let view = this.squareViews[index];
-          view.animate({ backgroundColor: new Color("#BA4A00"), duration: 1000 });
+          view.animate({ backgroundColor: new Color("#FFFFFF"), duration: 1000 });
         }
         
         resolve(this.newGame(2000));

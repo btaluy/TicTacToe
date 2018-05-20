@@ -58,13 +58,4 @@ export class HomeComponent implements OnInit {
         }
       );
     }
-
-    public logout(): void {
-      this._popupService.loading('Signing out...');
-      firebase.logout()
-        .then(() => {
-          this._popupService.hideLoading();
-          this._popupService.toast('Signed out...');
-        });
-    }
 }

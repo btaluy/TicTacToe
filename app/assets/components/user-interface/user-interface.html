@@ -1,0 +1,6 @@
+<GridLayout *ngIf="userService.user" class="font-xl white" columns="auto, *, 45" rows="auto">
+  <Image col="0" [src]="userService.user.profileImageURL" class="image-xxxxl"></Image>
+  <Label col="1" [text]="userService.user.name" textWrap="true" class="margin-l-xs align-middle"></Label>
+
+  <Label col="2" class="fa font-xxxl align-middle" [text]="'fa-sign-out' | fonticon" textWrap="true" (tap)="logout()"></Label>
+</GridLayout>

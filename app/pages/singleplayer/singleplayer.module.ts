@@ -6,6 +6,7 @@ import { TNSFontIconModule } from "nativescript-ngx-fonticon";
 
 import { SinglePlayerComponent } from "./singleplayer.component";
 import { StatePipe } from "~/assets/pipes/state.pipe";
+import { CommonComponentsModule } from "~/assets/components/common-components.module";
 
 const routes: Routes = [
     { path: "", component: SinglePlayerComponent }
@@ -17,7 +18,8 @@ const routes: Routes = [
         NativeScriptRouterModule.forChild(routes),
         TNSFontIconModule.forRoot({
           'fa': './fonts/font-awesome.css',
-        })
+        }),
+        CommonComponentsModule
     ],
     declarations: [
       SinglePlayerComponent,

@@ -12,9 +12,9 @@ export class AudioService {
   public backgroundSong: TNSPlayer = new TNSPlayer();
 
   public constructor() {
-    if (this.isPlayingBackGround) {
+    /*if (this.isPlayingBackGround) {
       this.initBackGroundSong();
-    }
+    }*/
   }
 
   public clickSound(): void {

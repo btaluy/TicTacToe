@@ -111,21 +111,14 @@ export class Board {
 
   private initializeBoard(): void {
     this.squares = [];
-    /**
-     * // generates
-     * ///////////\\\\\\\\\\\\\ 
-     * // 0, 0 | 0, 1 | 0, 2 \\
-     * // ------------------ \\
-     * // 1, 0 | 1, 1 | 1, 2 \\
-     * // ------------------ \\ 
-     * // 2, 0 | 2, 1 | 2, 2 \\
-     * ///////////\\\\\\\\\\\\\ 
-     */
-    
-    for (let x = 0; x < this.boardSize; x++) {
-      for (let y = 0; y< this.boardSize; y++) {
-        this.squares.push(new Square(x, y));
-      }
-    }
+    this.squares.push(new Square(0, 0, 'square bottom-right'));
+    this.squares.push(new Square(0, 1, 'square bottom-right'));
+    this.squares.push(new Square(0, 2, 'square bottom'));
+    this.squares.push(new Square(1, 0, 'square bottom-right'));
+    this.squares.push(new Square(1, 1, 'square bottom-right'));
+    this.squares.push(new Square(1, 2, 'square bottom'));
+    this.squares.push(new Square(2, 0, 'square right'));
+    this.squares.push(new Square(2, 1, 'square right'));
+    this.squares.push(new Square(2, 2, 'square'));
   }
 }
