@@ -19,12 +19,8 @@ matrix:
         - nvm install $NODE_VERSION
       script: 
         - npm install
-      addons:
-        sonarcloud:
-          organization: btaluy-github
-          token:
-            secure: feaeca75f7163a30a4724725192efb925919c9c8
-    - language: android
+    - stage: "Build"
+      language: android
       node_js: "8"
       os: linux
       env:
@@ -39,6 +35,11 @@ matrix:
         - adb shell input keyevent 82 &
       script: 
         - npm run test-android
+      addons:
+        sonarcloud:
+          organization: btaluy-github
+          token:
+            secure: feaeca75f7163a30a4724725192efb925919c9c8
 
 android:
   components:
