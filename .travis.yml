@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 env:
   global:
     - NODE_VERSION=6
@@ -75,3 +76,9 @@ cache:
     $HOME/.sonar/cache
     $HOME/.gradle
     .gradle
+=======
+language: node_js
+node_js:
+  - lts/*
+  - node
+>>>>>>> 37278d163172e6a34ec7d29997202bc3fe51975f
