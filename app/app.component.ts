@@ -20,12 +20,12 @@ export class AppComponent {
       // optional but useful to immediately re-logon the user when he re-visits your app
       onAuthStateChanged: function(data) {
         if (data && data.loggedIn) {
-          parent.userService.setUser(data.user);
+          parent.userService.setUser(data.user)
+            .then(() => parent.cd.detectChanges());
         } else {
           parent.userService.user = undefined;
+          parent.cd.detectChanges();
         }
-
-        parent.cd.detectChanges();
       }
     }).then(
       instance => console.log("firebase.init done"),
