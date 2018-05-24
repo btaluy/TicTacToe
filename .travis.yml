@@ -62,11 +62,10 @@ android:
   licenses:
     - ".+"
 
-before_install:
+install:
   - nvm install $NODE_VERSION
   - npm install -g typings
   - wget -O ./nativescript.tgz "https://s3.amazonaws.com/nativescript-ci/build_result/nativescript.tgz"
   - npm install -g nativescript.tgz --ignore-scripts
   - tns usage-reporting disable
   - tns error-reporting disable
-install: false
