@@ -43,6 +43,8 @@ android:
     - sys-img-armeabi-v7a-android-21
 
 install:
-    - echo no | npm install -g nativescript
-    - tns usage-reporting disable
-    - tns error-reporting disable
+  - npm install -g typings
+  - wget -O ./nativescript.tgz "https://s3.amazonaws.com/nativescript-ci/build_result/nativescript.tgz"
+  - npm install -g nativescript.tgz --ignore-scripts
+  - tns usage-reporting disable
+  - tns error-reporting disable
