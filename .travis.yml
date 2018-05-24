@@ -3,7 +3,7 @@ matrix:
     - stage: "SonarCloud"
       language: node_js
       os: linux
-      node_js: "6"
+      node_js: "8"
       addons:
         sonarcloud:
           organization: btaluy-github
@@ -30,7 +30,7 @@ matrix:
         - emulator -avd test -no-audio -no-window &
         - android-wait-for-emulator
       before_install:
-        - nvm install 6
+        - nvm install 8
       script: npm run test-android
 
 android:
