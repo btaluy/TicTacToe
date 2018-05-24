@@ -35,14 +35,14 @@ matrix:
         - adb shell input keyevent 82 &
       script:
         - npm run test-android
-      - stage: "SonarCloud"
-        addons:
-        sonarcloud:
-          organization: btaluy-github
-          token:
-            secure: 4676bf7ed8a13fc47e442ddcc8323ec114af05a2
-        script:
-          - sonar-scanner -X
+    - stage: "SonarCloud"
+      addons:
+      sonarcloud:
+        organization: btaluy-github
+        token:
+          secure: 4676bf7ed8a13fc47e442ddcc8323ec114af05a2
+      script:
+        - sonar-scanner -X
 
 android:
   components:
