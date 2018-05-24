@@ -23,7 +23,7 @@ matrix:
         sonarcloud:
           organization: btaluy-github
           token:
-            secure: feaeca75f7163a30a4724725192efb925919c9c8
+            secure: 4676bf7ed8a13fc47e442ddcc8323ec114af05a2
       script:
         - sonar-scanner -X
 
