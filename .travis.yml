@@ -11,6 +11,9 @@ matrix:
           token:
             secure: 4676bf7ed8a13fc47e442ddcc8323ec114af05a2
         script:
+          - npm install -g nativescript
+          - tns usage-reporting disable
+          - tns error-reporting disable
           - npm install
           - sonar-scanner -X
       install: true
@@ -48,10 +51,3 @@ android:
     - sys-img-armeabi-v7a-android-21
     - sys-img-armeabi-v7a-android-25
     - sys-img-armeabi-v7a-android-26
-
-install:
-  - npm install -g typings
-  - wget -O ./nativescript.tgz "https://s3.amazonaws.com/nativescript-ci/build_result/nativescript.tgz"
-  - npm install -g nativescript.tgz --ignore-scripts
-  - tns usage-reporting disable
-  - tns error-reporting disable
