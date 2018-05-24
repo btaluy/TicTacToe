@@ -70,10 +70,3 @@ before_install:
   - tns usage-reporting disable
   - tns error-reporting disable
 install: true
-
-cache:
-  directories:
-    $HOME/.m2/repository
-    $HOME/.sonar/cache
-    $HOME/.gradle
-    .gradle
