@@ -17,8 +17,14 @@ matrix:
       os: linux
       before_install: 
         - nvm install $NODE_VERSION
-      script: 
-        - npm install
+      addons:
+        sonarcloud:
+          organization: btaluy-github
+          token:
+            secure: 4676bf7ed8a13fc47e442ddcc8323ec114af05a2
+        script:
+          - npm install
+          - sonar-scanner -X
     - stage: "Build"
       language: android
       node_js: "8"
@@ -35,14 +41,6 @@ matrix:
         - adb shell input keyevent 82 &
       script:
         - npm run test-android
-    - stage: "SonarCloud"
-      addons:
-      sonarcloud:
-        organization: btaluy-github
-        token:
-          secure: 4676bf7ed8a13fc47e442ddcc8323ec114af05a2
-      script:
-        - sonar-scanner -X
 
 android:
   components:
