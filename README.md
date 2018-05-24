@@ -1,4 +1,4 @@
-https://img.shields.io/travis/btaluy/TicTacToe.svg
+![Travis](https://img.shields.io/travis/btaluy/TicTacToe.svg?style=social)
 
 
 "# TicTackToe" 
