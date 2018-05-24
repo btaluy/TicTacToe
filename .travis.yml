@@ -25,7 +25,7 @@ matrix:
           token:
             secure: feaeca75f7163a30a4724725192efb925919c9c8
       script:
-        - sonar-scanner
+        - sonar-scanner -X
 
 android:
   components:
