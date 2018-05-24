@@ -2,7 +2,7 @@ import { Component, ChangeDetectorRef } from "@angular/core";
 import firebase = require("nativescript-plugin-firebase");
 
 import { User } from "~/assets/domain";
-import { AudioService, UserService } from "~/assets/services";
+import { UserService } from "~/assets/services";
 
 @Component({
     selector: "ns-app",

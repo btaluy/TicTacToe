@@ -22,7 +22,6 @@
     "@angular/platform-browser-dynamic": "~5.2.0",
     "@angular/router": "~5.2.0",
     "nativescript-angular": "~5.3.0",
-    "nativescript-audio": "^4.3.5",
     "nativescript-loading-indicator": "2.3.2",
     "nativescript-ngx-fonticon": "^4.1.0",
     "nativescript-plugin-firebase": "^5.3.1",

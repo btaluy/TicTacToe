@@ -41,10 +41,6 @@ export class HomeComponent implements OnInit {
       console.log(JSON.stringify(this.userService.user));
     }
 
-    public toggleMusic(): void {
-      this.audioService.toggleBackground();
-    }
-
     private login(): void {
       this._popupService.loading('Authenticating...');
       firebase.login({
