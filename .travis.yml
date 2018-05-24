@@ -13,6 +13,7 @@ matrix:
         script:
           - npm install
           - sonar-scanner -X
+      install: true
     - stage: "Build and Test"
       env: 
         - BuildAndroid="25"
