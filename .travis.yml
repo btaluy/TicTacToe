@@ -40,9 +40,13 @@ android:
     - tools
     - platform-tools
     - build-tools-25.0.2
+    - build-tools-26.0.2
     - android-25
+    - android-22
     - extra-android-m2repository
     - sys-img-armeabi-v7a-android-21
+    - sys-img-armeabi-v7a-android-25
+    - sys-img-armeabi-v7a-android-26
 
 install:
   - npm install -g typings
