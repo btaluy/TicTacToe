@@ -69,4 +69,4 @@ before_install:
   - npm install -g nativescript.tgz --ignore-scripts
   - tns usage-reporting disable
   - tns error-reporting disable
-install: true
+install: false
