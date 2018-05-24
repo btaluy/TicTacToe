@@ -73,9 +73,9 @@
   "scripts": {
     "compile-sass": "node-sass app --output app",
     "start-ios": "tns run ios",
-    "start-android": "tns run android --justlaunch",
+    "start-android": "tns run android",
     "start-android-webpack": "tns run android --bundle --env.aot",
-    "test-android": "tns test android && echo \"[OK] No errors found, you're awesome! \"",
+    "test-android": "tns test android  --justlaunch",
     "test-ios": "tns test ios && echo \"[OK] No errors found, you're awesome! \""
   }
 }
