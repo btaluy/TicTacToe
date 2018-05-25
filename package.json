@@ -75,6 +75,6 @@
     "start-android": "tns run android",
     "start-android-webpack": "tns run android --bundle --env.aot",
     "test-android": "tns test android  --justlaunch",
-    "test-ios": "tns test ios && echo \"[OK] No errors found, you're awesome! \""
+    "test-ios": "tns test ios --justlaunch"
   }
 }

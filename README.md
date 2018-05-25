@@ -1,3 +1,6 @@
+![Travis](https://img.shields.io/travis/btaluy/TicTacToe.svg?style=social)
+
+
 "# TicTackToe" 
 
 Made by Berfu and Janine

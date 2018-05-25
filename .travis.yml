@@ -1,28 +1,6 @@
 matrix:
   include:
-    - stage: "SonarCloud"
-      language: node_js
-      os: linux
-      before_install: 
-        - nvm install 8
-      addons:
-        sonarcloud:
-          organization: btaluy-github
-          token:
-            secure: 4676bf7ed8a13fc47e442ddcc8323ec114af05a2
-        script:
-          - npm install
-          - sonar-scanner -X
-      install: true
     - stage: "Build and Test"
-      env: 
-        - BuildAndroid="25"
-      language: android
-      os: linux
-      jdk: oraclejdk8
-      before_install: nvm install stable
-      script:
-        - npm i && tns build android
       os: linux
       language: android
       dist: precise
@@ -35,23 +13,31 @@ matrix:
       before_install:
         - nvm install 8
       script: npm run test-android
+    - stage: "SonarCloud"
+      language: node_js
+      os: linux
+      before_install: 
+        - nvm install 8
+      addons:
+        sonarcloud:
+          organization: btaluy-github
+          token:
+            secure: feaeca75f7163a30a4724725192efb925919c9c8
+      script:
+        - sonar-scanner
 
 android:
   components:
     - tools
     - platform-tools
-    - build-tools-25.0.2
     - build-tools-26.0.2
-    - android-25
-    - android-22
+    - android-26
     - extra-android-m2repository
     - sys-img-armeabi-v7a-android-21
-    - sys-img-armeabi-v7a-android-25
-    - sys-img-armeabi-v7a-android-26
 
 install:
-  - npm install -g typings
-  - wget -O ./nativescript.tgz "https://s3.amazonaws.com/nativescript-ci/build_result/nativescript.tgz"
-  - npm install -g nativescript.tgz --ignore-scripts
+  - sudo apt-get install -y lib32gcc1 libc6-i386 lib32z1 lib32stdc++6
+  - sudo apt-get install -y lib32ncurses5 lib32gomp1 lib32z1-dev
+  - echo no | npm install -g nativescript
   - tns usage-reporting disable
   - tns error-reporting disable
