@@ -1,18 +1,18 @@
 matrix:
   include:
-    #- stage: "Build and Test"
-    #  os: linux
-    #  language: android
-    #  dist: precise
-    #  sudo: required
-    #  jdk: oraclejdk8
-    #  before_script:
-    #    - echo no | android create avd --force -n test -t android-21 -b armeabi-v7a
-    #    - emulator -avd test -no-audio -no-window &
-    #    - android-wait-for-emulator
-    #  before_install:
-    #    - nvm install 8
-    #  script: npm run test-android
+    - stage: "Build and Test"
+      os: linux
+      language: android
+      dist: precise
+      sudo: required
+      jdk: oraclejdk8
+      before_script:
+        - echo no | android create avd --force -n test -t android-21 -b armeabi-v7a
+        - emulator -avd test -no-audio -no-window &
+        - android-wait-for-emulator
+      before_install:
+        - nvm install 8
+      script: npm run test-android
     - stage: "SonarCloud"
       language: node_js
       os: linux
