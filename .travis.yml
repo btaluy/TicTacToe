@@ -1,7 +1,7 @@
 matrix:
   include:
     - stage: "Build and Test"
-      os: osx
+      os: linux
       language: android
       dist: precise
       sudo: required
@@ -24,6 +24,11 @@ android:
     - sys-img-armeabi-v7a-android-21
 
 install:
+  - dpkg --print-foreign-architectures
+  - echo 'foreign-architecture i386' | sudo tee /etc/dpkg/dpkg.cfg.d/multiarch
+  - dpkg --add-architecture i386
+  - apt-get install -y lib32gcc1 libc6-i386 lib32z1 lib32stdc++6
+  - apt-get install -y lib32ncurses5 lib32gomp1 lib32z1-dev
   - echo no | npm install -g nativescript
   - tns usage-reporting disable
   - tns error-reporting disable
