@@ -1,5 +1,6 @@
 # Nativescript TicTacToe game created by Berfu and Janine
 
+[![Last commit][last-commit]][last-commit]
 [![Build Status][build-status]][build-url]
 [![Quality Gate][quality-gate]][quality-gate]
 [![Maintainability][maintainability]][maintainability]
@@ -10,6 +11,7 @@
 [quality-gate]: https://sonarcloud.io/api/project_badges/measure?project=Project-tac-toe&metric=alert_status
 [maintainability]: https://sonarcloud.io/api/project_badges/measure?project=Project-tac-toe&metric=sqale_rating
 [node]: https://img.shields.io/node/v/carbon.svg
+[last-commit]: https://img.shields.io/github/last-commit/btaluy/TicTacToe.svg
 
 
 This app was created for a school project and will be in no way monetized.
