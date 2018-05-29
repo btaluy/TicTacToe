@@ -3,8 +3,6 @@ import { NativeScriptCommonModule } from "nativescript-angular/common";
 import { Routes } from "@angular/router";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { TNSFontIconModule } from "nativescript-ngx-fonticon";
-
-import { ResultsComponent } from "./results.component";
 import { CommonComponentsModule } from "~/assets/components/common-components.module";
 
 const routes: Routes = [

@@ -24,9 +24,4 @@ export class ResultsComponent implements OnInit {
       this._page.actionBarHidden = true;
       this.cd.detectChanges();
     }
-
-    public goToLB(): void {
-      this._popupService.toast('Leaderboards coming soon...');
-      console.log(JSON.stringify(this.userService.user));
-    }
 }
