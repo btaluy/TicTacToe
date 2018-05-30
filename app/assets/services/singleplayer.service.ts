@@ -11,6 +11,10 @@ export class SinglePlayerService {
 
   public restart(): void {
     this.newGame(0);
+  }
+
+  public reset(): void {
+    this.restart();
     this.board.setCircleScore(0);
     this.board.setCrossScore(0);
     this.board.setDrawScore(0);

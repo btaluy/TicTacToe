@@ -3,14 +3,14 @@
 
   <GridLayout rows="auto, auto, auto, *" columns="*, auto, *" class="margin-t-m">
     <Label
-      *ngIf="spService.board.crossScore > 0 || spService.board.drawScore > 0 || spService.board.circleScore > 0"
+      *ngIf="spService.board.crossScore > 0 || spService.board.score.drawScore > 0 || spService.board.score.circleScore > 0"
       row="0" class="restart" text="Restart" (tap)="restartDialog()">
     </Label>
   
     <StackLayout class="cross-score text-left" orientation="horizontal" row="1" col="0">
       <Label textWrap="true">
         <FormattedString>
-          <Span class="cross-score" [text]="spService.board.crossScore"></Span>
+          <Span class="cross-score" [text]="spService.board.score.crossScore"></Span>
           <Span class="fa cross-thumb icon" [text]="'\u0020\u0020' + ('fa-times' | fonticon)"></Span>
         </FormattedString>
       </Label>
@@ -19,7 +19,7 @@
     <StackLayout class="cross-score text-center" orientation="horizontal" row="1" col="1">
       <Label textWrap="true">
         <FormattedString>
-          <Span class="cross-score" [text]="spService.board.drawScore"></Span>
+          <Span class="cross-score" [text]="spService.board.score.drawScore"></Span>
           <Span class="fa circle-thumb icon" [text]="'\u0020\u0020' + ('fa-times-circle' | fonticon)"></Span>
         </FormattedString>
       </Label>
@@ -28,7 +28,7 @@
     <StackLayout class="circle-score text-center" orientation="horizontal" row="1" col="2">
       <Label textWrap="true">
         <FormattedString>
-          <Span class="circle-score" [text]="spService.board.circleScore"></Span>
+          <Span class="circle-score" [text]="spService.board.score.circleScore"></Span>
           <Span class="fa circle-thumb icon" [text]="'\u0020\u0020' + ('fa-circle-thin' | fonticon)"></Span>
         </FormattedString>
       </Label>

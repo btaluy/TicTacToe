@@ -5,13 +5,17 @@ import {
 
 import { Square, State, WinnerRetriever } from './index';
 
+export class Score {
+  public crossScore: number = 0;
+  public circleScore: number = 0;
+  public drawScore: number = 0;
+}
+
 export class Board {
   public boardSize: number;
   public squares: Square[] = [];
   public currentState: State;
-  public crossScore: number;
-  public circleScore: number;
-  public drawScore: number;
+  public score: Score = new Score();
   public isGameWon: boolean;
   public winnerRetreiver: WinnerRetriever;
 
@@ -20,9 +24,9 @@ export class Board {
   public constructor(size: number) {
     this.boardSize = size;
     this.squares = [];
-    this.crossScore = getNumber('crossScore', 0);
-    this.circleScore = getNumber('circleScore', 0);
-    this.drawScore = getNumber('drawScore', 0);
+    this.score.crossScore = getNumber('crossScore', 0);
+    this.score.circleScore = getNumber('circleScore', 0);
+    this.score.drawScore = getNumber('drawScore', 0);
     this.currentState = State.Cross;
     this.startNewGame();
   }
@@ -61,18 +65,18 @@ export class Board {
   }
 
   public setCrossScore(value: number): void {
-    this.crossScore = value;
-    setNumber('crossScore', this.crossScore);
+    this.score.crossScore = value;
+    setNumber('crossScore', this.score.crossScore);
   }
 
   public setCircleScore(value: number): void {
-    this.circleScore = value;
-    setNumber('circleScore', this.circleScore);
+    this.score.circleScore = value;
+    setNumber('circleScore', this.score.circleScore);
   }
 
   public setDrawScore(value: number): void {
-    this.drawScore = value;
-    setNumber('drawScore', this.drawScore);
+    this.score.drawScore = value;
+    setNumber('drawScore', this.score.drawScore);
   }
 
   public get isDraw(): boolean {
@@ -87,11 +91,11 @@ export class Board {
 
   private incrementWinnerScore(): void {
     if (this.currentState === State.Cross) {
-      this.crossScore++;
-      this.setCrossScore(this.crossScore);
+      this.score.crossScore++;
+      this.setCrossScore(this.score.crossScore);
     } else {
-      this.circleScore++;
-      this.setCircleScore(this.circleScore);
+      this.score.circleScore++;
+      this.setCircleScore(this.score.circleScore);
     }
   }
 

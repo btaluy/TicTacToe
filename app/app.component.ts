@@ -3,6 +3,7 @@ import firebase = require("nativescript-plugin-firebase");
 
 import { User } from "~/assets/domain";
 import { UserService } from "~/assets/services";
+import { LeaderBoardService } from "~/assets/services/leaderboard.service";
 
 @Component({
     selector: "ns-app",
@@ -11,7 +12,8 @@ import { UserService } from "~/assets/services";
 export class AppComponent { 
   public constructor(
     public userService: UserService,
-    private cd: ChangeDetectorRef) { }
+    private cd: ChangeDetectorRef,
+    private leaderBoard: LeaderBoardService) { }
 
   ngOnInit(): void {
     let parent = this;
@@ -21,7 +23,10 @@ export class AppComponent {
       onAuthStateChanged: function(data) {
         if (data && data.loggedIn) {
           parent.userService.setUser(data.user)
-            .then(() => parent.cd.detectChanges());
+            .then(() => {
+              parent.leaderBoard.setNewSPScore();
+              parent.cd.detectChanges();
+            });
         } else {
           parent.userService.user = undefined;
           parent.cd.detectChanges();
