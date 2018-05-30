@@ -27,7 +27,6 @@ export class UserService {
   }
 
   private setUserIfNotFound(user: User): Promise<any> {
-    this.popupService.loading('fetching user...');
     const query = this.userCollection.doc(user.uid);
 
     return query.get()

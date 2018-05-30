@@ -3,7 +3,7 @@
 
   <GridLayout rows="auto, auto, auto, *" columns="*, auto, *" class="margin-t-m">
     <Label
-      *ngIf="spService.board.crossScore > 0 || spService.board.score.drawScore > 0 || spService.board.score.circleScore > 0"
+      *ngIf="spService.board.score.crossScore > 0 || spService.board.score.drawScore > 0 || spService.board.score.circleScore > 0"
       row="0" class="restart" text="Restart" (tap)="restartDialog()">
     </Label>
   

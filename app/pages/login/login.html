@@ -1,0 +1,12 @@
+<StackLayout class="page">
+  <GridLayout rows="auto, auto, auto" columns="*, *">
+    <Label row="1" col="0" colSpan="3" class="label label-large white label-center" text="TICKTACKTOE"></Label>
+
+    <Button row="2" col="0" colSpan="3" class="fa home-button margin-t-xxl" (tap)="login()">
+      <FormattedString>
+        <Span class="font-xxl" [text]="'Login with '"></Span>
+        <Span class="font-xxl" [text]="'fa-google' | fonticon"></Span>
+      </FormattedString>
+    </Button>
+  </GridLayout>
+</StackLayout>
