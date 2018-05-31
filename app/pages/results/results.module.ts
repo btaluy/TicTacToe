@@ -4,6 +4,7 @@ import { Routes } from "@angular/router";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { TNSFontIconModule } from "nativescript-ngx-fonticon";
 import { CommonComponentsModule } from "~/assets/components/common-components.module";
+import { ResultsComponent } from './results.component';
 
 const routes: Routes = [
     { path: "", component: ResultsComponent }
@@ -28,4 +29,4 @@ const routes: Routes = [
         NativeScriptRouterModule
     ]
 })
-export class ResultsComponent { }
+export class ResultsModule { }
