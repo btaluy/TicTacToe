@@ -28,20 +28,21 @@ export class LoginComponent implements OnInit {
     }
 
     public login(): void {
-      this.isLogginIn = true;
-      firebase.login({
-        type: firebase.LoginType.GOOGLE
-      }).then(() => {
-          this._navigationService.navigateToAndClearHistory(MenuItemName.home)
-            .then(() => {
-              this.isLogginIn = false;
-            });
-        },
-        errorMessage => {
-          console.log(errorMessage);
-          this._popupService.toast('No internet connection...');
-          this.isLogginIn = false;
-        }
-      );
+      if (!this.isLogginIn) {
+        this.isLogginIn = true;
+        firebase.login({
+          type: firebase.LoginType.GOOGLE
+        }).then(() => {
+            this._navigationService.navigateToAndClearHistory(MenuItemName.home)
+              .then(() => {
+                this.isLogginIn = false;
+              });
+          },
+          errorMessage => {
+            console.log(errorMessage);
+            this.isLogginIn = false;
+          }
+        );
+      }
     }
 }

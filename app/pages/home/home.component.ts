@@ -32,25 +32,10 @@ export class HomeComponent implements OnInit {
 
     public goToMP(): void {
       this.audioService.clickSound();
-      //this._popupService.toast('Mutliplayer will be added soon');
-      this.login();
+      this._popupService.toast('Mutliplayer will be added soon');
     }
 
     public goToLB(): void {
       this._popupService.toast('Leaderboards coming soon...');
-    }
-
-    private login(): void {
-      this._popupService.loading('Authenticating...');
-      firebase.login({
-        type: firebase.LoginType.GOOGLE
-      }).then(result => {
-          this._popupService.toast('Logged in...');
-        },
-        errorMessage => {
-          console.log(errorMessage);
-          this._popupService.toast('No internet connection...');
-        }
-      );
     }
 }

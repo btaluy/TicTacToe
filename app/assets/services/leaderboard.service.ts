@@ -10,7 +10,7 @@ import { PopupService } from '~/assets/services';
 import { UserService } from './user.service';
 
 @Injectable()
-export class LeaderBoardService extends UserService {
+export class LeaderBoardService {
   public spScore: Score = new Score();
   public mpScore: Score = new Score();
 
@@ -19,14 +19,13 @@ export class LeaderBoardService extends UserService {
   private spLeaderboardCollection = firebase.firestore.collection("spleaderboard");
   private mpLeaderboardCollection = firebase.firestore.collection("mpleaderboard");
 
-  public constructor(protected popupService: PopupService) {
-    super(popupService);
+  public constructor(private popupService: PopupService, private userService: UserService, private zone: NgZone) {
   }
 
   private setSPSub(): void {
     if (!this.spSubscription) {
       this.spSubscription = true;
-      const query = this.spLeaderboardCollection.doc(this.user.uid);
+      const query = this.spLeaderboardCollection.doc(this.userService.user.uid);
       query.onSnapshot(doc => {
         this.getSPScore();
       });
@@ -34,7 +33,7 @@ export class LeaderBoardService extends UserService {
   }
 
   public getSPScore(): Promise<any> {
-    const query = this.spLeaderboardCollection.doc(this.user.uid);
+    const query = this.spLeaderboardCollection.doc(this.userService.user.uid);
     return query.get()
       .then(doc => {
         if (doc.exists) {
@@ -47,7 +46,7 @@ export class LeaderBoardService extends UserService {
   }
 
   public updateSPScore(): Promise<any> {
-    const query = this.spLeaderboardCollection.doc(this.user.uid);
+    const query = this.spLeaderboardCollection.doc(this.userService.user.uid);
 
     return query.update(this.spScore)
             .then(() => console.log('Score updated!'))
@@ -55,7 +54,7 @@ export class LeaderBoardService extends UserService {
   }
 
   public updateMPScore(): Promise<any> {
-    const query: firebase.firestore.DocumentReference  = this.mpLeaderboardCollection.doc(this.user.uid);
+    const query: firebase.firestore.DocumentReference  = this.mpLeaderboardCollection.doc(this.userService.user.uid);
 
     return query.get()
       .then(doc => {
@@ -66,7 +65,7 @@ export class LeaderBoardService extends UserService {
   }
 
   public setNewSPScore(): Promise<any> {
-    const query: firebase.firestore.DocumentReference = this.spLeaderboardCollection.doc(this.user.uid);
+    const query: firebase.firestore.DocumentReference = this.spLeaderboardCollection.doc(this.userService.user.uid);
 
     return query.get()
       .then(doc => {
@@ -79,7 +78,7 @@ export class LeaderBoardService extends UserService {
   }
 
   public setNewMPScore(): Promise<any> {
-    const query = this.mpLeaderboardCollection.doc(this.user.uid);
+    const query = this.mpLeaderboardCollection.doc(this.userService.user.uid);
 
     return query.get()
       .then(doc => {

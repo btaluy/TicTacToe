@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import * as firebase from 'nativescript-plugin-firebase';
 
 import { User } from '~/assets/domain';
@@ -8,9 +8,9 @@ import { PopupService } from '~/assets/services';
 export class UserService {
   public user: User;
   private userCollection = firebase.firestore.collection("users");
-  private subscription: any;
+  private subscription: boolean;
 
-  constructor(protected popupService: PopupService) {}
+  constructor(protected popupService: PopupService, protected zone: NgZone) {}
 
   public setUser(userObject: any): Promise<any> {
     const user: User = User.fromObject(userObject);
@@ -36,8 +36,10 @@ export class UserService {
             this.setUserIfNotFound(user);
           });
         } else {
-          this.user = User.fromObject(doc.data());
-          this.popupService.hideLoading();
+          this.zone.run(() => {
+            this.user = User.fromObject(doc.data());
+            this.popupService.hideLoading();
+          });
         }
       });
   }

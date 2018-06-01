@@ -1,8 +1,9 @@
-import { Component, ChangeDetectorRef } from "@angular/core";
+import { Component, ChangeDetectorRef, NgZone } from "@angular/core";
 import firebase = require("nativescript-plugin-firebase");
 
 import { User } from "~/assets/domain";
 import { LeaderBoardService } from "~/assets/services/leaderboard.service";
+import { UserService } from "~/assets/services/user.service";
 
 @Component({
     selector: "ns-app",
@@ -11,7 +12,9 @@ import { LeaderBoardService } from "~/assets/services/leaderboard.service";
 export class AppComponent { 
   public constructor(
     public leaderBoard: LeaderBoardService,
+    public userService: UserService,
     private cd: ChangeDetectorRef,
+    private zone: NgZone
     ) { }
 
   ngOnInit(): void {
@@ -21,13 +24,15 @@ export class AppComponent {
       // optional but useful to immediately re-logon the user when he re-visits your app
       onAuthStateChanged: function(data) {
         if (data && data.loggedIn) {
-          parent.leaderBoard.setUser(data.user)
-            .then(() => {
-              parent.leaderBoard.setNewSPScore();
-              parent.cd.detectChanges();
-            });
+          parent.zone.run(() => {
+            parent.userService.setUser(data.user)
+              .then(() => {
+                parent.leaderBoard.setNewSPScore();
+                parent.cd.detectChanges();
+              });
+          });
         } else {
-          parent.leaderBoard.user = undefined;
+          parent.userService.user = undefined;
           parent.cd.detectChanges();
         }
       }
