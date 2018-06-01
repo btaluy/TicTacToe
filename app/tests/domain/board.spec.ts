@@ -8,7 +8,7 @@ describe('The Board model', () => {
     board.startNewGame();
   });
 
-  it('should call setCrossScore with a desired value and should update the crossScore', () => {
+  /*it('should call setCrossScore with a desired value and should update the crossScore', () => {
     board.setCrossScore(1);
     expect(board.score.crossScore).toBe(1);
   });
@@ -21,7 +21,7 @@ describe('The Board model', () => {
   it('should call setDrawScore with a desired value and should update the drawScore', () => {
     board.setDrawScore(4);
     expect(board.score.drawScore).toBe(4);
-  });
+  });*/
 
   it('should have the right property values when defined.', () => {
     expect(board.boardSize).toBe(3);

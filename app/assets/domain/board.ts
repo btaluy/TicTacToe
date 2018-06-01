@@ -9,24 +9,28 @@ export class Score {
   public crossScore: number = 0;
   public circleScore: number = 0;
   public drawScore: number = 0;
+
+  public static fromObject(object: any): Score {
+    const score: Score = new Score();
+    score.circleScore = object.circleScore;
+    score.crossScore = object.crossScore;
+    score.drawScore = object.drawScore;
+
+    return score;
+  }
 }
 
 export class Board {
   public boardSize: number;
   public squares: Square[] = [];
   public currentState: State;
-  public score: Score = new Score();
   public isGameWon: boolean;
+  public marksCount: number = 0;
   public winnerRetreiver: WinnerRetriever;
-
-  private _marksCount: number = 0;
 
   public constructor(size: number) {
     this.boardSize = size;
     this.squares = [];
-    this.score.crossScore = getNumber('crossScore', 0);
-    this.score.circleScore = getNumber('circleScore', 0);
-    this.score.drawScore = getNumber('drawScore', 0);
     this.currentState = State.Cross;
     this.startNewGame();
   }
@@ -34,18 +38,9 @@ export class Board {
   public startNewGame(): void {
     this.isGameWon = false;
     this.currentState = State.Cross;
-    this._marksCount = 0;
+    this.marksCount = 0;
     this.initializeBoard();
     this.winnerRetreiver = new WinnerRetriever(this.squares, this.boardSize);
-  }
-
-  public mark(square: Square): void {
-    if(square.canChangeState) {
-      square.state = this.currentState;
-      this._marksCount++;
-      this.setGameWonStateFrom(square);
-      this.changeCurrentState();
-    }
   }
 
   public getWinningIndexesFor(square): number[] {
@@ -64,45 +59,14 @@ export class Board {
     return this.winnerRetreiver.getBestSpot(index);
   }
 
-  public setCrossScore(value: number): void {
-    this.score.crossScore = value;
-    setNumber('crossScore', this.score.crossScore);
-  }
-
-  public setCircleScore(value: number): void {
-    this.score.circleScore = value;
-    setNumber('circleScore', this.score.circleScore);
-  }
-
-  public setDrawScore(value: number): void {
-    this.score.drawScore = value;
-    setNumber('drawScore', this.score.drawScore);
+  public changeCurrentState(): void {
+    if(!this.isGameWon) {
+      this.currentState = this.nextState;
+    }
   }
 
   public get isDraw(): boolean {
     return !this.isGameWon && this.isBoardFull;
-  }
-
-  private setGameWonStateFrom(square: Square): void {
-    this.isGameWon = this.getWinningIndexesFor(square) != undefined;
-    if (this.isGameWon)
-      this.incrementWinnerScore();
-  }
-
-  private incrementWinnerScore(): void {
-    if (this.currentState === State.Cross) {
-      this.score.crossScore++;
-      this.setCrossScore(this.score.crossScore);
-    } else {
-      this.score.circleScore++;
-      this.setCircleScore(this.score.circleScore);
-    }
-  }
-
-  private changeCurrentState(): void {
-    if(!this.isGameWon) {
-      this.currentState = this.nextState;
-    }
   }
 
   private get nextState(): State {
@@ -110,7 +74,7 @@ export class Board {
   }
 
   private get isBoardFull(): boolean {
-    return this._marksCount === (this.boardSize * this.boardSize);
+    return this.marksCount === (this.boardSize * this.boardSize);
   }
 
   private initializeBoard(): void {

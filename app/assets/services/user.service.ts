@@ -10,7 +10,7 @@ export class UserService {
   private userCollection = firebase.firestore.collection("users");
   private subscription: any;
 
-  constructor(private popupService: PopupService, private zone: NgZone) {}
+  constructor(protected popupService: PopupService, protected zone: NgZone) {}
 
   public setUser(userObject: any): Promise<any> {
     const user: User = User.fromObject(userObject);

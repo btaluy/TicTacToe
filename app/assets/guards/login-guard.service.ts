@@ -16,7 +16,6 @@ export class LoginGuard implements CanActivate {
   public canActivate(): Promise<boolean> {
     return this.isUserLoggedIn()
       .then(message => {
-        console.log(message);
         return true;
       })
       .catch(error => {

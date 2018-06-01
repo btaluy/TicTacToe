@@ -6,11 +6,12 @@ export class User {
 
   public static fromObject(object: any) {
     const user: User = new User();
-    user.uid = object.uid;
-    user.name = object.name;
-    user.email = object.email;
-    user.profileImageURL = object.profileImageURL;
-
+    if (object) {
+      user.uid = object.uid;
+      user.name = object.name;
+      user.email = object.email;
+      user.profileImageURL = object.profileImageURL;
+    }
     return user;
   }
 }
