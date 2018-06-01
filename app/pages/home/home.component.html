@@ -1,24 +1,26 @@
 <StackLayout class="page">
-  <user-interface></user-interface>
+  <user-interface showLogout="true"></user-interface>
   
-  <GridLayout rows="auto, auto, auto, auto, auto" columns="*, *">
-    <Label row="1" col="0" colSpan="3" class="label label-large white label-center" text="TICKTACKTOE"></Label>
+  <GridLayout rows="auto, auto, auto, auto, auto, auto" columns="*, *">
+    <Label row="1" col="0" colSpan="2" class="label label-large white label-center" text="TIC TAC TOE"></Label>
+
+    <Image row="2" col="0" colSpan="2" src="~/assets/img/tictactoeBG.png" height="200" width="200"></Image>
     
-    <Button row="2" col="0" colSpan="3" class="fa home-button margin-t-xxl" (tap)="goToSP()">
+    <Button row="3" col="0" colSpan="2" class="fa home-button margin-t-xxl" (tap)="goToSP()">
       <FormattedString>
         <Span class="font-xxl" [text]="'fa-user' | fonticon"></Span>
         <Span class="font-xxl" [text]="'\u0020\u0020 SINGLEPLAYER'"></Span>
       </FormattedString>
     </Button>
     
-    <Button row="3" col="0" colSpan="3" class="fa home-button margin-t-l" (tap)="goToMP()">
+    <Button row="4" col="0" colSpan="2" class="fa home-button margin-t-l" (tap)="goToMP()">
       <FormattedString>
         <Span class="font-xxl" [text]="'fa-users' | fonticon"></Span>
         <Span class="font-xxl" [text]="'\u0020\u0020 MULTIPLAYER'"></Span>
       </FormattedString>
     </Button>
 
-    <Button row="4" col="0" colSpan="3" class="fa home-button margin-t-l" (tap)="goToLB()">
+    <Button row="5" col="0" colSpan="2" class="fa home-button margin-t-l" (tap)="goToLB()">
       <FormattedString>
         <Span class="font-xxl" [text]="'fa-users' | fonticon"></Span>
         <Span class="font-xxl" [text]="'\u0020\u0020 LEADERBOARD'"></Span>

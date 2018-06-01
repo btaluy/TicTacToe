@@ -1,8 +1,10 @@
 <StackLayout class="page">
-  <GridLayout rows="auto, auto, auto" columns="*, *">
-    <Label row="1" col="0" colSpan="3" class="label label-large white label-center" text="TICKTACKTOE"></Label>
+  <GridLayout rows="25, auto, auto, auto" columns="*, *">
+    <Label row="1" col="0" colSpan="2" class="label label-large white label-center" text="TIC TAC TOE"></Label>
 
-    <Button row="2" col="0" colSpan="3" class="fa home-button margin-t-xxl" (tap)="login()" [isEnabled]="!isLogginIn">
+    <Image row="2" col="0" colSpan="2" src="~/assets/img/tictactoeBG.png" height="200" width="200"></Image>
+
+    <Button row="3" col="0" colSpan="2" class="fa home-button margin-t-xxl" (tap)="login()" [isEnabled]="!isLogginIn">
       <FormattedString>
         <Span class="font-xxl" [text]="'Login with '"></Span>
         <Span class="font-xxl" [text]="'fa-google' | fonticon"></Span>

@@ -12,6 +12,7 @@ import { MenuItemName } from "~/assets/domain";
 export class UserInterfaceComponent {
   @Input() public row: number;
   @Input() public columns: number;
+  @Input() public showLogout: boolean = false;
 
   public constructor(public userService: UserService,
                      private _navigationService: NavigationService,
