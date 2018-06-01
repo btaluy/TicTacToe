@@ -13,8 +13,8 @@ export class LoginGuard implements CanActivate {
     private navigationService: NavigationService
   ) {}
 
-  public canActivate(): boolean {
-    /*return this.isUserLoggedIn()
+  public canActivate(): Promise<boolean> {
+    return this.isUserLoggedIn()
       .then(message => {
         return true;
       })
@@ -22,11 +22,10 @@ export class LoginGuard implements CanActivate {
         console.log(error);
         this.navigationService.navigateToAndClearHistory(MenuItemName.login);
         return false;
-      });*/
-      return true;
+      });
   }
 
-  /*private isUserLoggedIn(): Promise<any> {
+  private isUserLoggedIn(): Promise<any> {
     return new Promise((promise: any, reject: any) => {
       firebase.getCurrentUser()
       .then(() => {
@@ -36,5 +35,5 @@ export class LoginGuard implements CanActivate {
         return reject('No user logged in!');
       })
     });
-  }*/
+  }
 }
