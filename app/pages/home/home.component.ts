@@ -38,7 +38,6 @@ export class HomeComponent implements OnInit {
 
     public goToLB(): void {
       this._popupService.toast('Leaderboards coming soon...');
-      console.log(JSON.stringify(this.userService.user));
     }
 
     private login(): void {
