@@ -36,7 +36,6 @@ export class LeaderBoardService extends UserService {
 
   public getSPScore(): Promise<any> {
     const query = this.spLeaderboardCollection.doc(this.user.uid);
-    console.log('gettingScore');
     return query.get()
       .then(doc => {
         if (doc.exists) {
