@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectorRef } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import firebase = require("nativescript-plugin-firebase");
 
 import { PopupService, UserService, NavigationService } from "~/assets/services";
@@ -15,12 +15,7 @@ export class UserInterfaceComponent {
 
   public constructor(public userService: UserService,
                      private _navigationService: NavigationService,
-                     private _popupService: PopupService,
-                     private cd: ChangeDetectorRef) {
-  }
-
-  public ngOnInit(): void {
-    this.cd.detectChanges();
+                     private _popupService: PopupService) {
   }
 
   public logout(): void {

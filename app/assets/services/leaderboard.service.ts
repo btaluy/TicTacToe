@@ -19,9 +19,8 @@ export class LeaderBoardService extends UserService {
   private spLeaderboardCollection = firebase.firestore.collection("spleaderboard");
   private mpLeaderboardCollection = firebase.firestore.collection("mpleaderboard");
 
-  public constructor(protected popupService: PopupService,
-                     protected zone: NgZone) {
-    super(popupService, zone);
+  public constructor(protected popupService: PopupService) {
+    super(popupService);
   }
 
   private setSPSub(): void {

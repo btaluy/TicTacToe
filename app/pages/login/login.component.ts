@@ -11,6 +11,8 @@ import { MenuItemName } from "~/assets/domain";
     templateUrl: "./login.html"
 })
 export class LoginComponent implements OnInit {
+  public isLogginIn: boolean = false;
+
     constructor(
       public audioService: AudioService,
       public userService: UserService,
@@ -26,16 +28,19 @@ export class LoginComponent implements OnInit {
     }
 
     public login(): void {
-      this._popupService.loading('Authenticating...');
+      this.isLogginIn = true;
       firebase.login({
         type: firebase.LoginType.GOOGLE
-      }).then(result => {
-          this._popupService.toast('Logged in...');
-          this._navigationService.navigateToAndClearHistory(MenuItemName.home);
+      }).then(() => {
+          this._navigationService.navigateToAndClearHistory(MenuItemName.home)
+            .then(() => {
+              this.isLogginIn = false;
+            });
         },
         errorMessage => {
           console.log(errorMessage);
           this._popupService.toast('No internet connection...');
+          this.isLogginIn = false;
         }
       );
     }
