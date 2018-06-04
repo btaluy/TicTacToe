@@ -2,10 +2,7 @@
   <user-interface></user-interface>
 
   <GridLayout rows="auto, auto, auto, *" columns="*, auto, *" class="margin-t-m">
-    <Label
-      *ngIf="leaderBoard.spScore.crossScore > 0 || leaderBoard.spScore.drawScore > 0 || leaderBoard.spScore.circleScore > 0"
-      row="0" class="restart" text="Restart" (tap)="restartDialog()">
-    </Label>
+    <Label row="0" class="restart" text="Restart" (tap)="restartDialog()"></Label>
   
     <StackLayout class="cross-score text-left" orientation="horizontal" row="1" col="0">
       <Label textWrap="true">

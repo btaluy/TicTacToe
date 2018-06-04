@@ -6,11 +6,13 @@ import { NavigationService, PopupService, AudioService, UserService } from "~/as
 import { MenuItemName } from "~/assets/domain";
 
 @Component({
-    selector: "Home",
+    selector: "leaderboard",
     moduleId: module.id,
-    templateUrl: "./home.component.html"
+    templateUrl: "./leaderboard.component.html"
 })
-export class HomeComponent implements OnInit {
+export class LeaderboardComponent implements OnInit {
+  public selectedIndex: number;
+
     constructor(
       public audioService: AudioService,
       public userService: UserService,
@@ -25,18 +27,7 @@ export class HomeComponent implements OnInit {
       this.cd.detectChanges();
     }
 
-    public goToSP(): void {
-      this.audioService.clickSound();
-      this._navigationService.navigateTo(MenuItemName.singleplayer);
-    }
-
-    public goToMP(): void {
-      this.audioService.clickSound();
-      this._popupService.toast('Mutliplayer will be added soon');
-    }
-
-    public goToLB(): void {
-      this._popupService.toast('Leaderboards coming soon...');
-      this._navigationService.navigateTo(MenuItemName.leaderboard);
+    public test(): void {
+      console.log(this.selectedIndex);
     }
 }

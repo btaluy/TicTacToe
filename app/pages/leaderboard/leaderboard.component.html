@@ -1,0 +1,8 @@
+<TabView class="lb-page" selectedColor="yellow" #element [(ngModel)]="selectedIndex">
+  <GridLayout class="padding-t-xl" rows="auto" columns="*, auto, *" *tabItem="{title: 'Singleplayer'}">
+      <Label row="0" col="0" colSpan="3" class="white" text="Second tab item"></Label>
+  </GridLayout>
+  <StackLayout *tabItem="{title: 'Multiplayer'}">
+      <Label class="white" text="First tab item"></Label>
+  </StackLayout>
+</TabView>

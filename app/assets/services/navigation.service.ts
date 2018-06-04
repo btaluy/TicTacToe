@@ -161,5 +161,9 @@ export const navigationItems: NavigationItem[] =
     {
       name: MenuItemName.login,
       path: "login"
+    },
+    {
+      name: MenuItemName.leaderboard,
+      path: "leaderboard"
     }
   ];

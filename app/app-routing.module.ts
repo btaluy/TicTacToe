@@ -22,6 +22,11 @@ const routes: Routes = [
       path: "singleplayer",
       loadChildren: "./pages/singleplayer/singleplayer.module#SinglePlayerModule",
       canActivate: [LoginGuard]
+    },
+    {
+      path: "leaderboard",
+      loadChildren: "./pages/leaderboard/leaderboard.module#LeaderboardModule",
+      canActivate: [LoginGuard]
     }
 ];
 
