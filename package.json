@@ -5,38 +5,35 @@
   "nativescript": {
     "id": "org.nativescript.TacToe",
     "tns-android": {
-      "version": "4.0.1"
-    },
-    "tns-ios": {
-      "version": "4.0.1"
+      "version": "4.2.0-2018-06-04-02"
     }
   },
   "dependencies": {
-    "@angular/animations": "~5.2.0",
-    "@angular/common": "~5.2.0",
-    "@angular/compiler": "~5.2.0",
-    "@angular/core": "~5.2.0",
-    "@angular/forms": "~5.2.0",
-    "@angular/http": "~5.2.0",
-    "@angular/platform-browser": "~5.2.0",
-    "@angular/platform-browser-dynamic": "~5.2.0",
-    "@angular/router": "~5.2.0",
-    "nativescript-angular": "~5.3.0",
+    "@angular/animations": "5.2.9",
+    "@angular/common": "5.2.9",
+    "@angular/compiler": "5.2.9",
+    "@angular/core": "5.2.9",
+    "@angular/forms": "5.2.9",
+    "@angular/http": "5.2.9",
+    "@angular/platform-browser": "5.2.9",
+    "@angular/platform-browser-dynamic": "5.2.9",
+    "@angular/router": "5.2.9",
+    "nativescript-angular": "5.3.0",
     "nativescript-loading-indicator": "2.3.2",
-    "nativescript-ngx-fonticon": "^4.1.0",
-    "nativescript-plugin-firebase": "^5.3.1",
-    "nativescript-sound": "^1.0.4",
-    "nativescript-theme-core": "~1.0.4",
+    "nativescript-ngx-fonticon": "4.1.0",
+    "nativescript-plugin-firebase": "5.3.1",
+    "nativescript-sound": "1.0.4",
+    "nativescript-theme-core": "1.0.4",
     "nativescript-toast": "1.4.6",
-    "nativescript-unit-test-runner": "^0.3.4",
+    "nativescript-unit-test-runner": "0.3.4",
     "reflect-metadata": "~0.1.10",
-    "rxjs": "~5.5.5",
+    "rxjs": "5.5.5",
     "tns-core-modules": "4.0.0",
     "tns-platform-declarations": "^4.0.0",
     "zone.js": "~0.8.18"
   },
   "devDependencies": {
-    "@angular/compiler-cli": "~5.2.0",
+    "@angular/compiler-cli": "5.2.9",
     "@ngtools/webpack": "~1.9.4",
     "@types/jasmine": "2.8.7",
     "babel-traverse": "6.4.5",
@@ -64,9 +61,9 @@
     "sass-loader": "~6.0.6",
     "typescript": "~2.7.2",
     "uglifyjs-webpack-plugin": "~1.1.6",
-    "webpack": "~3.10.0",
-    "webpack-bundle-analyzer": "^2.9.1",
-    "webpack-sources": "~1.1.0"
+    "webpack": "3.10.0",
+    "webpack-bundle-analyzer": "2.9.1",
+    "webpack-sources": "1.0.2"
   },
   "author": "BTaluy & JBoeser",
   "scripts": {
