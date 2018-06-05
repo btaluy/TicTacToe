@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef, NgZone } from "@angular/core";
-import firebase = require("nativescript-plugin-firebase");
+import * as firebase from 'nativescript-plugin-firebase';
 
 import { User } from "~/assets/domain";
 import { LeaderBoardService } from "~/assets/services/leaderboard.service";

@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import { Page } from "ui/page";
-import firebase = require("nativescript-plugin-firebase");
+import * as firebase from 'nativescript-plugin-firebase';
 
 import { NavigationService, PopupService, AudioService, UserService } from "~/assets/services";
 import { MenuItemName } from "~/assets/domain";

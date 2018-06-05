@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core";
-import firebase = require("nativescript-plugin-firebase");
+import * as firebase from 'nativescript-plugin-firebase';
 
 import { PopupService, UserService, NavigationService } from "~/assets/services";
 import { MenuItemName } from "~/assets/domain";

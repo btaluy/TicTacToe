@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
-
-import firebase = require("nativescript-plugin-firebase");
+import * as firebase from 'nativescript-plugin-firebase';
 
 import { NavigationService } from '~/assets/services';
 
