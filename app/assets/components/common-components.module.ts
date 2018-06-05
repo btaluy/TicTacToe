@@ -3,6 +3,7 @@ import { NativeScriptCommonModule } from "nativescript-angular/common";
 import { TNSFontIconModule } from "nativescript-ngx-fonticon";
 
 import { UserInterfaceComponent } from '~/assets/components/user-interface/user-interface.component';
+import { UpdateLabelDirective } from "~/assets/components/update-label/update-label";
 
 @NgModule({
     imports: [
@@ -12,13 +13,15 @@ import { UserInterfaceComponent } from '~/assets/components/user-interface/user-
         })
     ],
     declarations: [
-        UserInterfaceComponent
+        UserInterfaceComponent,
+        UpdateLabelDirective
     ],
     schemas: [
         NO_ERRORS_SCHEMA
     ],
     exports: [
-      UserInterfaceComponent
+      UserInterfaceComponent,
+      UpdateLabelDirective
     ]
 })
 export class CommonComponentsModule { }
