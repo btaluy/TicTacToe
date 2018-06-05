@@ -53,7 +53,6 @@ describe('The SinglePlayerService', () => {
     setTimeout(() => {
       expect(singlePlayerService.board.isGameWon).toBeTruthy();
       expect(singlePlayerService.gamePanelCaption).toBe('Winner');
-      //expect(singlePlayerService.board.score.crossScore).toBeGreaterThan(0);
     }, 2000);
   });
 });
