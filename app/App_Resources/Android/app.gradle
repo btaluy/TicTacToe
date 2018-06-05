@@ -8,11 +8,15 @@
 android {  
   defaultConfig {  
     generatedDensities = []
-    applicationId = "org.nativescript.TacToe"  
+    applicationId = "org.nativescript.TacToe"
+    multiDexEnabled true
+    minSdkVersion 21 
+    targetSdkVersion 26
+    flavorDimensions "fireb"
   }  
   aaptOptions {  
     additionalParameters "--no-version-vectors"  
-  }  
+  }
 } 
 
 def settingsGradlePath
@@ -28,4 +32,19 @@ def settingsGradleFile = new File(settingsGradlePath);
 if(settingsGradleFile.exists())
 {
     apply from: settingsGradleFile;
+}
+
+dependencies {
+  compile 'com.android.support:multidex:1.0.3'
+}
+
+configurations.all {
+  resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+    def requested = details.requested
+    if (requested.group == 'com.android.support') {
+      if (!requested.name.startsWith("multidex")) {
+        details.useVersion '25.3.1'
+      }
+    }
+  }
 }
