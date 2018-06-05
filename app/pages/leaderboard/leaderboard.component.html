@@ -1,8 +1,17 @@
 <TabView class="lb-page" selectedColor="yellow" #element [(ngModel)]="selectedIndex">
-  <GridLayout class="padding-t-xl" rows="auto" columns="*, auto, *" *tabItem="{title: 'Singleplayer'}">
-      <Label row="0" col="0" colSpan="3" class="white" text="Second tab item"></Label>
+  <GridLayout class="padding-t-xl" rows="auto, *, *, *" columns="*, auto, *, auto, *" *tabItem="{title: 'Singleplayer'}">
+    <Label row="0" col="0" colSpan="5" class="primary font-xxl align-middle text-center" text="Highscore"></Label>
+
+    <Label row="1" col="1" class="primary font-xxll align-middle text-center" [text]="leaderBoard.spScore.crossScore"></Label>
+    <Label row="1" col="3" class="fa primary font-xxll align-middle text-center" [text]="'fa-times' | fonticon"></Label>
+
+    <Label row="2" col="1" class="primary font-xxll align-middle text-center" [text]="leaderBoard.spScore.drawScore"></Label>
+    <Label row="2" col="3" class="fa primary font-xxll align-middle text-center" [text]="'fa-times-circle' | fonticon"></Label>
+
+    <Label row="3" col="1" class="primary font-xxll align-middle text-center" [text]="leaderBoard.spScore.circleScore"></Label>
+    <Label row="3" col="3" class="fa primary font-xxll align-middle text-center" [text]="'fa-circle-thin' | fonticon"></Label>
   </GridLayout>
-  <StackLayout *tabItem="{title: 'Multiplayer'}">
-      <Label class="white" text="First tab item"></Label>
-  </StackLayout>
+  <GridLayout rows="*" columns="*" *tabItem="{title: 'Multiplayer'}">
+      <Label class="primary font-xxl align-middle text-center" text="Multiplayer coming soon"></Label>
+  </GridLayout>
 </TabView>

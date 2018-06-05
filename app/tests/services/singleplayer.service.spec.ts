@@ -56,4 +56,3 @@ describe('The SinglePlayerService', () => {
     }, 2000);
   });
 });
-

@@ -36,7 +36,6 @@ export class HomeComponent implements OnInit {
     }
 
     public goToLB(): void {
-      this._popupService.toast('Leaderboards coming soon...');
       this._navigationService.navigateTo(MenuItemName.leaderboard);
     }
 }
