@@ -5,10 +5,15 @@ import { StackLayout } from 'ui/layouts/stack-layout';
 import { EventData } from 'data/observable';
 import { Page, Color } from "ui/page";
 
+import * as imgSource from "tns-core-modules/image-source";
+
 import { NavigationService, PopupService, MultiPlayerService, AudioService } from "~/assets/services";
 import { Board, MenuItemName, Square, State } from "~/assets/domain";
 import { LeaderBoardService } from "~/assets/services/leaderboard.service";
+import { Image } from "tns-core-modules/ui/image/image";
+import { Session } from "~/assets/domain/session";
 
+const ZXing = require('nativescript-zxing');
 @Component({
     selector: "Multiplayer",
     moduleId: module.id,
@@ -16,7 +21,12 @@ import { LeaderBoardService } from "~/assets/services/leaderboard.service";
 })
 export class MultiPlayerComponent implements OnInit {
   @ViewChild('boardGrid') public boardGrid: ElementRef;
+  @ViewChild('img') public img: ElementRef;
   @ViewChildren('square') squares: QueryList<ElementRef>;
+
+  public inCreateSession: boolean = false;
+  public inJoinSession: boolean = false;
+  public creatingQR: boolean = false;
 
   constructor(
     public mpService: MultiPlayerService,
@@ -29,7 +39,26 @@ export class MultiPlayerComponent implements OnInit {
 
   ngOnInit(): void {
     this._page.actionBarHidden = true;
-    //this.makeBoardGridSquared();
+  }
+
+  public createSession(): void {
+    this.inCreateSession = true;
+    this.creatingQR = true;
+    const zx = new ZXing();
+
+    this.mpService.createSessionAndGetSessionId()
+      .then((sessionId: string) => {
+        const newImg = zx.createBarcode({encode: `{sessionGame: ${sessionId}}`, height: 300, width: 300, format: ZXing.QR_CODE});
+        this.creatingQR = false;
+        setTimeout(() => {
+          this.img.nativeElement.imageSource = imgSource.fromNativeSource(newImg);
+        });
+      });
+  }
+
+  public back(): void {
+    this.inCreateSession = false;
+    this.inJoinSession = false;
   }
 
   public mark(square: Square): void {
