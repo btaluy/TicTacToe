@@ -24,6 +24,11 @@ const routes: Routes = [
       canActivate: [LoginGuard]
     },
     {
+      path: "multiplayer",
+      loadChildren: "./pages/multiplayer/multiplayer.module#MultiPlayerModule",
+      canActivate: [LoginGuard]
+    },
+    {
       path: "leaderboard",
       loadChildren: "./pages/leaderboard/leaderboard.module#LeaderboardModule",
       canActivate: [LoginGuard]

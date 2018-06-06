@@ -159,6 +159,10 @@ export const navigationItems: NavigationItem[] =
       path: "singleplayer"
     },
     {
+      name: MenuItemName.multiplayer,
+      path: "multiplayer"
+    },
+    {
       name: MenuItemName.login,
       path: "login"
     },

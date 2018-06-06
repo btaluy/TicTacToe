@@ -30,6 +30,7 @@ export class MenuItem {
 export enum MenuItemName {
   home = 0,
   singleplayer,
+  multiplayer,
   login,
   leaderboard
 }

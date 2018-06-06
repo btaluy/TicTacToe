@@ -4,6 +4,7 @@ import { NativeScriptCommonModule } from "nativescript-angular/common";
 import { UserInterfaceComponent } from '~/assets/components/user-interface/user-interface.component';
 import { UpdateLabelDirective } from "~/assets/components/update-label/update-label";
 import { FonticonPipe } from './pipes/fonticon.pipe';
+import { StatePipe } from "./pipes/state.pipe";
 
 @NgModule({
     imports: [
@@ -17,7 +18,8 @@ import { FonticonPipe } from './pipes/fonticon.pipe';
       UpdateLabelDirective,
 
       // Pipes
-      FonticonPipe
+      FonticonPipe,
+      StatePipe
     ],
     schemas: [
         NO_ERRORS_SCHEMA
@@ -25,7 +27,8 @@ import { FonticonPipe } from './pipes/fonticon.pipe';
     exports: [
       UserInterfaceComponent,
       UpdateLabelDirective,
-      FonticonPipe
+      FonticonPipe,
+      StatePipe
     ]
 })
 export class CommonComponentsModule { }

@@ -1,0 +1,19 @@
+<StackLayout class="page">
+  <user-interface></user-interface>
+
+  <Image src="~/assets/img/tictactoeBG.png" height="200" width="200" class="margin-t-m"></Image>
+
+  <Button class="fa home-button margin-t-xxl">
+    <FormattedString>
+      <Span class="font font-xxxl" [text]="'JOIN GAME\u0020'"></Span>
+      <Span class="font-xxl" [text]="'fa-user' | fonticon"></Span>
+    </FormattedString>
+  </Button>
+  
+  <Button row="4" col="0" colSpan="2" class="fa home-button margin-t-l">
+    <FormattedString>
+      <Span class="font font-xxxl" [text]="'CREATE GAME\u0020'"></Span>
+      <Span class="font-xxl" [text]="'fa-qrcode' | fonticon"></Span>
+    </FormattedString>
+  </Button>
+</StackLayout>

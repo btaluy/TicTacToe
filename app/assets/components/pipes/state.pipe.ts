@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { State } from '../domain';
+import { State } from '../../domain';
  
 @Pipe({ name: 'statePipe' })
 export class StatePipe implements PipeTransform {
