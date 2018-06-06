@@ -4,13 +4,13 @@
 
     <Image row="2" col="0" colSpan="2" src="~/assets/img/tictactoeBG.png" height="200" width="200"></Image>
 
-    <Button *ngIf="!isLogginIn" row="3" col="0" colSpan="2" class="fa home-button margin-t-xxl" (tap)="login()" [isEnabled]="!isLoggingIn">
+    <Button *ngIf="!isLoggingIn" row="3" col="0" colSpan="2" class="fa home-button margin-t-xxl" (tap)="login()" [isEnabled]="!isLoggingIn">
       <FormattedString>
         <Span class="font-xxl" [text]="'Login with '"></Span>
         <Span class="font-xxl" [text]="'fa-google' | fonticon"></Span>
       </FormattedString>
     </Button>
 
-    <ActivityIndicator *ngIf="isLogginIn" row="3" col="0" colSpan="2" color="#D35400" busy="true"></ActivityIndicator>
+    <ActivityIndicator *ngIf="isLoggingIn" row="3" col="0" colSpan="2" color="#D35400" busy="true"></ActivityIndicator>
   </GridLayout>
 </StackLayout>

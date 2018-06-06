@@ -4,6 +4,7 @@ import { GridLayout } from 'ui/layouts/grid-layout';
 import { StackLayout } from 'ui/layouts/stack-layout';
 import { EventData } from 'data/observable';
 import { Page, Color } from "ui/page";
+import { MLKitScanBarcodesOnDeviceResult } from "nativescript-plugin-firebase/mlkit/barcodescanning";
 
 import * as imgSource from "tns-core-modules/image-source";
 
@@ -27,6 +28,8 @@ export class MultiPlayerComponent implements OnInit {
   public inCreateSession: boolean = false;
   public inJoinSession: boolean = false;
   public creatingQR: boolean = false;
+
+  private barcodes: Array<{value: string; format: string;}>;
 
   constructor(
     public mpService: MultiPlayerService,
@@ -54,6 +57,16 @@ export class MultiPlayerComponent implements OnInit {
           this.img.nativeElement.imageSource = imgSource.fromNativeSource(newImg);
         });
       });
+  }
+
+  public joinSession(): void {
+    this.inJoinSession = true;
+  }
+
+  public onScanningResult(event: any): void {
+    const result: MLKitScanBarcodesOnDeviceResult = event.value;
+    this.barcodes = result.barcodes;
+    console.log('event: ', this.barcodes);
   }
 
   public back(): void {

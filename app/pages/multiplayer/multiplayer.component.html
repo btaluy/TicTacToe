@@ -3,7 +3,7 @@
   <StackLayout *ngIf="!inCreateSession && !inJoinSession" class="margin-t-m">
     <Image src="~/assets/img/tictactoeBG.png" height="200" width="200"></Image>
 
-    <Button class="fa home-button margin-t-xxl">
+    <Button class="fa home-button margin-t-xxl" (tap)="joinSession()">
       <FormattedString>
         <Span class="font font-xxxl" [text]="'JOIN GAME\u0020'"></Span>
         <Span class="font-xxl" [text]="'fa-user' | fonticon"></Span>
@@ -22,5 +22,10 @@
       <Image *ngIf="!creatingQR" #img></Image>
       <ActivityIndicator *ngIf="creatingQR" color="#D35400" busy="true"></ActivityIndicator>
       <Button class="home-button font-xxxl margin-t-l" text="Back to menu" (tap)="back()"></Button>
+  </StackLayout>
+
+  <StackLayout *ngIf="inJoinSession" class="margin-t-m">
+    <MLKitBarcodeScanner width="260" height="380" formats="QR_CODE, EAN_8, EAN_13" (scanResult)="onScanningResult($event)"></MLKitBarcodeScanner>
+    <Button class="home-button font-xxxl margin-t-l" text="Back to menu" (tap)="back()"></Button>
   </StackLayout>
 </StackLayout>
