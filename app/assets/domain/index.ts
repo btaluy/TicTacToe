@@ -4,3 +4,4 @@ export { NavigationItem } from './navigation-item';
 export { Square, State } from './square';
 export { User } from './user';
 export { WinnerRetriever } from './winner-retriever';
+export { Friend } from './friend';
