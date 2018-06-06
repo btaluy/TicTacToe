@@ -16,22 +16,23 @@
 .circle-score,
 .cross-score {
   horizontal-align: center;
+  vertical-align: middle;
 }
 
 .circle-score,
 .cross-score {
-  font-size: 28;
+  font-size: 40;
 }
 
 .next-to-play {
   margin-right: 10;
   vertical-align: middle;
-  font-size: 22;
+  font-size: 48;
 
   &.icon {
-    height: 32;
-    width: 32;
-    font-size: 32;
+    height: 40;
+    width: 40;
+    font-size: 40;
   }
 }
 

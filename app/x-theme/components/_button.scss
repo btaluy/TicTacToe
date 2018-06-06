@@ -35,7 +35,7 @@
 }
 
 .home-button {
-  background-color: $primary;
+  background: linear-gradient(to right, $primary, $primary, $primary, #FFFFFF);
   border-color: $primary;
   border-radius: $button-border-radius;
   border-width: $button-border-width;

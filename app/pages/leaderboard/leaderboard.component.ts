@@ -13,6 +13,7 @@ import { LeaderBoardService } from "~/assets/services/leaderboard.service";
 })
 export class LeaderboardComponent implements OnInit {
   public selectedIndex: number;
+  public isLoadingSPScore: boolean = false;
 
     constructor(
       public audioService: AudioService,
@@ -26,12 +27,13 @@ export class LeaderboardComponent implements OnInit {
 
     ngOnInit(): void {
       this._page.actionBarHidden = true;
+      this.isLoadingSPScore = true;
       this.cd.detectChanges();
 
-      this.leaderBoard.getSPScore();
-    }
-
-    public test(): void {
-      console.log(this.selectedIndex);
+      this.leaderBoard.getSPScore()
+        .then(() => {
+          this.isLoadingSPScore = false;
+          this.cd.detectChanges();
+        });
     }
 }

@@ -2,29 +2,31 @@
   <user-interface showLogout="true"></user-interface>
   
   <GridLayout rows="auto, auto, auto, auto, auto, auto" columns="*, *">
-    <Label row="1" col="0" colSpan="2" class="label label-large white label-center" text="TIC TAC TOE"></Label>
+    <Label row="1" col="0" colSpan="2" class="label label-large white label-center font-xxxxxl" text="TIC TAC TOE"></Label>
 
     <Image row="2" col="0" colSpan="2" src="~/assets/img/tictactoeBG.png" height="200" width="200"></Image>
     
     <Button row="3" col="0" colSpan="2" class="fa home-button margin-t-xxl" (tap)="goToSP()">
       <FormattedString>
         <Span class="font-xxl" [text]="'fa-user' | fonticon"></Span>
-        <Span class="font-xxl" [text]="'\u0020\u0020 SINGLEPLAYER'"></Span>
+        <Span class="font font-xxxl" [text]="'\u0020SINGLEPLAYER'"></Span>
       </FormattedString>
     </Button>
     
-    <Button row="4" col="0" colSpan="2" class="fa home-button margin-t-l" (tap)="goToMP()">
+    <Button *ngIf="userService.user" row="4" col="0" colSpan="2" class="fa home-button margin-t-l" (tap)="goToMP()">
       <FormattedString>
         <Span class="font-xxl" [text]="'fa-users' | fonticon"></Span>
-        <Span class="font-xxl" [text]="'\u0020\u0020 MULTIPLAYER'"></Span>
+        <Span class="font font-xxxl" [text]="'\u0020MULTIPLAYER'"></Span>
       </FormattedString>
     </Button>
 
-    <Button row="5" col="0" colSpan="2" class="fa home-button margin-t-l" (tap)="goToLB()">
+    <Button *ngIf="userService.user" row="5" col="0" colSpan="2" class="fa home-button margin-t-l" (tap)="goToLB()">
       <FormattedString>
         <Span class="font-xxl" [text]="'fa-users' | fonticon"></Span>
-        <Span class="font-xxl" [text]="'\u0020\u0020 LEADERBOARD'"></Span>
+        <Span class="font font-xxxl" [text]="'\u0020LEADERBOARD'"></Span>
       </FormattedString>
     </Button>
+
+    <ActivityIndicator *ngIf="!userService.user" row="4" rowsSpan="2" col="0" colSpan="2" color="#D35400" busy="true"></ActivityIndicator>
   </GridLayout>
 </StackLayout>

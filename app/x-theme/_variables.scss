@@ -85,6 +85,10 @@ $font-regular: "MOZART_0", MOZART_0;
 $font-light: "MOZART_0", MOZART_0;
 $font-bold: "MOZART_0", MOZART_0;
 
+.font {
+  font-family: $font-regular;
+}
+
 .font-bold {
   font-family: $font-bold;
   font-weight: bold;

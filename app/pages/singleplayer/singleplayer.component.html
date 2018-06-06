@@ -2,9 +2,9 @@
   <user-interface></user-interface>
 
   <GridLayout rows="auto, auto, auto, *" columns="*, auto, *" class="margin-t-m">
-    <Label row="0" class="restart" text="Restart" (tap)="restartDialog()"></Label>
+    <Label row="0" class="restart font-xxl" text="Restart" (tap)="restartDialog()"></Label>
   
-    <StackLayout class="cross-score text-left" orientation="horizontal" row="1" col="0">
+    <StackLayout class="cross-score text-left font-xxl" orientation="horizontal" row="1" col="0">
       <Label textWrap="true">
         <FormattedString>
           <Span class="cross-score" [text]="leaderBoard.spScore.crossScore"></Span>
@@ -16,7 +16,7 @@
     <StackLayout class="cross-score text-center" orientation="horizontal" row="1" col="1">
       <Label textWrap="true">
         <FormattedString>
-          <Span class="cross-score" [text]="leaderBoard.spScore.drawScore"></Span>
+          <Span class="cross-score align-middle" [text]="leaderBoard.spScore.drawScore"></Span>
           <Span class="fa circle-thumb icon" [text]="'\u0020\u0020' + ('fa-times-circle' | fonticon)"></Span>
         </FormattedString>
       </Label>
@@ -25,14 +25,14 @@
     <StackLayout class="circle-score text-center" orientation="horizontal" row="1" col="2">
       <Label textWrap="true">
         <FormattedString>
-          <Span class="circle-score" [text]="leaderBoard.spScore.circleScore"></Span>
+          <Span class="circle-score align-middle" [text]="leaderBoard.spScore.circleScore"></Span>
           <Span class="fa circle-thumb icon" [text]="'\u0020\u0020' + ('fa-circle-thin' | fonticon)"></Span>
         </FormattedString>
       </Label>
     </StackLayout>
   
-    <StackLayout class="game-panel text-center" orientation="horizontal" row="2" col="0" colSpan="3">
-      <Label class="next-to-play" [text]="gamePanelCaption" textWrap="true"></Label>
+    <StackLayout class="game-panel text-center align-middle" orientation="horizontal" row="2" col="0" colSpan="3">
+      <Label class="next-to-play align-middle" [text]="gamePanelCaption" textWrap="true"></Label>
       <Label class="fa next-to-play icon" [text]="(spService.board.currentState | statePipe) | fonticon"
              [visibility]="gamePanelStateImageVisibility" textWrap="true"></Label>
     </StackLayout>
