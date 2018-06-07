@@ -77,7 +77,10 @@ export class MultiPlayerComponent implements OnInit {
           this.mpService.joinSessionWithSessionId(val[1])
             .then(() => {
               console.log('Found a session, joining the session now!');
-              this.isJoiningASession = false;
+              setTimeout(() => {
+                this.isJoiningASession = false;
+              }, 2000);
+              
             })
             .catch(error => {
               console.log('Oeh oh, something went wrong: ', error);
@@ -94,6 +97,7 @@ export class MultiPlayerComponent implements OnInit {
     this.inCreateSession = false;
     this.inJoinSession = false;
     this.mpService.mpSubscription();
+    this.mpService.mpSubscription = undefined;
   }
 
   public mark(square: Square): void {
