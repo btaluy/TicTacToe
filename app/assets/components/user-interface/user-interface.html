@@ -1,7 +1,6 @@
 <GridLayout class="font-xl white" columns="auto, *, 45" rows="auto">
   <Image *ngIf="userService.user" col="0" [src]="userService.user.profileImageURL" class="image-xxxxl"></Image>
   <Label *ngIf="userService.user" col="1" [text]="userService.user.name" textWrap="true" class="font-xxxl margin-l-xs align-middle"></Label>
-  <ActivityIndicator *ngIf="!userService.user" row="0" col="0" colSpan="2" color="#D35400" busy="true"></ActivityIndicator>
 
   <Label *ngIf="showLogout" col="2" class="fa font-xxxl align-middle" [text]="'fa-sign-out' | fonticon" textWrap="true" (tap)="logout()"></Label>
 </GridLayout>
