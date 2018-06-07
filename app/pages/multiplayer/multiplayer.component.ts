@@ -28,8 +28,9 @@ export class MultiPlayerComponent implements OnInit {
   public inCreateSession: boolean = false;
   public inJoinSession: boolean = false;
   public creatingQR: boolean = false;
-
+  
   private barcodes: Array<{value: string; format: string;}>;
+  private isJoiningASession: boolean = false;
 
   constructor(
     public mpService: MultiPlayerService,
@@ -51,7 +52,7 @@ export class MultiPlayerComponent implements OnInit {
 
     this.mpService.createSessionAndGetSessionId()
       .then((sessionId: string) => {
-        const newImg = zx.createBarcode({encode: `{sessionGame: ${sessionId}}`, height: 300, width: 300, format: ZXing.QR_CODE});
+        const newImg = zx.createBarcode({encode: `sessionGame/${sessionId}`, height: 300, width: 300, format: ZXing.QR_CODE});
         this.creatingQR = false;
         setTimeout(() => {
           this.img.nativeElement.imageSource = imgSource.fromNativeSource(newImg);
@@ -64,14 +65,35 @@ export class MultiPlayerComponent implements OnInit {
   }
 
   public onScanningResult(event: any): void {
-    const result: MLKitScanBarcodesOnDeviceResult = event.value;
-    this.barcodes = result.barcodes;
-    console.log('event: ', this.barcodes);
+    if(!this.isJoiningASession) {
+      this.isJoiningASession = true;
+
+      const result: MLKitScanBarcodesOnDeviceResult = event.value;
+      this.barcodes = result.barcodes;
+      if (this.barcodes.length > 0) {
+        const val = this.barcodes[0].value.split('/');
+        console.log('val: ', val[0]);
+        if(val && val[0] === 'sessionGame') {
+          this.mpService.joinSessionWithSessionId(val[1])
+            .then(() => {
+              console.log('Found a session, joining the session now!');
+              this.isJoiningASession = false;
+            })
+            .catch(error => {
+              console.log('Oeh oh, something went wrong: ', error);
+              this.isJoiningASession = false;
+            });
+        } else {
+          console.log('Something went wrong while scanning.');
+        }
+      }
+    }
   }
 
   public back(): void {
     this.inCreateSession = false;
     this.inJoinSession = false;
+    this.mpService.mpSubscription();
   }
 
   public mark(square: Square): void {

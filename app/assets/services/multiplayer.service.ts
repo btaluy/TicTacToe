@@ -1,4 +1,5 @@
 import {Injectable, NgZone} from '@angular/core';
+import { isNullOrUndefined } from 'utils/types';
 import * as firebase from 'nativescript-plugin-firebase';
 
 import { Board, MenuItemName, Square, State } from "~/assets/domain";
@@ -15,6 +16,7 @@ export class MultiPlayerService {
   public session: Session = new Session();
 
   private SessionCollection = firebase.firestore.collection("sessions");
+  public mpSubscription: any;
 
   public constructor(private popupService: PopupService, private zone: NgZone, private leaderBoard: LeaderBoardService) { }
 
@@ -43,8 +45,45 @@ export class MultiPlayerService {
     this.session.createSession(this.leaderBoard.getUserUid(), 'x');
     return this.SessionCollection.add(this.session)
       .then(documentRef => {
+        this.setMPSub(documentRef.id);
         return documentRef.id;
       });
+  }
+
+  public joinSessionWithSessionId(id: string): Promise<any> {
+    return this.SessionCollection.doc(id)
+    .update({
+      player2: this.leaderBoard.getUserUid()
+    }).then(() => {
+      this.setMPSub(id);
+      console.log('session updated, player2 joined!');
+    })
+  }
+
+  private setMPSub(id: string): void {
+    if (!this.mpSubscription) {
+      const query = this.SessionCollection.doc(id);
+      this.mpSubscription = query.onSnapshot(doc => {
+        this.getSession(id);
+      });
+    }
+  }
+
+  private getSession(id: string): Promise<any> {
+    const query = this.SessionCollection.doc(id);
+
+    return query.get()
+    .then(doc => {
+      if (doc.exists) {
+        this.session = Session.fromObject(doc.data());
+        if(!isNullOrUndefined(this.session.player1) && !isNullOrUndefined(this.session.player2)) {
+          this.popupService.toast('joining session');
+        }
+      } else {
+        console.log('No session found!');
+      }
+    })
+    .catch(error => console.log(`Error while fetching: ${error}`));
   }
 
   public get gamePanelStateImageVisibility(): string {
