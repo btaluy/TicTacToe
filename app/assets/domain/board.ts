@@ -6,15 +6,16 @@ import {
 import { Square, State, WinnerRetriever } from './index';
 
 export class Score {
-  public crossScore: number = 0;
-  public circleScore: number = 0;
-  public drawScore: number = 0;
+  public wins: number = 0;
+  public losses: number = 0;
+  public draws: number = 0;
 
   public static fromObject(object: any): Score {
     const score: Score = new Score();
-    score.circleScore = object.circleScore;
-    score.crossScore = object.crossScore;
-    score.drawScore = object.drawScore;
+    
+    score.wins = object.wins;
+    score.draws = object.draws;
+    score.losses = object.losses;
 
     return score;
   }
@@ -182,8 +183,6 @@ export class Board {
     let winningSeriesIndexes: number[] = [];
     let offset = offsetInitvalue;
 
-    console.log('squares: ', this.squares);
-
     for(let i = 0; i < this.boardSize; i++) {
       if(this.squares[offset].state != square.state) {
         return undefined;
@@ -191,8 +190,6 @@ export class Board {
 
       winningSeriesIndexes.push(offset);
       offset += offsetIncrement;
-
-      console.log('winningSeriesIndexes: ', winningSeriesIndexes);
     }
 
     return winningSeriesIndexes;

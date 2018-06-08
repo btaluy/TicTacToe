@@ -33,15 +33,15 @@ export class SinglePlayerService {
     }, miliSeconds);
   }
 
-  public get gamePanelStateImageVisibility(): string {
-    return this.board.isDraw ? 'collapsed': 'visible';
+  public get gamePanelStateImageVisibility(): boolean {
+    return !this.board.isDraw;
   }
  
   public get gamePanelCaption(): string {
     if (this.board.isDraw) {
       return 'Draw';
     }
-    return this.board.isGameWon ? 'Winner': 'Next';
+    return this.board.isGameWon ? ' won': '\'s turn';
   }
 
   public get foundSquare(): Square {
@@ -58,10 +58,10 @@ export class SinglePlayerService {
 
   private incrementWinnerScore(): void {
     if (this.board.currentState === State.Cross) {
-      this.leaderBoard.spScore.crossScore++;
+      this.leaderBoard.spScore.wins++;
       this.leaderBoard.updateSPScore();
     } else {
-      this.leaderBoard.spScore.circleScore++;
+      this.leaderBoard.spScore.losses++;
       this.leaderBoard.updateSPScore();
     }
   }

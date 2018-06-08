@@ -153,9 +153,9 @@ export class MultiPlayerService {
   private incrementWinnerScore(): void {
     if (this.session.board.currentState === this.playerState) {
       if (this.playerState === State.Cross)
-        this.leaderBoard.mpScore.crossScore++;
+        this.leaderBoard.mpScore.wins++;
       else 
-        this.leaderBoard.mpScore.circleScore++;
+        this.leaderBoard.mpScore.losses++;
 
       this.leaderBoard.updateMPScore();
     }

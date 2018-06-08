@@ -92,7 +92,7 @@ export class SessionComponent implements OnInit {
         }
         return resolve();
       } else if (this.mpService.session.board.isDraw) {
-        this.leaderBoard.spScore.drawScore++;
+        this.leaderBoard.spScore.draws++;
         this.leaderBoard.updateMPScore();
       }
       return resolve();

@@ -94,7 +94,7 @@ export class SinglePlayerComponent implements OnInit {
         
         resolve(this.newGame(2000));
       } else if (this.spService.board.isDraw) {
-        this.leaderBoard.spScore.drawScore++;
+        this.leaderBoard.spScore.draws++;
         this.leaderBoard.updateSPScore()
           .then(() => {
             resolve(this.newGame());
