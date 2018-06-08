@@ -3,11 +3,11 @@ import { NativeScriptCommonModule } from "nativescript-angular/common";
 import { Routes } from "@angular/router";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 
-import { SinglePlayerComponent } from "./singleplayer.component";
+import { MultiPlayerComponent } from "./multiplayer.component";
 import { CommonComponentsModule } from "~/assets/components/common-components.module";
 
 const routes: Routes = [
-    { path: "", component: SinglePlayerComponent }
+    { path: "", component: MultiPlayerComponent }
 ];
 
 @NgModule({
@@ -17,7 +17,7 @@ const routes: Routes = [
         CommonComponentsModule
     ],
     declarations: [
-      SinglePlayerComponent
+      MultiPlayerComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA
@@ -26,4 +26,4 @@ const routes: Routes = [
         NativeScriptRouterModule
     ]
 })
-export class SinglePlayerModule { }
+export class MultiPlayerModule { }

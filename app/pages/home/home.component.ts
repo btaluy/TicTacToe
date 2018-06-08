@@ -32,10 +32,11 @@ export class HomeComponent implements OnInit {
 
     public goToMP(): void {
       this.audioService.clickSound();
-      this._popupService.toast('Mutliplayer will be added soon');
+      this._navigationService.navigateTo(MenuItemName.multiplayer);
     }
 
     public goToLB(): void {
+      this.audioService.clickSound();
       this._navigationService.navigateTo(MenuItemName.leaderboard);
     }
 }

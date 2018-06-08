@@ -11,5 +11,11 @@
     "facebook_auth": true,
     "google_auth": true,
     "admob": false,
-    "invites": true
+    "invites": true,
+    "ml_kit": true,
+    "ml_kit_text_recognition": false,
+    "ml_kit_barcode_scanning": true,
+    "ml_kit_face_detection": false,
+    "ml_kit_image_labeling": false,
+    "ml_kit_custom_model": false
 }

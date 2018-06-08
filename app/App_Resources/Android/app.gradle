@@ -35,10 +35,10 @@ if(settingsGradleFile.exists())
 }
 
 dependencies {
-  compile 'com.android.support:multidex:1.0.3'
+  compile 'com.android.support:multidex:1.0.1'
 }
 
-configurations.all {
+/*configurations.all {
   resolutionStrategy.eachDependency { DependencyResolveDetails details ->
     def requested = details.requested
     if (requested.group == 'com.android.support') {
@@ -47,4 +47,4 @@ configurations.all {
       }
     }
   }
-}
+}*/

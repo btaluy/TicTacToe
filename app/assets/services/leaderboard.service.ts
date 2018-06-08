@@ -87,4 +87,8 @@ export class LeaderBoardService {
         }
       }); 
   }
+
+  public getUserUid(): string {
+    return this.userService.user.uid;
+  }
 }
