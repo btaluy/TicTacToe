@@ -1,42 +1,42 @@
 <StackLayout class="page">
   <user-interface></user-interface>
 
-  <GridLayout rows="auto, auto, auto, *" columns="*, auto, *" class="margin-t-m">
+  <GridLayout rows="auto, auto, *, auto, auto" columns="*, auto, auto, *" class="margin-t-m">
     <Label row="0" class="restart font-xxl" text="Restart" (tap)="restartDialog()"></Label>
-  
-    <Label row="1" col="0" class="cross-score text-left font-xxl"
-           [text]="'Wins: ' + leaderBoard.spScore.wins" textWrap="true">
-    </Label>
-  
-    <Label row="1" col="1" class="cross-score text-center"
-           [text]="'Draws: ' + leaderBoard.spScore.draws" textWrap="true">
-    </Label>
-    
-    <Label row="1" col="2" class="circle-score text-center align-middle"
-           [text]="'Lost: ' + leaderBoard.spScore.losses" textWrap="true">
-    </Label>
 
-    <Label *ngIf="gamePanelStateImageVisibility" class="game-panel text-center align-middle" orientation="horizontal" row="2" col="0" colSpan="3" textWrap="true">
+    <Label *ngIf="gamePanelStateImageVisibility" class="game-panel text-center align-middle" orientation="horizontal" row="1" col="0" colSpan="4" textWrap="true">
       <FormattedString>
         <Span class="next-to-play align-middle" [text]="(spService.board.currentState === 1 ? 'Player' : 'Bot')"></Span>
         <Span class="next-to-play align-middle" [text]="gamePanelCaption"></Span>
       </FormattedString>
     </Label>
 
-    <Label *ngIf="!gamePanelStateImageVisibility" class="game-panel text-center align-middle" orientation="horizontal" row="2" col="0" colSpan="3" textWrap="true">
+    <Label *ngIf="!gamePanelStateImageVisibility" class="game-panel text-center align-middle" orientation="horizontal" row="1" col="0" colSpan="4" textWrap="true">
       <FormattedString>
         <Span class="next-to-play align-middle" [text]="gamePanelCaption"></Span>
       </FormattedString>
     </Label>
   
     <GridLayout #boardGrid [columns]="boardSideSpecification"
-                [rows]="boardSideSpecification" row="3" col="0" colSpan="3" class="board">
+                [rows]="boardSideSpecification" row="2" col="0" colSpan="4" class="board">
       <ng-template ngFor let-item [ngForOf]="spService.board.squares">
         <StackLayout #square [col]="item.yPosition" [row]="item.xPosition"
                      [class]="item.classString" (tap)="mark(item)">
           <Label class="square-state fa" [text]="(item.state | statePipe) | fonticon" textWrap="true"></Label>
         </StackLayout>
       </ng-template>
-    </GridLayout> 
+    </GridLayout>
+
+    <Label row="3" col="1" class="cross-score text-left font-xxl"
+           [text]="'Wins: ' + leaderBoard.spScore.wins + ' '" textWrap="true">
+    </Label>
+
+    <Label row="3" col="2"  class="circle-score text-center align-middle"
+           [text]="'Lost: ' + leaderBoard.spScore.losses" textWrap="true">
+    </Label>
+
+    <Label row="4" col="1" colSpan="2" class="cross-score text-center"
+        [text]="'Draws: ' + leaderBoard.spScore.draws" textWrap="true">
+    </Label>
   </GridLayout>
 </StackLayout>
