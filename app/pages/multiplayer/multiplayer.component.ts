@@ -72,7 +72,6 @@ export class MultiPlayerComponent implements OnInit {
       this.barcodes = result.barcodes;
       if (this.barcodes.length > 0) {
         const val = this.barcodes[0].value.split('/');
-        console.log('val: ', val[0]);
         if(val && val[0] === 'sessionGame') {
           this.mpService.joinSessionWithSessionId(val[1])
             .then(() => {
