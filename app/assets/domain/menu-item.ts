@@ -32,7 +32,8 @@ export enum MenuItemName {
   singleplayer,
   multiplayer,
   login,
-  leaderboard
+  leaderboard,
+  friends
 }
 
 export enum MenuAuthorisation {

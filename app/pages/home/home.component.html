@@ -27,17 +27,13 @@
       </FormattedString>
     </Button>
 
-<<<<<<< HEAD
-    <Button *ngIf="userService.user" row="5" col="0" colSpan="2" class="fa home-button margin-t-l" (tap)="goT()">
+    <Button *ngIf="userService.user" row="6" col="0" colSpan="2" class="fa home-button margin-t-l" (tap)="goToF()">
         <FormattedString>
-          <Span class="font-xxl" [text]="'fa-users' | fonticon"></Span>
-          <Span class="font font-xxxl" [text]="'\u0020LEADERBOARD'"></Span>
+          <Span class="font-xxl" [text]="'fa-user-friends' | fonticon"></Span>
+          <Span class="font font-xxxl" [text]="'\u0020FRIENDS'"></Span>
         </FormattedString>
       </Button>
 
-    <ActivityIndicator *ngIf="!userService.user" row="4" rowsSpan="2" col="0" colSpan="2" color="#D35400" busy="true"></ActivityIndicator>
-=======
     <ActivityIndicator *ngIf="!userService.user" row="3" rowsSpan="3" col="0" colSpan="2" color="#D35400" busy="true" class="margin-t-xxl"></ActivityIndicator>
->>>>>>> 0431aed89feab9579de6caddd92a5cf135715a6b
   </GridLayout>
 </StackLayout>

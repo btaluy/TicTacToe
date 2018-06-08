@@ -39,4 +39,9 @@ export class HomeComponent implements OnInit {
       this.audioService.clickSound();
       this._navigationService.navigateTo(MenuItemName.leaderboard);
     }
+
+    public goToF(): void {
+      this.audioService.clickSound();
+      this._navigationService.navigateTo(MenuItemName.friends);
+    }
 }
