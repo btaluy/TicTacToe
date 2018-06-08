@@ -27,6 +27,13 @@
       </FormattedString>
     </Button>
 
+    <Button *ngIf="userService.user" row="5" col="0" colSpan="2" class="fa home-button margin-t-l" (tap)="goT()">
+        <FormattedString>
+          <Span class="font-xxl" [text]="'fa-users' | fonticon"></Span>
+          <Span class="font font-xxxl" [text]="'\u0020LEADERBOARD'"></Span>
+        </FormattedString>
+      </Button>
+
     <ActivityIndicator *ngIf="!userService.user" row="4" rowsSpan="2" col="0" colSpan="2" color="#D35400" busy="true"></ActivityIndicator>
   </GridLayout>
 </StackLayout>

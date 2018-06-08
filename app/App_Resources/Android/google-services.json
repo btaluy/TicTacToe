@@ -15,22 +15,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "594807091142-66bkslbobj2kr8a15b3hghumt11776lu.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "org.nativescript.TacToe",
-            "certificate_hash": "b37558e8d2f04c202f197738e916ab59b7f4ab1d"
-          }
-        },
-        {
-          "client_id": "594807091142-nl95khv5js9h7kbfl79f2q247ev009lt.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "org.nativescript.TacToe",
-            "certificate_hash": "3bf17b1d3277d4b18eeb8f6f331cb0b9d551db9f"
-          }
-        },
-        {
           "client_id": "594807091142-94gr6palv9fcmkn8bi5o1jb8ank0b4m6.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -45,13 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "594807091142-94gr6palv9fcmkn8bi5o1jb8ank0b4m6.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2

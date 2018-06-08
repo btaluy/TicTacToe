@@ -8,26 +8,30 @@ import {
 import { PopupService } from '~/assets/services';
 import { UserService } from './user.service';
 import { empty } from 'rxjs';
-import { Friend } from '~/assets/domain';
+import { Friend, User } from '~/assets/domain';
 
 @Injectable()
 export class FriendsService {
+  public user: User;
   public friend: Friend;
+
   private UserCollection = firebase.firestore.collection("users");
-  private userNames = this.userNames;
 
   public constructor(private popupService: PopupService, private userService: UserService, private zone: NgZone) {
   }
 
-  public getUsers() {
-    var query = this.UserCollection.where("name", "==", !empty);
-    return query;
+  public getUsers(): Promise<any> {
+    const query = this.UserCollection.doc(this.userService.user.name);
+    return query.get()
+      .then(doc => {
+        if (doc.exists) {
+          this.user = User.fromObject(doc.data());
+          console.log(this.user);
+        } else {
+          console.log('No users found!');
+        }
+      })
+      .catch(error => console.log(`Error while fetching: ${error}`));
   }
-
-  public showUsers(getUsers) {
-      this.userNames = getUsers.query.name;
-      return this.userNames;
-  }
-
 
 }
