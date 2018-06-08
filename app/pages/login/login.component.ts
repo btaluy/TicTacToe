@@ -29,10 +29,8 @@ export class LoginComponent implements OnInit {
 
     public login(): void {
       const parent = this;
-      console.log('test');
       if (!this.isLoggingIn) {
         parent.isLoggingIn = true;
-        console.log('Is person logging in: ', parent.isLoggingIn);
         firebase.login({
           type: firebase.LoginType.GOOGLE
         }).then(() => {

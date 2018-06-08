@@ -83,7 +83,6 @@ export class SinglePlayerComponent implements OnInit {
   private updateState(square: Square): Promise<any> {
     return new Promise((resolve, reject) => {
       const winningIndexes: number[] = this.spService.board.getWinningIndexesFor(square);
-
       if (winningIndexes) {
         this.spService.sessionGameWon = true;
 

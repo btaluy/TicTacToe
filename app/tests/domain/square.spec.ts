@@ -1,7 +1,7 @@
 import { Square, State } from '../../assets/domain';
 
 describe('The Square model', () => {
-  let square: Square = new Square(0, 0, '');
+  let square: Square = Square.createSquare(0, 0, '');
 
   it('should be defined', () => {
     expect(square).toBeDefined();

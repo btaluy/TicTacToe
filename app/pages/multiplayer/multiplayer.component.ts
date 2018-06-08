@@ -9,7 +9,7 @@ import { MLKitScanBarcodesOnDeviceResult } from "nativescript-plugin-firebase/ml
 import * as imgSource from "tns-core-modules/image-source";
 
 import { NavigationService, PopupService, MultiPlayerService, AudioService } from "~/assets/services";
-import { Board, MenuItemName, Square, State } from "~/assets/domain";
+import { Board, MenuItemName, Square, State, MenuItem } from "~/assets/domain";
 import { LeaderBoardService } from "~/assets/services/leaderboard.service";
 import { Image } from "tns-core-modules/ui/image/image";
 import { Session } from "~/assets/domain/session";
@@ -77,10 +77,11 @@ export class MultiPlayerComponent implements OnInit {
           this.mpService.joinSessionWithSessionId(val[1])
             .then(() => {
               console.log('Found a session, joining the session now!');
-              setTimeout(() => {
-                this.isJoiningASession = false;
-              }, 2000);
-              
+              if (!this.mpService.isJoiningGame) {
+                this.mpService.isJoiningGame = true;
+                this._navigationService.navigateTo(MenuItemName.mpSession)
+                  .then(() => this.clearSession());
+              }
             })
             .catch(error => {
               console.log('Oeh oh, something went wrong: ', error);
@@ -100,76 +101,10 @@ export class MultiPlayerComponent implements OnInit {
     this.mpService.mpSubscription = undefined;
   }
 
-  public mark(square: Square): void {
-    if (!this.mpService.sessionGameWon
-        && this.mpService.board.currentState === State.Cross
-        && square.state === State.Blank) {
-      this.audioService.clickSound();
-      this.mpService.mark(square);
-      this.updateState(square);
-    }
-  }
-
-  public newGame(miliSeconds: number = 2000): void {
-    this.mpService.newGame(miliSeconds);
-  }
-
-  public get boardSideSpecification(): string {
-    let specs = [];
-    for (let i = 0; i < this.mpService.board.boardSize; i++) {
-      specs.push('*');
-    }
- 
-    return specs.join(',');
-  }
-
-  public get gamePanelStateImageVisibility(): string {
-    return this.mpService.gamePanelStateImageVisibility;
-  }
- 
-  public get gamePanelCaption(): string {
-    return this.mpService.gamePanelCaption;
-  }
-
-  private updateState(square: Square): Promise<any> {
-    return new Promise((resolve, reject) => {
-      const winningIndexes: number[] = this.mpService.board.getWinningIndexesFor(square);
-
-      if (winningIndexes) {
-        this.mpService.sessionGameWon = true;
-
-        for (let index of winningIndexes) {
-          let view = this.squareViews[index];
-          view.backgroundColor = new Color("#000000");
-          view.animate({ backgroundColor: new Color("#BA4A00"), duration: 1000 });
-        }
-        
-        resolve(this.newGame(2000));
-      } else if (this.mpService.board.isDraw) {
-        this.leaderBoard.spScore.drawScore++;
-        this.leaderBoard.updateSPScore()
-          .then(() => {
-            resolve(this.newGame());
-          });
-      }
-      resolve();
-    });
-  }
-
-  private emptyIndexies(board: any[]): any[] {
-    return board.filter(s => s != "O" && s != "X");
-  }
-
-  private get boardGridView(): GridLayout {
-    return this.boardGrid.nativeElement;
-  }
-
-  private makeBoardGridSquared(): void {
-    const heightOverflow = 120;
-    const height = this.screenHeight - heightOverflow;
-    const minimumSideDimension = Math.min(this.screenWidth, height);
-    this.boardGridView.height = minimumSideDimension;
-    this.boardGridView.width = minimumSideDimension;
+  public clearSession(): void {
+    this.inCreateSession = false;
+    this.inJoinSession = false;
+    this.isJoiningASession = false;
   }
 
   private get screenWidth(): number {
@@ -180,7 +115,4 @@ export class MultiPlayerComponent implements OnInit {
     return platform.screen.mainScreen.heightDIPs;
   }
 
-  private get squareViews(): Array<StackLayout> {
-    return this.squares.map(s => s.nativeElement);
-  }
 }

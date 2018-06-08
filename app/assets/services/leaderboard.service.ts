@@ -54,14 +54,11 @@ export class LeaderBoardService {
   }
 
   public updateMPScore(): Promise<any> {
-    const query: firebase.firestore.DocumentReference  = this.mpLeaderboardCollection.doc(this.userService.user.uid);
+    const query = this.mpLeaderboardCollection.doc(this.userService.user.uid);
 
-    return query.get()
-      .then(doc => {
-        if(doc.exists) {
-          // if the query returns a doc, only higher the score of the person that won/draw the game.
-        }
-      });
+    return query.update(this.mpScore)
+            .then(() => console.log('Score updated!'))
+            .catch(error => console.log(`Could not update score: ${error}`));
   }
 
   public setNewSPScore(): Promise<any> {
