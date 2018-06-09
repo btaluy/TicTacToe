@@ -163,6 +163,10 @@ export const navigationItems: NavigationItem[] =
       path: "multiplayer"
     },
     {
+      name: MenuItemName.mpSession,
+      path: 'multiplayer/mpSession'
+    },
+    {
       name: MenuItemName.login,
       path: "login"
     },

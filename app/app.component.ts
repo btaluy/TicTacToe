@@ -28,6 +28,7 @@ export class AppComponent {
             parent.userService.setUser(data.user)
               .then(() => {
                 parent.leaderBoard.setNewSPScore();
+                parent.leaderBoard.setNewMPScore();
                 parent.cd.detectChanges();
               });
           });

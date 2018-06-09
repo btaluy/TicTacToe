@@ -2,15 +2,5 @@
     <GridLayout class="padding-t-xl font-xxl" rows="auto, *, *, *" columns="*, auto, *, auto, *" *tabItem="{title: 'Singleplayer'}">
       <Label row="0" col="0" colSpan="5" class="primary font-xxxxl align-middle text-center" text="Friends"></Label>
 
-      <ListView [items]="user" (setupItemView)="onSetupItemView($event)">
-        <ng-template let-item="user" let-i="index" let-third="third">
-            
-            <StackLayout [class.third]="third">
-                <Label class="primary font-xxll align-middle text-center" [text]='"Friends.user" + i'></Label>
-            </StackLayout>
-
-        </ng-template>
-    </ListView>
-
     </GridLayout>
   </TabView>

@@ -2,14 +2,14 @@
   <GridLayout class="padding-t-xl font-xxl" rows="auto, *, *, *" columns="*, auto, *, auto, *" *tabItem="{title: 'Singleplayer'}">
     <Label row="0" col="0" colSpan="5" class="primary font-xxxxl align-middle text-center" text="Highscore"></Label>
 
-    <Label *ngIf="!isLoadingSPScore" row="1" col="1" class="primary font-xxll align-middle text-center" [text]="leaderBoard.spScore.crossScore"></Label>
-    <Label *ngIf="!isLoadingSPScore" row="1" col="3" class="fa primary font-xxll align-middle text-center" [text]="'fa-times' | fonticon"></Label>
+    <Label *ngIf="!isLoadingSPScore" row="1" col="1" class="primary font-xxll align-middle text-center" text="Wins:"></Label>
+    <Label *ngIf="!isLoadingSPScore" row="1" col="3" class="primary font-xxll align-middle text-center" [text]="leaderBoard.spScore.wins"></Label>
 
-    <Label *ngIf="!isLoadingSPScore" row="2" col="1" class="primary font-xxll align-middle text-center" [text]="leaderBoard.spScore.drawScore"></Label>
-    <Label *ngIf="!isLoadingSPScore" row="2" col="3" class="fa primary font-xxll align-middle text-center" [text]="'fa-times-circle' | fonticon"></Label>
+    <Label *ngIf="!isLoadingSPScore" row="2" col="1" class="primary font-xxll align-middle text-center" text="Draws:"></Label>
+    <Label *ngIf="!isLoadingSPScore" row="2" col="3" class="primary font-xxll align-middle text-center" [text]="leaderBoard.spScore.draws"></Label>
 
-    <Label *ngIf="!isLoadingSPScore" row="3" col="1" class="primary font-xxll align-middle text-center" [text]="leaderBoard.spScore.circleScore"></Label>
-    <Label *ngIf="!isLoadingSPScore" row="3" col="3" class="fa primary font-xxll align-middle text-center" [text]="'fa-circle-thin' | fonticon"></Label>
+    <Label *ngIf="!isLoadingSPScore" row="3" col="1" class="primary font-xxll align-middle text-center" text="Lost:"></Label>
+    <Label *ngIf="!isLoadingSPScore" row="3" col="3" class="primary font-xxll align-middle text-center" [text]="leaderBoard.spScore.losses"></Label>
 
     <ActivityIndicator *ngIf="isLoadingSPScore" row="1" rowsSpan="3" col="0" colSpan="5" color="#D35400" busy="true"></ActivityIndicator>
   </GridLayout>

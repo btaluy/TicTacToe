@@ -1,44 +1,24 @@
 <StackLayout class="page">
   <user-interface></user-interface>
 
-  <GridLayout rows="auto, auto, auto, *" columns="*, auto, *" class="margin-t-m">
+  <GridLayout rows="auto, auto, *, auto, auto" columns="*, auto, auto, *" class="margin-t-m">
     <Label row="0" class="restart font-xxl" text="Restart" (tap)="restartDialog()"></Label>
-  
-    <StackLayout class="cross-score text-left font-xxl" orientation="horizontal" row="1" col="0">
-      <Label textWrap="true">
-        <FormattedString>
-          <Span class="cross-score" [text]="leaderBoard.spScore.crossScore"></Span>
-          <Span class="fa cross-thumb icon" [text]="'\u0020\u0020' + ('fa-times' | fonticon)"></Span>
-        </FormattedString>
-      </Label>
-    </StackLayout>
-  
-    <StackLayout class="cross-score text-center" orientation="horizontal" row="1" col="1">
-      <Label textWrap="true">
-        <FormattedString>
-          <Span class="cross-score align-middle" [text]="leaderBoard.spScore.drawScore"></Span>
-          <Span class="fa circle-thumb icon" [text]="'\u0020\u0020' + ('fa-times-circle' | fonticon)"></Span>
-        </FormattedString>
-      </Label>
-    </StackLayout>
-    
-    <StackLayout class="circle-score text-center" orientation="horizontal" row="1" col="2">
-      <Label textWrap="true">
-        <FormattedString>
-          <Span class="circle-score align-middle" [text]="leaderBoard.spScore.circleScore"></Span>
-          <Span class="fa circle-thumb icon" [text]="'\u0020\u0020' + ('fa-circle-thin' | fonticon)"></Span>
-        </FormattedString>
-      </Label>
-    </StackLayout>
-  
-    <StackLayout class="game-panel text-center align-middle" orientation="horizontal" row="2" col="0" colSpan="3">
-      <Label class="next-to-play align-middle" [text]="gamePanelCaption" textWrap="true"></Label>
-      <Label class="fa next-to-play icon" [text]="(spService.board.currentState | statePipe) | fonticon"
-             [visibility]="gamePanelStateImageVisibility" textWrap="true"></Label>
-    </StackLayout>
+
+    <Label *ngIf="gamePanelStateImageVisibility" class="game-panel text-center align-middle" orientation="horizontal" row="1" col="0" colSpan="4" textWrap="true">
+      <FormattedString>
+        <Span class="next-to-play align-middle" [text]="(spService.board.currentState === 1 ? 'Player' : 'Bot')"></Span>
+        <Span class="next-to-play align-middle" [text]="gamePanelCaption"></Span>
+      </FormattedString>
+    </Label>
+
+    <Label *ngIf="!gamePanelStateImageVisibility" class="game-panel text-center align-middle" orientation="horizontal" row="1" col="0" colSpan="4" textWrap="true">
+      <FormattedString>
+        <Span class="next-to-play align-middle" [text]="gamePanelCaption"></Span>
+      </FormattedString>
+    </Label>
   
     <GridLayout #boardGrid [columns]="boardSideSpecification"
-                [rows]="boardSideSpecification" row="3" col="0" colSpan="3" class="board">
+                [rows]="boardSideSpecification" row="2" col="0" colSpan="4" class="board">
       <ng-template ngFor let-item [ngForOf]="spService.board.squares">
         <StackLayout #square [col]="item.yPosition" [row]="item.xPosition"
                      [class]="item.classString" (tap)="mark(item)">
@@ -46,5 +26,17 @@
         </StackLayout>
       </ng-template>
     </GridLayout>
+
+    <Label row="3" col="1" class="cross-score text-left font-xxl"
+           [text]="'Wins: ' + leaderBoard.spScore.wins + ' '" textWrap="true">
+    </Label>
+
+    <Label row="3" col="2"  class="circle-score text-center align-middle"
+           [text]="'Lost: ' + leaderBoard.spScore.losses" textWrap="true">
+    </Label>
+
+    <Label row="4" col="1" colSpan="2" class="cross-score text-center"
+        [text]="'Draws: ' + leaderBoard.spScore.draws" textWrap="true">
+    </Label>
   </GridLayout>
 </StackLayout>

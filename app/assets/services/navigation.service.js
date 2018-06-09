@@ -154,6 +154,10 @@ exports.navigationItems = [
         path: "multiplayer"
     },
     {
+        name: index_1.MenuItemName.mpSession,
+        path: 'multiplayer/mpSession'
+    },
+    {
         name: index_1.MenuItemName.login,
         path: "login"
     },
