@@ -144,14 +144,15 @@ export class MultiPlayerService {
       if (winningIndexes) {
         this.sessionGameWon = true;
         this.zone.run(() => {
-          for (let index of winningIndexes) {
-            setTimeout(() => {
+          setTimeout(() => {
+            for (let index of winningIndexes) {
               let view = squares[index];
               view.backgroundColor = new Color("#000000");
               view.animate({ backgroundColor: new Color("#BA4A00"), duration: 1000 });
-              this.app.tick();
-            }, 50);
-          }
+              console.log(view.focus());
+            }
+            this.app.tick();
+          });
         });
 
         return resolve(this.newGame(2000));
