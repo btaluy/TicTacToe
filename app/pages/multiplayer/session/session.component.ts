@@ -86,6 +86,7 @@ export class SessionComponent implements OnInit {
         this.mpService.sessionGameWon = true;
 
         for (let index of winningIndexes) {
+          console.log('index: ', index);
           let view = this.squareViews[index];
           view.backgroundColor = new Color("#000000");
           view.animate({ backgroundColor: new Color("#BA4A00"), duration: 1000 });
