@@ -149,7 +149,6 @@ export class MultiPlayerService {
               let view = squares[index];
               view.backgroundColor = new Color("#000000");
               view.animate({ backgroundColor: new Color("#BA4A00"), duration: 1000 });
-              console.log(view.focus());
             }
             this.app.tick();
           });
