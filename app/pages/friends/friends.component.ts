@@ -18,7 +18,7 @@ export class FriendsComponent implements OnInit {
     constructor(
       public audioService: AudioService,
       public userService: UserService,
-      public friends,
+      public friends: FriendsService,
       private _page: Page,
       private _navigationService: NavigationService,
       private _popupService: PopupService,

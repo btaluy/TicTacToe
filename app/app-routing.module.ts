@@ -31,6 +31,11 @@ const routes: Routes = [
       path: "leaderboard",
       loadChildren: "./pages/leaderboard/leaderboard.module#LeaderboardModule",
       canActivate: [LoginGuard]
+    },
+    {
+      path: "friends",
+      loadChildren: "./pages/friends/friends.module#FriendsModule",
+      canActivate: [LoginGuard]
     }
 ];
 
