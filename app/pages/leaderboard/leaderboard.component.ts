@@ -14,6 +14,7 @@ import { LeaderBoardService } from "~/assets/services/leaderboard.service";
 export class LeaderboardComponent implements OnInit {
   public selectedIndex: number;
   public isLoadingSPScore: boolean = false;
+  public isLoadingMPScore: boolean = false;
 
     constructor(
       public audioService: AudioService,
@@ -28,11 +29,18 @@ export class LeaderboardComponent implements OnInit {
     ngOnInit(): void {
       this._page.actionBarHidden = true;
       this.isLoadingSPScore = true;
+      this.isLoadingMPScore = true;
       this.cd.detectChanges();
 
       this.leaderBoard.getSPScore()
         .then(() => {
           this.isLoadingSPScore = false;
+          this.cd.detectChanges();
+        });
+      
+      this.leaderBoard.getTop10Players()
+        .then(() => {
+          this.isLoadingMPScore = false;
           this.cd.detectChanges();
         });
     }

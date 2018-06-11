@@ -63,7 +63,7 @@ export class SinglePlayerComponent implements OnInit {
     return specs.join(',');
   }
 
-  public get gamePanelStateImageVisibility(): string {
+  public get gamePanelStateImageVisibility(): boolean {
     return this.spService.gamePanelStateImageVisibility;
   }
  

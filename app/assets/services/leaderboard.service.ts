@@ -13,6 +13,7 @@ import { UserService } from './user.service';
 export class LeaderBoardService {
   public spScore: Score = new Score();
   public mpScore: Score = new Score();
+  public top10Players: Score[] = [];
 
   private spSubscription: boolean;
   private mpSubscription: boolean;
@@ -70,6 +71,7 @@ export class LeaderBoardService {
     return query.get()
       .then(doc => {
         if(!doc.exists) {
+          this.spScore.player = this.userService.user.name;
           query.set(this.spScore);
         }
 
@@ -83,6 +85,7 @@ export class LeaderBoardService {
     return query.get()
       .then(doc => {
         if(!doc.exists) {
+          this.mpScore.player = this.userService.user.name;
           query.set(this.mpScore);
         }
 
@@ -112,5 +115,19 @@ export class LeaderBoardService {
 
   public getUserUid(): string {
     return this.userService.user.uid;
+  }
+
+  public getTop10Players(): Promise<any> {
+    const query = this.mpLeaderboardCollection
+        .orderBy("wins", "desc")
+        .limit(10);
+
+    return query.get()
+      .then(querySnapshot => {
+        this.top10Players = [];
+        querySnapshot.forEach(doc => {
+          this.top10Players.push(Score.fromObject(doc.data()));
+        });
+      });
   }
 }

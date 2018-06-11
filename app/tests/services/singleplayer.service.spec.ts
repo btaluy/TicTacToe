@@ -29,7 +29,7 @@ describe('The SinglePlayerService', () => {
   });
   
   it('should show the gamePanelState', () => {
-    expect(singlePlayerService.gamePanelStateImageVisibility).toBe('visible');
+    expect(singlePlayerService.gamePanelStateImageVisibility).toBeTruthy();
   });
 
   it('should start a new game and let x win the game', () => {

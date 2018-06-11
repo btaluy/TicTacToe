@@ -25,14 +25,11 @@ export class MultiPlayerComponent implements OnInit {
   @ViewChild('img') public img: ElementRef;
   @ViewChildren('square') squares: QueryList<ElementRef>;
 
-  public inCreateSession: boolean = false;
-  public inJoinSession: boolean = false;
   public creatingQR: boolean = false;
   
   private barcodes: Array<{value: string; format: string;}>;
-  private isJoiningASession: boolean = false;
 
-  constructor(
+  public constructor(
     public mpService: MultiPlayerService,
     public audioService: AudioService,
     public leaderBoard: LeaderBoardService,
@@ -46,7 +43,7 @@ export class MultiPlayerComponent implements OnInit {
   }
 
   public createSession(): void {
-    this.inCreateSession = true;
+    this.mpService.inCreateSession = true;
     this.creatingQR = true;
     const zx = new ZXing();
 
@@ -56,54 +53,51 @@ export class MultiPlayerComponent implements OnInit {
         this.creatingQR = false;
         setTimeout(() => {
           this.img.nativeElement.imageSource = imgSource.fromNativeSource(newImg);
+          this.mpService.sessionGameWon = false;
+          this.mpService.session.isGameOver = false;
         });
       });
   }
 
   public joinSession(): void {
-    this.inJoinSession = true;
+    this.mpService.inJoinSession = true;
   }
 
   public onScanningResult(event: any): void {
-    if(!this.isJoiningASession) {
-      this.isJoiningASession = true;
+    const result: MLKitScanBarcodesOnDeviceResult = event.value;
+    this.barcodes = result.barcodes;
+    if (this.barcodes.length > 0) {
+      const val = this.barcodes[0].value.split('/');
+      if(val && val[0] === 'sessionGame') {
+        this.mpService.isJoiningGame = false;
+        this.mpService.sessionGameWon = false;
+        this.mpService.session.board.isGameWon = false;
+        this.mpService.session.isGameOver = false;
 
-      const result: MLKitScanBarcodesOnDeviceResult = event.value;
-      this.barcodes = result.barcodes;
-      if (this.barcodes.length > 0) {
-        const val = this.barcodes[0].value.split('/');
-        if(val && val[0] === 'sessionGame') {
-          this.mpService.joinSessionWithSessionId(val[1])
-            .then(() => {
-              console.log('Found a session, joining the session now!');
-              if (!this.mpService.isJoiningGame) {
-                this.mpService.isJoiningGame = true;
-                this._navigationService.navigateTo(MenuItemName.mpSession)
-                  .then(() => this.clearSession());
-              }
-            })
-            .catch(error => {
-              console.log('Oeh oh, something went wrong: ', error);
-              this.isJoiningASession = false;
-            });
-        } else {
-          console.log('Something went wrong while scanning.');
-        }
+        this.mpService.joinSessionWithSessionId(val[1])
+          .then(() => {
+            console.log('Found a session, joining the session now!');
+            if (!this.mpService.isJoiningGame) {
+              this.mpService.isJoiningGame = true;
+              this._navigationService.navigateToAndClearHistory(MenuItemName.mpSession)
+                .then(() => this.mpService.clearSession());
+            }
+          })
+          .catch(error => {
+            console.log('Oeh oh, something went wrong: ', error);
+            this.mpService.isJoiningGame = false;
+            this.mpService.isJoiningASession = false;
+          });
+      } else {
+        console.log('Something went wrong while scanning.');
       }
     }
   }
 
   public back(): void {
-    this.inCreateSession = false;
-    this.inJoinSession = false;
-    this.mpService.mpSubscription();
+    this.mpService.inCreateSession = false;
+    this.mpService.inJoinSession = false;
     this.mpService.mpSubscription = undefined;
-  }
-
-  public clearSession(): void {
-    this.inCreateSession = false;
-    this.inJoinSession = false;
-    this.isJoiningASession = false;
   }
 
   private get screenWidth(): number {
@@ -113,5 +107,4 @@ export class MultiPlayerComponent implements OnInit {
   private get screenHeight(): number {
     return platform.screen.mainScreen.heightDIPs;
   }
-
 }

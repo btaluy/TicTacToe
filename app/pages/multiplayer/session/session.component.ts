@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, ViewChildren, QueryList } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef, ViewChildren, QueryList, NgZone, ChangeDetectorRef } from "@angular/core";
 import { Subscription } from "rxjs";
 import * as platform from 'platform';
 import { GridLayout } from 'ui/layouts/grid-layout';
@@ -11,7 +11,6 @@ import { Board, MenuItemName, Square, State } from "~/assets/domain";
 import { LeaderBoardService } from "~/assets/services/leaderboard.service";
 import { isNullOrUndefined } from "tns-core-modules/utils/types";
 import { Session } from "~/assets/domain/session";
-
 
 @Component({
     selector: "Session",
@@ -28,22 +27,24 @@ export class SessionComponent implements OnInit {
     public mpService: MultiPlayerService,
     public audioService: AudioService,
     public leaderBoard: LeaderBoardService,
+    private cd: ChangeDetectorRef,
     private _page: Page,
     private _navigationService: NavigationService,
-    private _popupService: PopupService
+    private _popupService: PopupService,
+    private zone: NgZone
   ) { }
 
   ngOnInit(): void {
     this._page.actionBarHidden = true;
-    this.mpService.isJoiningGame = false;
+    this.mpService.inCreateSession = false;
+    this.mpService.clearSession();
     this.makeBoardGridSquared();
+  }
 
-    this.subScribedSession = this.mpService.isSessionUpdated.subscribe(
-      (session: Session) => {
-        const square = this.mpService.findLastPlayedSquare();
-        this.updateState(square);
-      }
-    )
+  public ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.mpService.squares = this.squareViews;
+    }, 100);
   }
 
   public ngOnDestroy(): void {
@@ -74,32 +75,7 @@ export class SessionComponent implements OnInit {
     return specs.join(',');
   }
 
-  private updateState(square: Square): Promise<any> {
-    return new Promise((resolve, reject) => {
-      if(isNullOrUndefined(square)) {
-        return resolve();
-      }
-
-      const winningIndexes: number[] = this.mpService.session.board.getWinningIndexesFor(square);
-
-      if (winningIndexes) {
-        this.mpService.sessionGameWon = true;
-
-        for (let index of winningIndexes) {
-          let view = this.squareViews[index];
-          view.backgroundColor = new Color("#000000");
-          view.animate({ backgroundColor: new Color("#BA4A00"), duration: 1000 });
-        }
-        return resolve();
-      } else if (this.mpService.session.board.isDraw) {
-        this.leaderBoard.spScore.draws++;
-        this.leaderBoard.updateMPScore();
-      }
-      return resolve();
-    });
-  }
-
-  public get gamePanelStateImageVisibility(): string {
+  public get gamePanelStateImageVisibility(): boolean {
     return this.mpService.gamePanelStateImageVisibility;
   }
  
