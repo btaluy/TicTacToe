@@ -6,13 +6,14 @@ import {
 import { Square, State, WinnerRetriever } from './index';
 
 export class Score {
+  public player: string = '';
   public wins: number = 0;
   public losses: number = 0;
   public draws: number = 0;
 
   public static fromObject(object: any): Score {
     const score: Score = new Score();
-    
+    score.player = object.player;
     score.wins = object.wins;
     score.draws = object.draws;
     score.losses = object.losses;
