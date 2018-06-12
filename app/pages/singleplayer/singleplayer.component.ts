@@ -7,6 +7,7 @@ import { Page, Color } from "ui/page";
 
 import { NavigationService, PopupService, SinglePlayerService, AudioService } from "~/assets/services";
 import { Board, MenuItemName, Square, State } from "~/assets/domain";
+import { LeaderBoardService } from "~/assets/services/leaderboard.service";
 
 @Component({
     selector: "Singleplayer",
@@ -25,6 +26,7 @@ export class SinglePlayerComponent implements OnInit {
   constructor(
     public spService: SinglePlayerService,
     public audioService: AudioService,
+    public leaderBoard: LeaderBoardService,
     private _page: Page,
     private _navigationService: NavigationService,
     private _popupService: PopupService
@@ -40,7 +42,7 @@ export class SinglePlayerComponent implements OnInit {
         && this.spService.board.currentState === State.Cross
         && square.state === State.Blank) {
       this.audioService.clickSound();
-      this.spService.board.mark(square);
+      this.spService.mark(square);
       this.updateState(square)
         .then(() => {
           this.botMark();
@@ -61,7 +63,7 @@ export class SinglePlayerComponent implements OnInit {
     return specs.join(',');
   }
 
-  public get gamePanelStateImageVisibility(): string {
+  public get gamePanelStateImageVisibility(): boolean {
     return this.spService.gamePanelStateImageVisibility;
   }
  
@@ -81,21 +83,22 @@ export class SinglePlayerComponent implements OnInit {
   private updateState(square: Square): Promise<any> {
     return new Promise((resolve, reject) => {
       const winningIndexes: number[] = this.spService.board.getWinningIndexesFor(square);
-
       if (winningIndexes) {
         this.spService.sessionGameWon = true;
 
         for (let index of winningIndexes) {
           let view = this.squareViews[index];
-          view.animate({ backgroundColor: new Color("#FFFFFF"), duration: 1000 });
+          view.backgroundColor = new Color("#000000");
+          view.animate({ backgroundColor: new Color("#BA4A00"), duration: 1000 });
         }
         
         resolve(this.newGame(2000));
       } else if (this.spService.board.isDraw) {
-        let drawScore = this.spService.board.drawScore;
-        drawScore++;
-        this.spService.board.setDrawScore(drawScore);
-        resolve(this.newGame());
+        this.leaderBoard.spScore.draws++;
+        this.leaderBoard.updateSPScore()
+          .then(() => {
+            resolve(this.newGame());
+          });
       }
       resolve();
     });
@@ -114,7 +117,7 @@ export class SinglePlayerComponent implements OnInit {
     if (foundSquare &&!this.spService.sessionGameWon) {
       setTimeout(() => {
         this.audioService.clickSound();
-        this.spService.board.mark(foundSquare);
+        this.spService.mark(foundSquare);
         this.updateState(foundSquare);
       }, 1000);
     }

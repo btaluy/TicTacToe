@@ -8,7 +8,7 @@ import { PopupService } from '~/assets/services';
 export class UserService {
   public user: User;
   private userCollection = firebase.firestore.collection("users");
-  private subscription: any;
+  private subscription: boolean;
 
   constructor(private popupService: PopupService, private zone: NgZone) {}
 
@@ -27,7 +27,6 @@ export class UserService {
   }
 
   private setUserIfNotFound(user: User): Promise<any> {
-    this.popupService.loading('fetching user...');
     const query = this.userCollection.doc(user.uid);
 
     return query.get()

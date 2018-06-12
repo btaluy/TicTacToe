@@ -33,6 +33,7 @@ export class PopupService {
   public constructor() { }
 
   public loading(text: string = '', timeout: number = this.defaultTimeout) {
+    this.hideLoading();
     if (this.loader !== null) {
       console.warn('Loader is not yet hidden!!');
       return;

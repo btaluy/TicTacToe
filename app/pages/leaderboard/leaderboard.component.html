@@ -1,0 +1,32 @@
+<TabView class="lb-page font-xxl" selectedTabTextColor="yellow" #element [(ngModel)]="selectedIndex" androidSelectedTabHighlightColor="yellow" tabBackgroundColor="#d35400">
+  <GridLayout class="padding-t-xl font-xxl" rows="auto, *, *, *" columns="*, auto, *, auto, *" *tabItem="{title: 'Singleplayer'}">
+    <Label row="0" col="0" colSpan="5" class="primary font-xxxxl align-middle text-center" text="Highscore"></Label>
+
+    <Label *ngIf="!isLoadingSPScore" row="1" col="1" class="primary font-xxll align-middle text-center" text="Wins:"></Label>
+    <Label *ngIf="!isLoadingSPScore" row="1" col="3" class="primary font-xxll align-middle text-center" [text]="leaderBoard.spScore.wins"></Label>
+
+    <Label *ngIf="!isLoadingSPScore" row="2" col="1" class="primary font-xxll align-middle text-center" text="Draws:"></Label>
+    <Label *ngIf="!isLoadingSPScore" row="2" col="3" class="primary font-xxll align-middle text-center" [text]="leaderBoard.spScore.draws"></Label>
+
+    <Label *ngIf="!isLoadingSPScore" row="3" col="1" class="primary font-xxll align-middle text-center" text="Lost:"></Label>
+    <Label *ngIf="!isLoadingSPScore" row="3" col="3" class="primary font-xxll align-middle text-center" [text]="leaderBoard.spScore.losses"></Label>
+
+    <ActivityIndicator *ngIf="isLoadingSPScore" row="1" rowsSpan="3" col="0" colSpan="5" color="#D35400" busy="true"></ActivityIndicator>
+  </GridLayout>
+  
+  <GridLayout class="padding-t-xl font-xxl" rows="auto, auto, *" columns="*, auto," *tabItem="{title: 'Multiplayer'}">
+    <Label row="0" col="0" colSpan="4" class="primary font-xxxxl align-middle text-center margin-b-xl" text="Top 10 scores"></Label>
+
+    <Label row="1" col="1" class="primary align-middle text-center padding-x-s" text="Wins"></Label>
+
+    <ListView row="2" col="0" colSpan="2" [items]="leaderBoard.top10Players" class="player-list">
+      <ng-template let-item="item" let-i="index">
+        <GridLayout class="primary padding-l" rows="*" columns="auto, *, auto">
+          <Label col="0" [text]="index" textWrap="true"></Label>
+          <Label col="1" [text]="item.player" textWrap="true"></Label>
+          <Label col="2" [text]="item.wins" textWrap="true"></Label>
+        </GridLayout>
+      </ng-template>
+    </ListView>
+  </GridLayout>
+</TabView>

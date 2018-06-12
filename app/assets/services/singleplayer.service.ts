@@ -1,19 +1,29 @@
-import {Injectable} from '@angular/core';
+import {Injectable, NgZone} from '@angular/core';
 
 import { Board, MenuItemName, Square, State } from "~/assets/domain";
 import { Color } from "ui/page";
 import { StackLayout } from 'tns-core-modules/ui/layouts/stack-layout/stack-layout';
+import { LeaderBoardService } from './leaderboard.service';
+import { PopupService } from '~/assets/services';
 
 @Injectable()
 export class SinglePlayerService {
   public sessionGameWon: boolean = false;
   public board: Board = new Board(3);
 
+  public constructor(private popupService: PopupService, private zone: NgZone, private leaderBoard: LeaderBoardService) { }
+
   public restart(): void {
     this.newGame(0);
-    this.board.setCircleScore(0);
-    this.board.setCrossScore(0);
-    this.board.setDrawScore(0);
+  }
+
+  public mark(square: Square): void {
+    if(square.canChangeState) {
+      square.state = this.board.currentState;
+      this.board.marksCount++;
+      this.setGameWonStateFrom(square);
+      this.board.changeCurrentState();
+    }
   }
 
   public newGame(miliSeconds: number = 2000): void {
@@ -23,15 +33,15 @@ export class SinglePlayerService {
     }, miliSeconds);
   }
 
-  public get gamePanelStateImageVisibility(): string {
-    return this.board.isDraw ? 'collapsed': 'visible';
+  public get gamePanelStateImageVisibility(): boolean {
+    return !this.board.isDraw;
   }
  
   public get gamePanelCaption(): string {
     if (this.board.isDraw) {
       return 'Draw';
     }
-    return this.board.isGameWon ? 'Winner': 'Next';
+    return this.board.isGameWon ? ' won': '\'s turn';
   }
 
   public get foundSquare(): Square {
@@ -44,5 +54,21 @@ export class SinglePlayerService {
     }
     
     return undefined;
+  }
+
+  private incrementWinnerScore(): void {
+    if (this.board.currentState === State.Cross) {
+      this.leaderBoard.spScore.wins++;
+      this.leaderBoard.updateSPScore();
+    } else {
+      this.leaderBoard.spScore.losses++;
+      this.leaderBoard.updateSPScore();
+    }
+  }
+
+  private setGameWonStateFrom(square: Square): void {
+    this.board.isGameWon = this.board.getWinningIndexesFor(square) != undefined;
+    if (this.board.isGameWon)
+      this.incrementWinnerScore();
   }
 }

@@ -81,9 +81,13 @@ $text-color: #6F88A7;
 $text-color-light: #C6DBE2;
 
 // Fonts
-$font-regular: Akkurat, Akkurat Std;
-$font-light: Akkurat-Light, Akkurat Std;
-$font-bold: Akkurat-Bold, Akkurat Std;
+$font-regular: "MOZART_0", MOZART_0;
+$font-light: "MOZART_0", MOZART_0;
+$font-bold: "MOZART_0", MOZART_0;
+
+.font {
+  font-family: $font-regular;
+}
 
 .font-bold {
   font-family: $font-bold;
@@ -132,6 +136,8 @@ $font-xxl: 24;
 $font-xxxl: 34;
 $font-xxxxl: 48;
 $font-xxxxxl: 64;
+$font-xll: 72;
+$font-xxll: 80;
 
 $line-height-s: 12;
 $line-height-m: 16;

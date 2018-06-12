@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import { Page } from "ui/page";
-import firebase = require("nativescript-plugin-firebase");
+import * as firebase from 'nativescript-plugin-firebase';
 
 import { NavigationService, PopupService, AudioService, UserService } from "~/assets/services";
 import { MenuItemName } from "~/assets/domain";
@@ -32,26 +32,11 @@ export class HomeComponent implements OnInit {
 
     public goToMP(): void {
       this.audioService.clickSound();
-      //this._popupService.toast('Mutliplayer will be added soon');
-      this.login();
+      this._navigationService.navigateTo(MenuItemName.multiplayer);
     }
 
     public goToLB(): void {
-      this._popupService.toast('Leaderboards coming soon...');
-      console.log(JSON.stringify(this.userService.user));
-    }
-
-    private login(): void {
-      this._popupService.loading('Authenticating...');
-      firebase.login({
-        type: firebase.LoginType.GOOGLE
-      }).then(result => {
-          this._popupService.toast('Logged in...');
-        },
-        errorMessage => {
-          console.log(errorMessage);
-          this._popupService.toast('No internet connection...');
-        }
-      );
+      this.audioService.clickSound();
+      this._navigationService.navigateTo(MenuItemName.leaderboard);
     }
 }

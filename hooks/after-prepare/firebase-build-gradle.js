@@ -26,7 +26,7 @@ module.exports = function($logger, $projectData) {
 
             let gradlePattern = /classpath ('|")com\.android\.tools\.build:gradle:\d+\.\d+\.\d+('|")/;
             let googleServicesPattern = /classpath ('|")com\.google\.gms:google-services:\d+\.\d+\.\d+('|")/;
-            let latestGoogleServicesPlugin = 'classpath "com.google.gms:google-services:3.1.2"';
+            let latestGoogleServicesPlugin = 'classpath "com.google.gms:google-services:3.3.1"';
             if (googleServicesPattern.test(buildGradleContent)) {
                 buildGradleContent = buildGradleContent.replace(googleServicesPattern, latestGoogleServicesPlugin);
             } else {

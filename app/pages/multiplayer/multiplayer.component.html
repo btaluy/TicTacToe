@@ -1,0 +1,33 @@
+<StackLayout class="page">
+  <user-interface></user-interface>
+  <StackLayout *ngIf="!mpService.inCreateSession && !mpService.inJoinSession" class="margin-t-m">
+    <Image src="~/assets/img/tictactoeBG.png" height="200" width="200"></Image>
+
+    <Button class="fa home-button margin-t-xxl" (tap)="joinSession()">
+      <FormattedString>
+        <Span class="font font-xxxl" [text]="'JOIN GAME\u0020'"></Span>
+        <Span class="font-xxl" [text]="'fa-user' | fonticon"></Span>
+      </FormattedString>
+    </Button>
+    
+    <Button row="4" col="0" colSpan="2" class="fa home-button margin-t-l" (tap)="createSession()">
+      <FormattedString>
+        <Span class="font font-xxxl" [text]="'CREATE GAME\u0020'"></Span>
+        <Span class="font-xxl" [text]="'fa-qrcode' | fonticon"></Span>
+      </FormattedString>
+    </Button>
+  </StackLayout>
+  
+  <StackLayout *ngIf="mpService.inCreateSession" class="margin-t-m">
+      <Image *ngIf="!creatingQR" #img></Image>
+      <ActivityIndicator *ngIf="creatingQR" color="#D35400" busy="true"></ActivityIndicator>
+      <Label class="primary font-xxl text-center margin-t-xl" text="To be able to play together let your oponent scan this QR." textWrap="true"></Label>
+      <Button class="home-button font-xxxl margin-t-l" text="Back to menu" (tap)="back()"></Button>
+  </StackLayout>
+
+  <StackLayout *ngIf="mpService.inJoinSession" class="margin-t-m">
+    <MLKitBarcodeScanner width="260" height="380" formats="QR_CODE, EAN_8, EAN_13" (scanResult)="onScanningResult($event)"></MLKitBarcodeScanner>
+    <Label class="primary font-xxl text-center margin-t-xl" text="To be able to play together scan your oponents QR-code." textWrap="true"></Label>
+    <Button class="home-button font-xxxl margin-t-l" text="Back to menu" (tap)="back()"></Button>
+  </StackLayout>
+</StackLayout>
