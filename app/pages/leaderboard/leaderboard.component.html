@@ -14,21 +14,17 @@
     <ActivityIndicator *ngIf="isLoadingSPScore" row="1" rowsSpan="3" col="0" colSpan="5" color="#D35400" busy="true"></ActivityIndicator>
   </GridLayout>
   
-  <GridLayout class="padding-t-xl font-xxl" rows="auto, auto, *" columns="*, auto, auto, auto" *tabItem="{title: 'Multiplayer'}">
+  <GridLayout class="padding-t-xl font-xxl" rows="auto, auto, *" columns="*, auto," *tabItem="{title: 'Multiplayer'}">
     <Label row="0" col="0" colSpan="4" class="primary font-xxxxl align-middle text-center margin-b-xl" text="Top 10 scores"></Label>
 
     <Label row="1" col="1" class="primary align-middle text-center padding-x-s" text="Wins"></Label>
-    <Label row="1" col="2" class="primary align-middle text-center padding-x-s" text="Draws"></Label>
-    <Label row="1" col="3" class="primary align-middle text-center padding-x-s" text="Losses"></Label>
 
-    <ListView row="2" col="0" colSpan="4" [items]="leaderBoard.top10Players" class="player-list">
+    <ListView row="2" col="0" colSpan="2" [items]="leaderBoard.top10Players" class="player-list">
       <ng-template let-item="item" let-i="index">
-        <GridLayout class="primary padding-l" rows="*" columns="auto, *, auto, auto, auto">
+        <GridLayout class="primary padding-l" rows="*" columns="auto, *, auto">
           <Label col="0" [text]="index" textWrap="true"></Label>
           <Label col="1" [text]="item.player" textWrap="true"></Label>
-          <Label col="2" class="padding-x-xl" [text]="item.wins" textWrap="true"></Label>
-          <Label col="3" class="padding-x-xxxl" [text]="item.draws" textWrap="true"></Label>
-          <Label col="4" class="padding-x-l" [text]="item.losses" textWrap="true"></Label>
+          <Label col="2" [text]="item.wins" textWrap="true"></Label>
         </GridLayout>
       </ng-template>
     </ListView>
