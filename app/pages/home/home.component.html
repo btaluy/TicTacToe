@@ -1,7 +1,7 @@
 <StackLayout class="page">
   <user-interface showLogout="true"></user-interface>
   
-  <GridLayout rows="auto, auto, auto, auto, auto, auto" columns="*, *">
+  <GridLayout rows="auto, auto, auto, auto, auto, auto, auto" columns="*, *">
     <Label row="1" col="0" colSpan="2" class="label label-large white label-center font-xxxxxl" text="TIC TAC TOE"></Label>
 
     <Image row="2" col="0" colSpan="2" src="~/assets/img/tictactoeBG.png" height="200" width="200"></Image>
@@ -28,11 +28,11 @@
     </Button>
 
     <Button *ngIf="userService.user" row="6" col="0" colSpan="2" class="fa home-button margin-t-l" (tap)="goToF()">
-        <FormattedString>
-          <Span class="font-xxl" [text]="'fa-user-friends' | fonticon"></Span>
-          <Span class="font font-xxxl" [text]="'\u0020FRIENDS'"></Span>
-        </FormattedString>
-      </Button>
+      <FormattedString>
+        <Span class="font-xxl" [text]="'fa-users' | fonticon"></Span>
+        <Span class="font font-xxxl" [text]="'\u0020FRIENDS'"></Span>
+      </FormattedString>
+    </Button>
 
     <ActivityIndicator *ngIf="!userService.user" row="3" rowsSpan="3" col="0" colSpan="2" color="#D35400" busy="true" class="margin-t-xxl"></ActivityIndicator>
   </GridLayout>
