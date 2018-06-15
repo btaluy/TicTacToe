@@ -24,7 +24,7 @@ export class LoginGuard implements CanActivate {
       });
   }
 
-  private isUserLoggedIn(): Promise<any> {
+  public isUserLoggedIn(): Promise<any> {
     return new Promise((promise: any, reject: any) => {
       firebase.getCurrentUser()
       .then(() => {
