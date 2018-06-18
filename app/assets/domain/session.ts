@@ -6,8 +6,6 @@ export class Session {
   public player2: string = null; // the player that joins the session
   public isGameOver: boolean = false;
   public board: Board = new Board(3);
-  
-  // TODO: Add the squares that are set
 
   public createSession(player1: string, currentState: string) {
     this.player1 = player1;

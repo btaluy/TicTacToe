@@ -15,6 +15,45 @@
       },
       "oauth_client": [
         {
+<<<<<<< HEAD
+=======
+          "client_id": "594807091142-5qjpdhb3vh3l9h31b617cme87m1cjqrh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.nativescript.TacToe",
+            "certificate_hash": "9f44ce4c94a9b9e54c48c1a09c2c8b6f157f7b81"
+          }
+        },
+        {
+          "client_id": "594807091142-he5cni5rgj5ghvrlg65fgj9k8rhlfud4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.nativescript.TacToe",
+            "certificate_hash": "b9ca475850c0440ddb487240947e106dd00416c8"
+          }
+        },
+        {
+          "client_id": "594807091142-66bkslbobj2kr8a15b3hghumt11776lu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.nativescript.TacToe",
+            "certificate_hash": "b37558e8d2f04c202f197738e916ab59b7f4ab1d"
+          }
+        },
+        {
+          "client_id": "594807091142-nl95khv5js9h7kbfl79f2q247ev009lt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.nativescript.TacToe",
+            "certificate_hash": "3bf17b1d3277d4b18eeb8f6f331cb0b9d551db9f"
+          }
+        },
+        {
+>>>>>>> 6f646dd8ba60fbb337c8484e8fbb9156bbc5757c
+          "client_id": "594807091142-94gr6palv9fcmkn8bi5o1jb8ank0b4m6.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
           "client_id": "594807091142-94gr6palv9fcmkn8bi5o1jb8ank0b4m6.apps.googleusercontent.com",
           "client_type": 3
         }
