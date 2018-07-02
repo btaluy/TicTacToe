@@ -3,8 +3,7 @@ import { Page } from "ui/page";
 import * as firebase from 'nativescript-plugin-firebase';
 
 import { NavigationService, PopupService, AudioService, UserService, FriendsService } from "~/assets/services";
-import { MenuItemName } from "~/assets/domain";
-import { LeaderBoardService } from "~/assets/services/leaderboard.service";
+
 
 @Component({
     selector: "friends",
@@ -21,14 +20,17 @@ export class FriendsComponent implements OnInit {
       public friends: FriendsService,
       private _page: Page,
       private _navigationService: NavigationService,
-      private _popupService: PopupService,
       private cd: ChangeDetectorRef
     ) { }
 
     ngOnInit(): void {
       this._page.actionBarHidden = true;
-      this.isLoadingSPScore = true;
       this.cd.detectChanges();
+
+      this.friends.getUsers()
+      .then(() => {
+        this.cd.detectChanges();
+      });
 
     }
 }

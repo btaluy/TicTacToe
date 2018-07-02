@@ -12,26 +12,25 @@ import { Friend, User } from '~/assets/domain';
 
 @Injectable()
 export class FriendsService {
-  public user: User;
+  public user: User[] = [];
   public friend: Friend;
 
-  private UserCollection = firebase.firestore.collection("users");
+  private usersCollection = firebase.firestore.collection("users");
 
   public constructor(private popupService: PopupService, private userService: UserService, private zone: NgZone) {
   }
 
   public getUsers(): Promise<any> {
-    const query = this.UserCollection.doc(this.userService.user.name);
+    const query = this.usersCollection
+        .limit(10);
+
     return query.get()
-      .then(doc => {
-        if (doc.exists) {
-          this.user = User.fromObject(doc.data());
-          console.log(this.user);
-        } else {
-          console.log('No users found!');
-        }
-      })
-      .catch(error => console.log(`Error while fetching: ${error}`));
+      .then(querySnapshot => {
+        this.user = [];
+        querySnapshot.forEach(doc => {
+          this.user.push(User.fromObject(doc.data()));
+        });
+      });
   }
 
 }
