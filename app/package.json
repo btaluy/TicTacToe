@@ -3,6 +3,6 @@
     "v8Flags": "--expose_gc"
   },
   "main": "main.js",
-  "name": "tns-template-blank-ng",
+  "name": "TicTacToe",
   "version": "4.1.0"
 }
