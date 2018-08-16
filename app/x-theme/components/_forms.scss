@@ -4,6 +4,9 @@
     padding: 16 8 16 8;
     background-color: transparent;
 
+  
+    &.orange{color: #d35400; }
+
     &.input-border {
       border-width: 1;
       border-color: $fg-dark;

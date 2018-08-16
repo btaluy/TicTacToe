@@ -1,5 +1,5 @@
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
-import { AudioService, NavigationService, PopupService, SinglePlayerService, UserService, MultiPlayerService } from './index';
+import { AudioService, NavigationService, PopupService, SinglePlayerService, UserService, MultiPlayerService, FriendsService } from './index';
 import { ApplicationLifecycle } from '~/assets/modules/application-lifecycle/application-lifecycle';
 import { LeaderBoardService } from '~/assets/services/leaderboard.service';
 
@@ -16,6 +16,7 @@ export class CommonServicesModule {
         AudioService,
         UserService,
         LeaderBoardService,
+        FriendsService,
         ApplicationLifecycle
       ]
     };

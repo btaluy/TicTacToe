@@ -169,5 +169,9 @@ export const navigationItems: NavigationItem[] =
     {
       name: MenuItemName.leaderboard,
       path: "leaderboard"
+    },
+    {
+      name: MenuItemName.friends,
+      path: "friends"
     }
   ];

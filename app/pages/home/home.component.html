@@ -1,7 +1,7 @@
 <StackLayout class="page">
   <user-interface showLogout="true"></user-interface>
   
-  <GridLayout rows="auto, auto, auto, auto, auto, auto" columns="*, *">
+  <GridLayout rows="auto, auto, auto, auto, auto, auto, auto" columns="*, *">
     <Label row="1" col="0" colSpan="2" class="label label-large white label-center font-xxxxxl" text="TIC TAC TOE"></Label>
 
     <Image row="2" col="0" colSpan="2" src="~/assets/img/tictactoeBG.png" height="200" width="200"></Image>
@@ -24,6 +24,13 @@
       <FormattedString>
         <Span class="font-xxl" [text]="'fa-trophy' | fonticon"></Span>
         <Span class="font font-xxxl" [text]="'\u0020LEADERBOARD'"></Span>
+      </FormattedString>
+    </Button>
+
+    <Button *ngIf="userService.user" row="6" col="0" colSpan="2" class="fa home-button margin-t-l" (tap)="goToF()">
+      <FormattedString>
+        <Span class="font-xxl" [text]="'fa-heart' | fonticon"></Span>
+        <Span class="font font-xxxl" [text]="'\u0020FRIENDS'"></Span>
       </FormattedString>
     </Button>
 
