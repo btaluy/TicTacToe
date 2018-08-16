@@ -9,7 +9,7 @@ import { MLKitScanBarcodesOnDeviceResult } from "nativescript-plugin-firebase/ml
 import * as imgSource from "tns-core-modules/image-source";
 
 import { NavigationService, PopupService, MultiPlayerService, AudioService } from "~/assets/services";
-import { Board, MenuItemName, Square, State } from "~/assets/domain";
+import { Board, MenuItemName, Square, State, MenuItem } from "~/assets/domain";
 import { LeaderBoardService } from "~/assets/services/leaderboard.service";
 import { Image } from "tns-core-modules/ui/image/image";
 import { Session } from "~/assets/domain/session";
@@ -25,14 +25,11 @@ export class MultiPlayerComponent implements OnInit {
   @ViewChild('img') public img: ElementRef;
   @ViewChildren('square') squares: QueryList<ElementRef>;
 
-  public inCreateSession: boolean = false;
-  public inJoinSession: boolean = false;
   public creatingQR: boolean = false;
   
   private barcodes: Array<{value: string; format: string;}>;
-  private isJoiningASession: boolean = false;
 
-  constructor(
+  public constructor(
     public mpService: MultiPlayerService,
     public audioService: AudioService,
     public leaderBoard: LeaderBoardService,
@@ -46,7 +43,7 @@ export class MultiPlayerComponent implements OnInit {
   }
 
   public createSession(): void {
-    this.inCreateSession = true;
+    this.mpService.inCreateSession = true;
     this.creatingQR = true;
     const zx = new ZXing();
 
@@ -56,120 +53,51 @@ export class MultiPlayerComponent implements OnInit {
         this.creatingQR = false;
         setTimeout(() => {
           this.img.nativeElement.imageSource = imgSource.fromNativeSource(newImg);
+          this.mpService.sessionGameWon = false;
+          this.mpService.session.isGameOver = false;
         });
       });
   }
 
   public joinSession(): void {
-    this.inJoinSession = true;
+    this.mpService.inJoinSession = true;
   }
 
   public onScanningResult(event: any): void {
-    if(!this.isJoiningASession) {
-      this.isJoiningASession = true;
+    const result: MLKitScanBarcodesOnDeviceResult = event.value;
+    this.barcodes = result.barcodes;
+    if (this.barcodes.length > 0) {
+      const val = this.barcodes[0].value.split('/');
+      if(val && val[0] === 'sessionGame') {
+        this.mpService.isJoiningGame = false;
+        this.mpService.sessionGameWon = false;
+        this.mpService.session.board.isGameWon = false;
+        this.mpService.session.isGameOver = false;
 
-      const result: MLKitScanBarcodesOnDeviceResult = event.value;
-      this.barcodes = result.barcodes;
-      if (this.barcodes.length > 0) {
-        const val = this.barcodes[0].value.split('/');
-        console.log('val: ', val[0]);
-        if(val && val[0] === 'sessionGame') {
-          this.mpService.joinSessionWithSessionId(val[1])
-            .then(() => {
-              console.log('Found a session, joining the session now!');
-              setTimeout(() => {
-                this.isJoiningASession = false;
-              }, 2000);
-              
-            })
-            .catch(error => {
-              console.log('Oeh oh, something went wrong: ', error);
-              this.isJoiningASession = false;
-            });
-        } else {
-          console.log('Something went wrong while scanning.');
-        }
+        this.mpService.joinSessionWithSessionId(val[1])
+          .then(() => {
+            console.log('Found a session, joining the session now!');
+            if (!this.mpService.isJoiningGame) {
+              this.mpService.isJoiningGame = true;
+              this._navigationService.navigateToAndClearHistory(MenuItemName.mpSession)
+                .then(() => this.mpService.clearSession());
+            }
+          })
+          .catch(error => {
+            console.log('Oeh oh, something went wrong: ', error);
+            this.mpService.isJoiningGame = false;
+            this.mpService.isJoiningASession = false;
+          });
+      } else {
+        console.log('Something went wrong while scanning.');
       }
     }
   }
 
   public back(): void {
-    this.inCreateSession = false;
-    this.inJoinSession = false;
-    this.mpService.mpSubscription();
+    this.mpService.inCreateSession = false;
+    this.mpService.inJoinSession = false;
     this.mpService.mpSubscription = undefined;
-  }
-
-  public mark(square: Square): void {
-    if (!this.mpService.sessionGameWon
-        && this.mpService.board.currentState === State.Cross
-        && square.state === State.Blank) {
-      this.audioService.clickSound();
-      this.mpService.mark(square);
-      this.updateState(square);
-    }
-  }
-
-  public newGame(miliSeconds: number = 2000): void {
-    this.mpService.newGame(miliSeconds);
-  }
-
-  public get boardSideSpecification(): string {
-    let specs = [];
-    for (let i = 0; i < this.mpService.board.boardSize; i++) {
-      specs.push('*');
-    }
- 
-    return specs.join(',');
-  }
-
-  public get gamePanelStateImageVisibility(): string {
-    return this.mpService.gamePanelStateImageVisibility;
-  }
- 
-  public get gamePanelCaption(): string {
-    return this.mpService.gamePanelCaption;
-  }
-
-  private updateState(square: Square): Promise<any> {
-    return new Promise((resolve, reject) => {
-      const winningIndexes: number[] = this.mpService.board.getWinningIndexesFor(square);
-
-      if (winningIndexes) {
-        this.mpService.sessionGameWon = true;
-
-        for (let index of winningIndexes) {
-          let view = this.squareViews[index];
-          view.backgroundColor = new Color("#000000");
-          view.animate({ backgroundColor: new Color("#BA4A00"), duration: 1000 });
-        }
-        
-        resolve(this.newGame(2000));
-      } else if (this.mpService.board.isDraw) {
-        this.leaderBoard.spScore.drawScore++;
-        this.leaderBoard.updateSPScore()
-          .then(() => {
-            resolve(this.newGame());
-          });
-      }
-      resolve();
-    });
-  }
-
-  private emptyIndexies(board: any[]): any[] {
-    return board.filter(s => s != "O" && s != "X");
-  }
-
-  private get boardGridView(): GridLayout {
-    return this.boardGrid.nativeElement;
-  }
-
-  private makeBoardGridSquared(): void {
-    const heightOverflow = 120;
-    const height = this.screenHeight - heightOverflow;
-    const minimumSideDimension = Math.min(this.screenWidth, height);
-    this.boardGridView.height = minimumSideDimension;
-    this.boardGridView.width = minimumSideDimension;
   }
 
   private get screenWidth(): number {
@@ -178,9 +106,5 @@ export class MultiPlayerComponent implements OnInit {
  
   private get screenHeight(): number {
     return platform.screen.mainScreen.heightDIPs;
-  }
-
-  private get squareViews(): Array<StackLayout> {
-    return this.squares.map(s => s.nativeElement);
   }
 }

@@ -31,6 +31,7 @@ export enum MenuItemName {
   home = 0,
   singleplayer,
   multiplayer,
+  mpSession,
   login,
   leaderboard,
   friends

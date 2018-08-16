@@ -1,5 +1,6 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptCommonModule } from "nativescript-angular/common";
+import { NativeScriptFormsModule } from 'nativescript-angular/forms';
 import { Routes } from "@angular/router";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 
@@ -14,7 +15,8 @@ const routes: Routes = [
     imports: [
         NativeScriptCommonModule,
         NativeScriptRouterModule.forChild(routes),
-        CommonComponentsModule
+        CommonComponentsModule,
+        NativeScriptFormsModule
     ],
     declarations: [
       LeaderboardComponent

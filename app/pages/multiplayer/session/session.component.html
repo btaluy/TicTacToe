@@ -1,0 +1,31 @@
+<StackLayout class="page">
+  <user-interface></user-interface>
+
+  <GridLayout rows="auto, auto, *, auto, auto" columns="*, auto, auto, *" class="margin-t-m">
+    <Label row="0" col="0" colSpan="4" class="game-panel next-to-play text-center align-middle"
+           [text]="gamePanelCaption" textWrap="true">
+    </Label>
+
+    <GridLayout #boardGrid [columns]="boardSideSpecification"
+                [rows]="boardSideSpecification" row="1" rowSpan="2" col="0" colSpan="4" class="board">
+      <ng-template ngFor let-item [ngForOf]="mpService.session.board.squares">
+        <StackLayout #square [col]="item.yPosition" [row]="item.xPosition"
+                     [class]="item.classString" (tap)="mark(item)">
+          <Label class="square-state fa" [text]="(item.state | statePipe) | fonticon" textWrap="true"></Label>
+        </StackLayout>
+      </ng-template>
+    </GridLayout>
+
+    <Label row="3" col="1" class="cross-score text-left font-xxl"
+           [text]="'Wins: ' + leaderBoard.mpScore.wins + ' '" textWrap="true">
+    </Label>
+
+    <Label row="3" col="2"  class="circle-score text-center align-middle"
+           [text]="'Lost: ' + leaderBoard.mpScore.losses" textWrap="true">
+    </Label>
+
+    <Label row="4" col="1" colSpan="2" class="cross-score text-center"
+           [text]="'Draws: ' + leaderBoard.mpScore.draws" textWrap="true">
+    </Label>
+  </GridLayout>
+</StackLayout>

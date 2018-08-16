@@ -39,6 +39,10 @@ export class NavigationService {
     }) !== undefined;
   }
 
+  public isGameSessionOpen(): boolean {
+    return this.routerExtensions.router.url === '/' + this.getNavigationItem(MenuItemName.mpSession).path;
+  }
+
   public isThereARoute(route: string): boolean {
     return this.routerExtensions.router.url !== ('/' + route) &&
       this.routerExtensions.router.url.indexOf(route) > -1;
@@ -161,6 +165,10 @@ export const navigationItems: NavigationItem[] =
     {
       name: MenuItemName.multiplayer,
       path: "multiplayer"
+    },
+    {
+      name: MenuItemName.mpSession,
+      path: 'multiplayer/mpSession'
     },
     {
       name: MenuItemName.login,

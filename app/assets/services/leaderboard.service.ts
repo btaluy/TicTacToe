@@ -13,6 +13,7 @@ import { UserService } from './user.service';
 export class LeaderBoardService {
   public spScore: Score = new Score();
   public mpScore: Score = new Score();
+  public top10Players: Score[] = [];
 
   private spSubscription: boolean;
   private mpSubscription: boolean;
@@ -22,22 +23,25 @@ export class LeaderBoardService {
   public constructor(private popupService: PopupService, private userService: UserService, private zone: NgZone) {
   }
 
-  private setSPSub(): void {
-    if (!this.spSubscription) {
-      this.spSubscription = true;
-      const query = this.spLeaderboardCollection.doc(this.userService.user.uid);
-      query.onSnapshot(doc => {
-        this.getSPScore();
-      });
-    }
-  }
-
   public getSPScore(): Promise<any> {
     const query = this.spLeaderboardCollection.doc(this.userService.user.uid);
     return query.get()
-      .then(doc => {
+      .then((doc: any) => {
         if (doc.exists) {
           this.spScore = Score.fromObject(doc.data());
+        } else {
+          console.log('No score found!');
+        }
+      })
+      .catch(error => console.log(`Error while fetching: ${error}`));
+  }
+
+  public getMPScore(): Promise<any> {
+    const query = this.mpLeaderboardCollection.doc(this.userService.user.uid);
+    return query.get()
+      .then((doc: any) => {
+        if (doc.exists) {
+          this.mpScore = Score.fromObject(doc.data());
         } else {
           console.log('No score found!');
         }
@@ -54,14 +58,11 @@ export class LeaderBoardService {
   }
 
   public updateMPScore(): Promise<any> {
-    const query: firebase.firestore.DocumentReference  = this.mpLeaderboardCollection.doc(this.userService.user.uid);
+    const query = this.mpLeaderboardCollection.doc(this.userService.user.uid);
 
-    return query.get()
-      .then(doc => {
-        if(doc.exists) {
-          // if the query returns a doc, only higher the score of the person that won/draw the game.
-        }
-      });
+    return query.update(this.mpScore)
+            .then(() => console.log('Score updated!'))
+            .catch(error => console.log(`Could not update score: ${error}`));
   }
 
   public setNewSPScore(): Promise<any> {
@@ -70,6 +71,7 @@ export class LeaderBoardService {
     return query.get()
       .then(doc => {
         if(!doc.exists) {
+          this.spScore.player = this.userService.user.name;
           query.set(this.spScore);
         }
 
@@ -83,12 +85,49 @@ export class LeaderBoardService {
     return query.get()
       .then(doc => {
         if(!doc.exists) {
+          this.mpScore.player = this.userService.user.name;
           query.set(this.mpScore);
         }
+
+        this.setMPSub();
       }); 
+  }
+
+  private setSPSub(): void {
+    if (!this.spSubscription) {
+      this.spSubscription = true;
+      const query = this.spLeaderboardCollection.doc(this.userService.user.uid);
+      query.onSnapshot(doc => {
+        this.getSPScore();
+      });
+    }
+  }
+
+  private setMPSub(): void {
+    if (!this.mpSubscription) {
+      this.mpSubscription = true;
+      const query = this.mpLeaderboardCollection.doc(this.userService.user.uid);
+      query.onSnapshot(doc => {
+        this.getMPScore();
+      });
+    }
   }
 
   public getUserUid(): string {
     return this.userService.user.uid;
+  }
+
+  public getTop10Players(): Promise<any> {
+    const query = this.mpLeaderboardCollection
+        .orderBy("wins", "desc")
+        .limit(10);
+
+    return query.get()
+      .then(querySnapshot => {
+        this.top10Players = [];
+        querySnapshot.forEach(doc => {
+          this.top10Players.push(Score.fromObject(doc.data()));
+        });
+      });
   }
 }
