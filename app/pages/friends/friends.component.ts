@@ -61,7 +61,15 @@ export class FriendsComponent implements OnInit {
         this.friends.getUsers(this.firstTx)
         .then(() => {
         this._cd.detectChanges();
-      });
+        });
+      }
+
+      public onItemTap(item) {
+        console.log("------------------------ ItemTapped: " + item);
+        /*this.friends.addFriend(args.name)
+        .then(() => {
+          this._cd.detectChanges();
+          });*/
+      }
         
-    }
 }

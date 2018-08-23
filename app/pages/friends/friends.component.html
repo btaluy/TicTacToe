@@ -4,7 +4,7 @@
         <StackLayout>
 
             <Image row="2" src="~/assets/img/friends.png" height="200" width="200"></Image>
-            <Label row="3" class="primary font-xxxl align-middle text-center" text="Where are they?"></Label> 
+            <Label row="3" height="70" class="primary font-xxxl align-middle text-center" text="Start searching on email"></Label> 
 
             <TextField row="5" 
             class="input input-border orange"  
@@ -13,15 +13,18 @@
             (textChange)="onTextChange($event)" 
             (returnPress)="onReturn($event)"></TextField>
 
-            <Label row="7" class="primary align-middle text-center padding-x-s" *ngIf="users" text="Found no one"></Label>
-            <ScrollView *ngIf="users" (scroll)="onScroll($event)">
-                <GridLayout class="cards font-s orange" rows="*">
-                    <li *ngFor="let user of users">
-                      {{ user.name }}
-                      <!-- [src]="userService.user.profileImageURL" -->
-                    </li>
-                </GridLayout>
-            </ScrollView> 
+            <Label row="7" height="70" class="primary font-xxxl align-middle text-center" text="We found..."></Label>
+           
+            <ListView row="2" col="0" colSpan="2" [items]="friends.users"class="player-list" (itemTap)="onItemTap($event)">
+                    <ng-template let-item="item" let-i="index" >
+                      <GridLayout class="primary padding-l" rows="*" columns="auto, *, auto"   >
+                        <Label col="0" [text]="index" textWrap="true"></Label>
+                        <Label col="1" [src]="item.profileImageURL" textWrap="true"></Label>
+                        <Label col="2" [text]="item.name" textWrap="true"></Label>
+                        
+                      </GridLayout>
+                    </ng-template>
+            </ListView>
 
         </StackLayout>
     </GridLayout> 
