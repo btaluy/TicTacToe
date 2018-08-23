@@ -1,22 +1,34 @@
 <TabView class="lb-page font-xxl" selectedTabTextColor="yellow" #element [(ngModel)]="selectedIndex" androidSelectedTabHighlightColor="yellow" tabBackgroundColor="#d35400">
 
-    <GridLayout class="form" rows="auto, auto, auto, auto, auto, auto, auto" orientation="vertical" *tabItem="{title: 'Search'}">
+    <GridLayout class="form" rows="auto, auto, auto, auto, auto, auto, auto, auto, *" orientation="vertical" *tabItem="{title: 'Search'}">
         <StackLayout>
+
             <Image row="2" src="~/assets/img/friends.png" height="200" width="200"></Image>
-            <Label row="3" class="primary font-xxxl align-middle text-center" text="Where are they?"></Label>   
-            <TextField row="5" class="input input-border orange" hint="Search on email" keyboardType="email" returnKeyType="search"></TextField>
+            <Label row="3" class="primary font-xxxl align-middle text-center" text="Where are they?"></Label> 
+
+            <TextField row="5" 
+            class="input input-border orange"  
+            keyboardType="email" 
+            returnKeyType="search"
+            (textChange)="onTextChange($event)" 
+            (returnPress)="onReturn($event)"></TextField>
+
+            <Label row="7" class="primary align-middle text-center padding-x-s" *ngIf="users" text="Found no one"></Label>
+            <ScrollView *ngIf="users" (scroll)="onScroll($event)">
+                <GridLayout class="cards font-s orange" rows="*">
+                    <li *ngFor="let user of users">
+                      {{ user.name }}
+                      <!-- [src]="userService.user.profileImageURL" -->
+                    </li>
+                </GridLayout>
+            </ScrollView> 
+
         </StackLayout>
-    </GridLayout>
+    </GridLayout> 
 
     <StackLayout *tabItem="{title: 'My friends'}">
-      <Label class="primary font-xxxxl align-middle" text="My friends"></Label>
-        <ScrollView (scroll)="onScroll($event)">
-            <GridLayout class="font-s orange" rows="auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto">
-                <li *ngFor="let user of users">
-                  {{ user.name }}
-                </li>
-            </GridLayout>
-        </ScrollView>
+
+
     </StackLayout>
 
 </TabView>

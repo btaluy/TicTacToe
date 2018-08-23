@@ -121,7 +121,6 @@ export class LeaderBoardService {
     const query = this.mpLeaderboardCollection
         .orderBy("wins", "desc")
         .limit(10);
-
     return query.get()
       .then(querySnapshot => {
         this.top10Players = [];

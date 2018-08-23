@@ -8,36 +8,30 @@ import {
 import { PopupService } from '~/assets/services';
 import { UserService } from './user.service';
 import { Friend, User } from '~/assets/domain';
+import { beepOnScanProperty } from 'nativescript-plugin-firebase/mlkit/barcodescanning/barcodescanning-common';
 
 @Injectable()
 export class FriendsService {
   public user: User;
   public friend: Friend;
-  public email: User["email"];
+  public email: 'janine@upcmail.nl' //User["email"];
   private usersCollection = firebase.firestore.collection("users");
+  public users: User[] = [];
 
   public constructor(private popupService: PopupService, private userService: UserService, private zone: NgZone) {
     
   }
 
-  public getUsers(): Promise<any> {
-    const query = this.usersCollection.doc();
+  public getUsers(email): Promise<any> {
+    console.log('getUsers' + email);
+    const query = this.usersCollection.where('email', '==', email)
     return query.get()
-      .then(snapshot => {
-        if (snapshot.exists) {
-          snapshot.forEach(doc => {
-            console.log(doc.email);
-          })
-          //this.user = User.fromObject(snapshot.data());
-          
-        } else {
-          console.log('No users found!');
-        }
-      })
-      .catch(error => console.log(`Error while fetching: ${error}`));
-  }
-
-  public searchFriend(email) {
-
+      .then(querySnapshot => {
+        this.users = [];
+        querySnapshot.forEach(doc => {
+          this.users.push(User.fromObject(doc.data()));
+          console.log(this.users);
+        });
+      });
   }
 }
