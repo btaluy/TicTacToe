@@ -1,14 +1,9 @@
 import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import { Page } from "ui/page";
 import { User } from "~/assets/domain";
-import * as firebase from 'nativescript-plugin-firebase';
-
+import { isNullOrUndefined } from 'utils/types';
 import { NavigationService, PopupService, AudioService, UserService, FriendsService } from "~/assets/services";
-import { setTimeout } from "timer";
-import { ScrollEventData } from "ui/scroll-view";
 import { TextField } from "ui/text-field";
-
-
 
 @Component({
     selector: "friends",
@@ -27,21 +22,8 @@ export class FriendsComponent implements OnInit {
       private _navigationService: NavigationService,
       private _cd: ChangeDetectorRef,
       private _user: User,
-
+      private _popupService: PopupService
     ) { }
-  
-
-    public status = "not scrolling";
-
-    public onScroll(args: ScrollEventData) {
-        this.status = "scrolling";
-        setTimeout(() => {
-            this.status = "not scrolling";
-        }, 300);
-
-        console.log("scrollX: " + args.scrollX);
-        console.log("scrollY: " + args.scrollY);
-    }
 
     ngOnInit(): void {
         this._page.actionBarHidden = true;
@@ -64,12 +46,21 @@ export class FriendsComponent implements OnInit {
         });
       }
 
-      public onItemTap(item) {
-        console.log("------------------------ ItemTapped: " + item);
-        /*this.friends.addFriend(args.name)
-        .then(() => {
-          this._cd.detectChanges();
-          });*/
+      public addFriendToList(item) {
+        const friendFound = this.userService.user.friends.find(i => i.uid === item.uid);
+        if(isNullOrUndefined(friendFound)) {
+          this.friends.addFriend(item).then(() => {
+            this._popupService.toast(`${item.name} is succesfully added to your friendslist.`);
+            this._cd.detectChanges();
+            });
+        } else {
+          this._popupService.toast(`${item.name} is already in your friendslist.`);
+        }
+      }
+
+      public removeFriend(friend){
+        this.friends.deleteFriend(friend);
+        this._popupService.toast(`${friend.name} is no longer on your friendslist.`);
       }
         
 }

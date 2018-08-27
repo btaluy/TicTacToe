@@ -78,7 +78,7 @@
     "start-android-webpack": "tns run android --bundle --env.aot",
     "test-android": "tns test android  --justlaunch",
     "test-ios": "tns test ios --justlaunch",
-    "build-release": "tns build android --bundle --env.aot --release --key-store-path ../../Desktop/release.keystore --key-store-password n3m0za --key-store-alias release --key-store-alias-password n3m0za --copy-to tictactoe.apk",
+    "build-release": "tns build android --bundle --env.aot --release --key-store-path ../../Desktop/release.keystore --key-store-password ticktack --key-store-alias release --key-store-alias-password ticktack --copy-to tictactoe.apk",
     "generate-docs": "typedoc --out ./docs ./app --excludeExternals --target 'ES6' --name 'TicTacToe' --mode 'file' --experimentalDecorators --ignoreCompilerErrors"
   }
 }

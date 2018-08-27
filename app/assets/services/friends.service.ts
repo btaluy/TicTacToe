@@ -1,21 +1,14 @@
 import { Injectable, NgZone } from '@angular/core';
 import * as firebase from 'nativescript-plugin-firebase';
-import {
-  getBoolean, setBoolean, getNumber, setNumber,
-  getString, setString, hasKey, remove, clear
-} from "application-settings";
-
 import { PopupService } from '~/assets/services';
 import { UserService } from './user.service';
 import { User, Friend } from '~/assets/domain';
-import { beepOnScanProperty } from 'nativescript-plugin-firebase/mlkit/barcodescanning/barcodescanning-common';
 
 @Injectable()
 export class FriendsService {
   public user: User;
-  //public email: 'janine@upcmail.nl' //User["email"];
   private usersCollection = firebase.firestore.collection("users");
-  public users: User[] = [];
+  public users: Friend[] = [];
   public friend: Friend = new Friend();
 
   public constructor(private popupService: PopupService, private userService: UserService, private zone: NgZone) {
@@ -29,39 +22,38 @@ export class FriendsService {
       .then(querySnapshot => {
         this.users = [];
         querySnapshot.forEach(doc => {
-    
-          this.users.push(User.fromObject(doc.data()));
-          
+          this.users.push(Friend.fromObject(doc.data()));
           console.log(this.users);
         });
       });
   }
 
-  public addFriend(UID): Promise<any> {
+  public addFriend(friend: Friend): Promise<any> {
     const query = this.usersCollection.doc(this.userService.user.uid);
     return query.get()
       .then(doc => {
-        if(!doc.exists) {
-          this.friend.email = 'robert@bekcomp.nl';//this.userService.user;
-          query.set(this.friend.email);
+        if(doc.exists) {
+          console.log('We have found the user and are now adding the item to it.');
+          this.userService.user.friends.push(friend); 
+          query.update({friends: this.userService.user.friends});
         }
-
-      //  this.setMPSub();
       }); 
   }
 
-  /*public setNewMPScore(): Promise<any> {
-    const query = this.mpLeaderboardCollection.doc(this.userService.user.uid);
+  public deleteFriend(friend) {
+    const user = this.usersCollection.doc(this.userService.user.uid);
+    return user.get()
+    .then(doc => {
+      if(doc.exists) {
+        const index: number = this.userService.user.friends.indexOf(friend);
+        if (index !== -1) {
+          console.log('We have found your friend and deleted this one.');
+          this.userService.user.friends.splice(index, 1);
+          user.update({friends: this.userService.user.friends});
+        }   
+      }
+    }); 
+  }
 
-    return query.get()
-      .then(doc => {
-        if(!doc.exists) {
-          this.mpScore.player = this.userService.user.name;
-          query.set(this.mpScore);
-        }
-
-        this.setMPSub();
-      }); 
-  }*/
-  
 }
+

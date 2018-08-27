@@ -25,6 +25,9 @@
 ListView {
   separator-color: transparent;
 }
+.full-width{
+  width: 100%;
+}
 
 .card-list {
   @extend .bg-normal;

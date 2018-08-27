@@ -12,26 +12,36 @@
             returnKeyType="search"
             (textChange)="onTextChange($event)" 
             (returnPress)="onReturn($event)"></TextField>
-
-            <Label row="7" height="70" class="primary font-xxxl align-middle text-center" text="We found..."></Label>
            
-            <ListView row="2" col="0" colSpan="2" [items]="friends.users"class="player-list" (itemTap)="onItemTap($event)">
-                    <ng-template let-item="item" let-i="index" >
-                      <GridLayout class="primary padding-l" rows="*" columns="auto, *, auto"   >
-                        <Label col="0" [text]="index" textWrap="true"></Label>
-                        <Label col="1" [src]="item.profileImageURL" textWrap="true"></Label>
-                        <Label col="2" [text]="item.name" textWrap="true"></Label>
-                        
-                      </GridLayout>
-                    </ng-template>
+            <ListView row="2" col="0" colSpan="3" [items]="friends.users"class="player-list">
+                <ng-template let-item="item" let-i="index" >
+                    <GridLayout class="primary padding-l" rows="*" columns="auto, *" >
+                        <Image col="0" height="50" width="50" [src]="item.profileImageURL"></Image>
+                        <Label class="font-xxl align-middle" col="1" [text]="item.name" textWrap="true"></Label>
+                        <Button class="home-button" col="2" height="30" width="30" colSpan="1" (tap)="addFriendToList(item)">
+                                <FormattedString>
+                                    <Span class="font-xs" [text]="'fa-users' | fonticon"></Span>
+                                </FormattedString>
+                        </Button>
+                    </GridLayout>
+                </ng-template>
             </ListView>
-
         </StackLayout>
     </GridLayout> 
 
     <StackLayout *tabItem="{title: 'My friends'}">
-
-
+        <ListView row="2" col="0" colSpan="3" [items]="userService.user.friends" class="player-list">
+            <ng-template let-item="item" let-i="index" >
+                <GridLayout class="primary padding-l full-width" rows="*" columns="auto, *">
+                    <Image col="0" height="50" width="50" [src]="item.profileImageURL"></Image>
+                    <Label class="font-xxl align-middle" col="1" [text]="item.name" textWrap="true"></Label>
+                    <Button class="home-button" col="2" height="30" width="30" colSpan="1" (tap)="removeFriend(item)">
+                            <FormattedString>
+                                <Span class="font-xs" [text]="'fa-users' | fonticon"></Span>
+                            </FormattedString>
+                    </Button>
+                </GridLayout>
+            </ng-template>
+        </ListView>
     </StackLayout>
-
 </TabView>
